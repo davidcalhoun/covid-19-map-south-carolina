@@ -1,0 +1,43 @@
+@global-import "./mapbox-gl.css";
+
+:global html {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; /* Mobile Safari hack */
+}
+
+:global body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-family: "Marcellus SC", "Helvetica", "Arial", sans-serif;
+    overflow: hidden;
+}
+
+:global #app {
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+}
+
+@media (--viewport-1) {
+    :global html {
+        font-size: 16px;
+    }
+}
+
+@media (--viewport-4) {
+    :global html {
+        font-size: 18px;
+    }
+}
+
+@media (--viewport-7) {
+    :global html {
+        font-size: 20px;
+    }
+}
+
