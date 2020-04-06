@@ -14,7 +14,7 @@ const materialRegexp = /[\\/]node_modules[\\/](@material-ui)[\\/]/;
 const config = {
   entry: ["./src/index.js"],
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist/covid-19-map-south-carolina"),
     filename: "[name].[contenthash].js",
     publicPath: "/"
   },
@@ -92,7 +92,7 @@ const config = {
       inject: true,
       appMountId: "app",
       templateParameters: {
-        title: "Global Methane Emissions"
+        title: "COVID-19 in South Carolina by Zip Code"
       },
       minify: false,
       chunks: [
@@ -171,9 +171,9 @@ module.exports = (env, argv) => {
   }
 
   if (argv.mode === 'production') {
-    config.plugins.push(new BundleAnalyzerPlugin());
+    //config.plugins.push(new BundleAnalyzerPlugin());
 
-    config.output.publicPath = "/a/methane-emissions/";
+    config.output.publicPath = "/covid-19-map-south-carolina/";
   }
 
   return config;

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { format } from "date-fns";
+
 export { default as useWindowResize } from "./useWindowResize";
 
 export const parseJSON = str => {
@@ -36,68 +38,22 @@ export const getIntOrdinal = integer => {
 	}
 };
 
-// https://davidwalsh.name/javascript-debounce-function
-export const debounce = (func, wait, immediate) => {
-	var timeout;
-	return function() {
-		var context = this,
-			args = arguments;
-		var later = function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		};
-		var callNow = immediate && !timeout;
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-		if (callNow) func.apply(context, args);
-	};
-};
-
-// https://github.com/jashkenas/underscore/blob/master/underscore.js
-export const throttle = (func, wait, options) => {
-	var timeout, context, args, result;
-	var previous = 0;
-	if (!options) options = {};
-
-	var later = function() {
-		previous = options.leading === false ? 0 : Date.now();
-		timeout = null;
-		result = func.apply(context, args);
-		if (!timeout) context = args = null;
-	};
-
-	var throttled = function() {
-		var now = Date.now();
-		if (!previous && options.leading === false) previous = now;
-		var remaining = wait - (now - previous);
-		context = this;
-		args = arguments;
-		if (remaining <= 0 || remaining > wait) {
-			if (timeout) {
-				clearTimeout(timeout);
-				timeout = null;
-			}
-			previous = now;
-			result = func.apply(context, args);
-			if (!timeout) context = args = null;
-		} else if (!timeout && options.trailing !== false) {
-			timeout = setTimeout(later, remaining);
-		}
-		return result;
-	};
-
-	throttled.cancel = function() {
-		clearTimeout(timeout);
-		previous = 0;
-		timeout = context = args = null;
-	};
-
-	return throttled;
-};
-
 export const fetchJSON = async function (url) {
-	const rawJSON = await fetch(url);
-	const json = await rawJSON.json();
+	let rawJSON;
+	let json;
+	try {
+		rawJSON = await fetch(url);
+
+		if (rawJSON.status > 400) {
+			throw `HTTP ${rawJSON.status}`;
+		}
+
+		json = await rawJSON.json();
+	} catch(e) {
+		console.warn(`Error fetching ${url}: ${e}`);
+		return {};
+	}
+
 	return json;
 }
 
@@ -113,3 +69,79 @@ export function usePrevious(value) {
   });
   return ref.current;
 }
+
+export const getMax = (numsArr) => Math.max(...numsArr);
+
+export const round = num => Math.floor(num);
+
+export const pluralize = (num, prefix) => num === 1 ? prefix : `${prefix}s`;
+
+export const getDateFromDayNum = (dayNum, year) => {
+	var date = new Date();
+	if (year) {
+		date.setFullYear(year);
+	}
+	date.setMonth(0);
+	date.setDate(0);
+	var timeOfFirst = date.getTime(); // this is the time in milliseconds of 1/1/YYYY
+	var dayMilli = 1000 * 60 * 60 * 24;
+	var dayNumMilli = dayNum * dayMilli;
+	date.setTime(timeOfFirst + dayNumMilli);
+	return date;
+};
+
+export const dayOfYearToDisplayDate = (dayOfYear) => {
+	const date = getDateFromDayNum(dayOfYear, 2020);
+	return format(date, "LLL d");
+};
+
+export const flattenCases = (counties, features) => {
+	const flattened = Object.entries(counties).reduce(
+		(allZips, [countyName, countyCases]) => {
+			if (countyName === "meta") {
+				allZips.meta = countyCases;
+				return allZips;
+			}
+
+			const zipsInCounty = countyCases.reduce((accum2, curCase) => {
+				accum2[curCase.zip] = {
+					...curCase,
+					county: countyName,
+				};
+
+				return accum2;
+			}, {});
+
+			const all = Object.values(zipsInCounty).reduce((zips, zipObj) => {
+				const { zip, positive, county } = zipObj;
+
+				if (zips[zip]) {
+					return {
+						...zips,
+						[zip]: {
+							...zips[zip],
+							county: `${zips[zip].county}, ${county}`,
+							positive:
+								parseInt(zips[zip].positive) +
+								parseInt(positive),
+						},
+					};
+				} else {
+					return {
+						...zips,
+						[zip]: zipObj,
+					};
+				}
+			}, allZips);
+
+			return all;
+		},
+		{}
+	);
+
+	return flattened;
+}
+
+export const fillSequentialArray = (len) => {
+	return Array.from(new Array(len)).map((val, index) => index + 1);
+};

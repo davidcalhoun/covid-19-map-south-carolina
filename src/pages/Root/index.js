@@ -1,19 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useHistory, useLocation } from "react-router-dom";
-import ReactMapGL, { Source, Layer } from "react-map-gl";
+import ReactMapGL, {
+	Source,
+	Layer,
+	NavigationControl,
+	Popup,
+} from "react-map-gl";
 import { range, descending } from "d3-array";
 import { scaleQuantile } from "d3-scale";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { useDebouncedCallback } from "use-debounce";
+import { getDateFromDayNum, dayOfYearToDisplayDate } from "../../utils";
 
 import {
 	SITE_NAME,
-	MAPBOX_TOKEN,
-	MIN_YEAR,
-	MAX_YEAR,
+	MAPBOX_TOKEN_DEV,
+	MAPBOX_TOKEN_PROD,
 	isProd,
+	casesFiles,
+	MIN_DATE,
+	MAX_DATE,
+	sliderMarks,
 } from "../../consts";
 import styles from "./root.css";
 import {
@@ -22,69 +31,24 @@ import {
 	fetchJSON,
 	fetchMultipleJSON,
 	usePrevious,
+	getMax,
+	flattenCases,
+	fillSequentialArray,
 } from "../../utils";
+import { HoverPopup, InfoPanel, Legend } from "../../components";
+
+const MAPBOX_TOKEN = isProd ? MAPBOX_TOKEN_PROD : MAPBOX_TOKEN_DEV;
 
 function useQuery() {
 	return new URLSearchParams(useLocation().search);
 }
-
-// const dataLayer = {
-// 	id: "data",
-// 	type: "fill",
-// 	paint: {
-// 		"fill-color": {
-// 			property: "emissionPercentile",
-// 			stops: [
-// 				[0, "#ffffff"],
-// 				[1, "#f2fdff"],
-// 				[2, "#d8f9ff"],
-// 				[3, "#aee8fe"],
-// 				[4, "#8ecefc"],
-// 				[5, "#639df1"],
-// 				[6, "#4c78d9"],
-// 				[7, "#3657b6"],
-// 				[8, "#16234d"]
-// 			]
-// 		},
-// 		"fill-opacity": 0.8
-// 	}
-// };
-
-const COLOR_STOPS = [
-	[0, "#ffffff"],
-	[1, "#f3ecea"],
-	[2, "#e7d8d6"],
-	[3, "#dbc5c2"],
-	[4, "#cfb3af"],
-	[5, "#c3a09c"],
-	[6, "#b78e89"],
-	[7, "#aa7d77"],
-	[8, "#9d6b65"],
-	[9, "#915a53"],
-	[10, "#834943"],
-	[11, "#763833"],
-	[12, "#692823"],
-	[13, "#5b1615"],
-	[14, "#4d0000"],
-];
-
-// const dataLayer = {
-// 	id: "data",
-// 	type: "fill",
-// 	paint: {
-// 		"fill-color": {
-// 			property: "percentile",
-// 			stops: COLOR_STOPS,
-// 		},
-// 		"fill-opacity": 0.5,
-// 	},
-// };
 
 const dataLayer = {
 	id: "data",
 	type: "fill",
 	paint: {
 		"fill-color": ["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
+		"fill-opacity": ["get", "opacity"],
 	},
 };
 
@@ -103,152 +67,156 @@ function getRank(rank) {
 	);
 }
 
-function HoverPopup({ hoveredFeature, year }) {
-	if (!hoveredFeature || !hoveredFeature.feature) {
-		return null;
-	}
-
-	const {
-		feature,
-		x,
-		y
-	} = hoveredFeature;
-
-	const {
-		ZCTA5CE10: zip,
-		county,
-		positiveCases,
-		percentile,
-	} = feature.properties;
-
-	console.log(zip, positiveCases, typeof positiveCases)
-
-	return (
-		<div
-			className={styles.tooltip}
-			style={{
-				left: x + 20,
-				top: y + 20,
-			}}
-		>
-			<div>
-				{zip} {county && `(${county})`}
-			</div>
-			<div>
-				{!!(typeof positiveCases === 'number')
-					? `${positiveCases} positive case${
-							positiveCases === 1 ? "" : "s"
-					  }`
-					: "No data"}
-			</div>
-			{!!(typeof positiveCases === 'number') && (
-				<span>
-					<span>Percentile: </span>
-					<span>{percentile}</span>
-				</span>
-			)}
-		</div>
-	);
-}
-
-function YearSliderThumb(props) {
+function DateSliderThumb(props) {
 	const { children } = props;
 
 	return (
-		<span className={styles.yearSliderThumb} {...props}>
+		<span className={styles.dateSliderThumb} {...props}>
 			{children}
 		</span>
 	);
 }
 
-// TODO: fill in orphan zip codes not listed in counties
-function flattenCases(counties, featuresGeoJSON) {
-	const flattened = Object.entries(counties).reduce(
-		(allZips, [countyName, countyCases]) => {
-			const zipsInCounty = countyCases.reduce((accum2, curCase) => {
-				accum2[curCase.zip] = {
-					...curCase,
-					county: countyName,
-				};
-
-				return accum2;
-			}, {});
-
-			const all = Object.values(zipsInCounty).reduce((zips, zipObj) => {
-				const { zip, positive, county } = zipObj;
-
-				if (zips[zip]) {
-					console.log(
-						`multi-county zipcode detected: ${zip} ${zipObj.county}`
-					);
-					return {
-						...zips,
-						[zip]: {
-							...zips[zip],
-							county: `${zips[zip].county}, ${county}`,
-							positive:
-								parseInt(zips[zip].positive) +
-								parseInt(positive),
-						},
-					};
-				} else {
-					return {
-						...zips,
-						[zip]: zipObj,
-					};
-				}
-			}, allZips);
-
-			return all;
-		},
-		{}
-	);
-
-	return flattened;
+function findCasesByZip(cases, zipToFind) {
+	return cases[zipToFind];
 }
 
-const fillSequentialArray = (len) => {
-	return Array.from(new Array(len)).map((val, index) => index + 1);
-};
+function computeFeaturesForDate(date, casesForDate, allCases, features) {
+	const rangeSize = 15;
+
+	const dDomain = Object.values(allCases).reduce((accum, casesForDate) => {
+		const domain = Object.values(casesForDate).map(({ positive }) =>
+			parseInt(positive)
+		);
+
+		return [...accum, ...domain];
+	}, []);
+
+	const dDomainZeroesRemoved = dDomain.filter((val) => val > 0);
+
+	const domainMax = getMax(dDomainZeroesRemoved);
+
+	const dRange = fillSequentialArray(rangeSize);
+
+	const scale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(dRange);
+
+	const percentileScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(99));
+
+	const redScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(255));
+
+	const legendScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(100));
+
+	const opacityScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(19));
+
+	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
+		const { positive, county } =
+			findCasesByZip(casesForDate, zipGeoJSON.properties["ZCTA5CE10"]) ||
+			{};
+
+		return {
+			...zipGeoJSON,
+			properties: {
+				...zipGeoJSON.properties,
+				county,
+				positiveCases: parseInt(positive),
+				percentile: percentileScale(positive),
+				...(positive ? { red: redScale(positive) } : { red: 0 }),
+				...(positive
+					? { opacity: opacityScale(positive) / 20 }
+					: { opacity: 0 }),
+			},
+		};
+	});
+
+	return {
+		features: newGeoJSONFeatures,
+		legend: {
+			quantiles: legendScale.quantiles(),
+			domainMax
+		}
+	}
+}
+
+let memoizedFeaturesForDate = {};
 
 const Root = ({ breakpoint }) => {
 	let history = useHistory();
-	let { year: yearInURL } = useParams();
+	let { date: dateInURL } = useParams();
 	const [viewState, setViewState] = useState({
-		latitude: 33.52,
-		longitude: -80.87,
-		zoom: 6.4865,
+		latitude: 33.65043,
+		longitude: -80.1632,
+		zoom: 6.75,
 		bearing: 0,
 		pitch: 0,
 	});
-	let [data, setData] = useState({});
-	const [year, setYear] = useState(1970);
+	let [data, setData] = useState({
+		geoJSONFeatures: [],
+		cases: null,
+		allCases: [],
+		geoJSONDate: null,
+	});
+	const [date, setDate] = useState(86);
+	const [legendQuantiles, setLegendQuantiles] = useState([]);
 	const [hoveredFeature, setHoveredFeature] = useState({});
 	let query = useQuery();
 	const [debouncedUpdateSelfUrl] = useDebouncedCallback(updateSelfUrl, 50);
-
 	const prevData = usePrevious(data);
+	const [debouncedHandleDateChange] = useDebouncedCallback(
+		handleDateChange,
+		30,
+		{ leading: true }
+	);
 
-	const { geoJSONFeatures, cases } = data;
-
+	const { geoJSONFeatures, cases, allCases, geoJSONDate } = data;
 	const { latitude, longitude, zoom } = viewState;
 
 	function init() {
 		async function fetchAllData() {
-			const [zipCodesGeoJSON, casesJSON] = await fetchMultipleJSON(
-				"/data/sc_south_carolina_zip_codes_geo.lowres.json",
-				"/data/2020-04-03.json"
+			const basePath = isProd
+				? "/covid-19-map-south-carolina/data"
+				: "/data";
+
+			const casesFilePaths = casesFiles.map(
+				(filename) => `${basePath}/${filename}`
 			);
+
+			const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
+				`${basePath}/sc_south_carolina_zip_codes_geo.lowres.json`,
+				...casesFilePaths
+			);
+
 			setData({
 				...data,
 				geoJSONFeatures: zipCodesGeoJSON.features,
-				cases: flattenCases(casesJSON, zipCodesGeoJSON.features),
+				cases: flattenCases(casesJSON[0], zipCodesGeoJSON.features),
+				allCases: casesJSON.reduce((all, casesForDate) => {
+					if (!casesForDate.meta) {
+						return all;
+					}
+
+					all[casesForDate.meta.date] = flattenCases(
+						casesForDate,
+						zipCodesGeoJSON.features
+					);
+
+					return all;
+				}, {}),
 			});
 		}
 		fetchAllData();
 
-		if (yearInURL) {
-			setYear(yearInURL);
+		if (dateInURL) {
+			setDate(dateInURL);
 		}
 
 		const lat = parseFloat(query.get("lat"));
@@ -265,66 +233,61 @@ const Root = ({ breakpoint }) => {
 		}
 
 		document.title = SITE_NAME;
+
+		() => {
+			memoizedFeaturesForDate = null;
+		};
 	}
 	useEffect(init, []);
 
 	useEffect(() => {
-		if ((!prevData || !prevData.cases) && cases) {
-			updateFeaturesForDate();
+		const needsInitialization = (!prevData || !prevData.cases) && cases;
+		const casesChanged = cases && geoJSONDate && geoJSONDate !== date;
+
+		if (needsInitialization || casesChanged) {
+			if (!memoizedFeaturesForDate[date]) {
+				console.log('not found in cache', date);
+				const { features, legend } = computeFeaturesForDate(
+					date,
+					cases,
+					allCases,
+					geoJSONFeatures
+				);
+				memoizedFeaturesForDate[date] = features;
+
+				// TODO: only update once
+				const { quantiles, domainMax } = legend;
+				setLegendQuantiles([...quantiles, domainMax]);
+			} else {
+				console.log('cache hit!', date)
+			}
+
+			setData({
+				...data,
+				geoJSONFeatures: memoizedFeaturesForDate[date],
+				geoJSONDate: date,
+			});
 		}
 	}, [data]);
 
-	function findCasesByZip(cases, zipToFind) {
-		return cases[zipToFind];
-	}
+	useEffect(() => {
+		if (!allCases) return;
 
-	function updateFeaturesForDate() {
-		const rangeSize = 15;
+		const casesForDate = allCases[date];
 
-		const dDomain = Object.values(cases).map(({ positive }) =>
-			parseInt(positive)
-		);
-		const dDomainZeroesRemoved = dDomain.filter((val) => val > 0);
+		if (!casesForDate) {
+			console.warn(
+				`Could not find cases for day of year ${date}.`,
+				allCases
+			);
+			return;
+		}
 
-		const dRange = fillSequentialArray(rangeSize);
-
-		const scale = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
-			.range(dRange);
-
-		const percentileScale = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
-			.range(fillSequentialArray(99));
-
-		const redScale = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
-			.range(fillSequentialArray(255));
-
-		const opacityScale = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
-			.range(fillSequentialArray(10));
-
-		const newGeoJSONFeatures = geoJSONFeatures.map((zipGeoJSON) => {
-			const { positive, county } =
-				findCasesByZip(cases, zipGeoJSON.properties["ZCTA5CE10"]) || {};
-			if (positive > 15) {
-				console.log(positive, scale(positive));
-			}
-			return {
-				...zipGeoJSON,
-				properties: {
-					...zipGeoJSON.properties,
-					county,
-					positiveCases: parseInt(positive),
-					percentile: percentileScale(positive),
-					red: redScale(positive),
-					opacity: opacityScale(positive) / 10,
-				},
-			};
+		setData({
+			...data,
+			cases: casesForDate,
 		});
-
-		setData({ ...data, geoJSONFeatures: newGeoJSONFeatures });
-	}
+	}, [date]);
 
 	function updateSelfUrl(newUrl) {
 		history.replace(newUrl);
@@ -335,11 +298,11 @@ const Root = ({ breakpoint }) => {
 		features: geoJSONFeatures,
 	};
 
-	function handleYearChange(event, year) {
-		setYear(year);
+	function handleDateChange(event, date) {
+		setDate(date);
 
 		updateSelfUrl(
-			`/year/${year}?lat=${latitude}&lng=${longitude}&zoom=${zoom}`
+			`/date/${date}?lat=${latitude}&lng=${longitude}&zoom=${zoom}`
 		);
 	}
 
@@ -362,45 +325,23 @@ const Root = ({ breakpoint }) => {
 		setViewState(viewState);
 
 		debouncedUpdateSelfUrl(
-			`/year/${year}?lat=${latitude}&lng=${longitude}&zoom=${zoom}`
+			`/date/${date}?lat=${latitude}&lng=${longitude}&zoom=${zoom}`
 		);
 	}
 
-	const marks = [
-		{
-			value: 1970,
-			label: "1970",
-		},
-		{
-			value: 1980,
-			label: "1980",
-		},
-		{
-			value: 1990,
-			label: "1990",
-		},
-		{
-			value: 2000,
-			label: "2000",
-		},
-		{
-			value: 2010,
-			label: "2010",
-		},
-	];
-
 	return (
 		<div className={styles.container}>
-			<div className={styles.yearSliderContainer}>
+			<div className={styles.dateSliderContainer}>
 				<Slider
-					value={year}
+					value={date}
 					aria-labelledby="discrete-slider"
-					step={1}
-					marks={marks}
-					min={MIN_YEAR}
-					max={MAX_YEAR}
-					onChange={handleYearChange}
+					step={null}
+					marks={sliderMarks}
+					min={MIN_DATE}
+					max={MAX_DATE}
+					onChange={debouncedHandleDateChange}
 					valueLabelDisplay="on"
+					valueLabelFormat={dayOfYearToDisplayDate}
 				/>
 			</div>
 			<ReactMapGL
@@ -412,14 +353,21 @@ const Root = ({ breakpoint }) => {
 				onViewStateChange={handleViewStateChange}
 				onHover={handleHover}
 				onMouseOut={handleMouseOut}
+				minZoom={6}
+				maxZoom={10}
 			>
+				<div className={styles.mapNavContainer}>
+					<NavigationControl showCompass={false} />
+				</div>
 				{geoJSONData.features && (
 					<Source type="geojson" data={geoJSONData}>
 						<Layer {...dataLayer} />
 					</Source>
 				)}
+				<Legend quantiles={legendQuantiles} />
+				<InfoPanel />
 			</ReactMapGL>
-			<HoverPopup hoveredFeature={hoveredFeature} year={year} />
+			<HoverPopup hoveredFeature={hoveredFeature} date={date} />
 		</div>
 	);
 };

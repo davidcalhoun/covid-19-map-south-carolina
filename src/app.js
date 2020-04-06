@@ -32,14 +32,14 @@ function App() {
 	document.documentElement.classList.remove("loading");
 
 	return (
-		<Router basename="/a/methane-emissions">
+		<Router basename="/covid-19-map-south-carolina">
 			<React.StrictMode>
 				<Header breakpoint={breakpoint} />
 				<Switch>
 					<Route exact path={`/`}>
 						<Root breakpoint={breakpoint} />
 					</Route>
-					<Route path={`/year/:year`}>
+					<Route path={`/date/:date`}>
 						<Root breakpoint={breakpoint} />
 					</Route>
 				</Switch>

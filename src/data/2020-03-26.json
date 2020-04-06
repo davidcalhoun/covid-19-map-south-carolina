@@ -1,0 +1,738 @@
+{
+  "meta": {
+    "date": 86
+  },
+  "Abbeville": [
+    {
+      "zip": "29620",
+      "positive": "3"
+    }
+  ],
+  "Aiken": [
+    {
+      "zip": "29803",
+      "positive": "1"
+    },
+    {
+      "zip": "29841",
+      "positive": "2"
+    },
+    {
+      "zip": "29842",
+      "positive": "1"
+    }
+  ],
+  "Berkeley": [
+    {
+      "zip": "29445",
+      "positive": "6"
+    },
+    {
+      "zip": "29461",
+      "positive": "1"
+    },
+    {
+      "zip": "29486",
+      "positive": "1"
+    },
+    {
+      "zip": "29492",
+      "positive": "1"
+    }
+  ],
+  "Chesterfield": [
+    {
+      "zip": "29101",
+      "positive": "1"
+    },
+    {
+      "zip": "29520",
+      "positive": "1"
+    }
+  ],
+  "Calhoun": [
+    {
+      "zip": "29135",
+      "positive": "1"
+    }
+  ],
+  "Anderson": [
+    {
+      "zip": "29621",
+      "positive": "7"
+    },
+    {
+      "zip": "29624",
+      "positive": "4"
+    },
+    {
+      "zip": "29625",
+      "positive": "3"
+    },
+    {
+      "zip": "29626",
+      "positive": "2"
+    },
+    {
+      "zip": "29627",
+      "positive": "1"
+    },
+    {
+      "zip": "29655",
+      "positive": "1"
+    },
+    {
+      "zip": "29673",
+      "positive": "1"
+    },
+    {
+      "zip": "29697",
+      "positive": "1"
+    }
+  ],
+  "Charleston": [
+    {
+      "zip": "29401",
+      "positive": "3"
+    },
+    {
+      "zip": "29403",
+      "positive": "5"
+    },
+    {
+      "zip": "29405",
+      "positive": "2"
+    },
+    {
+      "zip": "29407",
+      "positive": "10"
+    },
+    {
+      "zip": "29412",
+      "positive": "10"
+    },
+    {
+      "zip": "29414",
+      "positive": "11"
+    },
+    {
+      "zip": "29429",
+      "positive": "3"
+    },
+    {
+      "zip": "29449",
+      "positive": "1"
+    },
+    {
+      "zip": "29455",
+      "positive": "4"
+    },
+    {
+      "zip": "29456",
+      "positive": "1"
+    },
+    {
+      "zip": "29464",
+      "positive": "15"
+    },
+    {
+      "zip": "29466",
+      "positive": "6"
+    },
+    {
+      "zip": "29470",
+      "positive": "1"
+    },
+    {
+      "zip": "29482",
+      "positive": "5"
+    },
+    {
+      "zip": "29487",
+      "positive": "2"
+    },
+    {
+      "zip": "29492",
+      "positive": "1"
+    },
+    {
+      "zip": "29924",
+      "positive": "1"
+    }
+  ],
+  "Beaufort": [
+    {
+      "zip": "29902",
+      "positive": "5"
+    },
+    {
+      "zip": "29905",
+      "positive": "3"
+    },
+    {
+      "zip": "29906",
+      "positive": "2"
+    },
+    {
+      "zip": "29907",
+      "positive": "5"
+    },
+    {
+      "zip": "29909",
+      "positive": "1"
+    },
+    {
+      "zip": "29910",
+      "positive": "6"
+    },
+    {
+      "zip": "29915",
+      "positive": "1"
+    },
+    {
+      "zip": "29920",
+      "positive": "4"
+    },
+    {
+      "zip": "29926",
+      "positive": "1"
+    },
+    {
+      "zip": "29928",
+      "positive": "2"
+    },
+    {
+      "zip": "29935",
+      "positive": "1"
+    },
+    {
+      "zip": "29936",
+      "positive": "1"
+    }
+  ],
+  "Chester": [
+    {
+      "zip": "29706",
+      "positive": "1"
+    }
+  ],
+  "Clarendon": [
+    {
+      "zip": "29102",
+      "positive": "3"
+    },
+    {
+      "zip": "29148",
+      "positive": "2"
+    }
+  ],
+  "Colleton": [
+    {
+      "zip": "29488",
+      "positive": "2"
+    }
+  ],
+  "Darlington": [
+    {
+      "zip": "29540",
+      "positive": "2"
+    },
+    {
+      "zip": "29550",
+      "positive": "4"
+    },
+    {
+      "zip": "29593",
+      "positive": "1"
+    }
+  ],
+  "Dillon": [
+    {
+      "zip": "29547",
+      "positive": "1"
+    }
+  ],
+  "Dorchester": [
+    {
+      "zip": "29420",
+      "positive": "1"
+    },
+    {
+      "zip": "29472",
+      "positive": "1"
+    },
+    {
+      "zip": "29483",
+      "positive": "1"
+    },
+    {
+      "zip": "29485",
+      "positive": "4"
+    }
+  ],
+  "Edgefield": [
+    {
+      "zip": "29824",
+      "positive": "1"
+    }
+  ],
+  "Florence": [
+    {
+      "zip": "29501",
+      "positive": "3"
+    },
+    {
+      "zip": "29505",
+      "positive": "1"
+    },
+    {
+      "zip": "29506",
+      "positive": "1"
+    },
+    {
+      "zip": "29541",
+      "positive": "1"
+    },
+    {
+      "zip": "29583",
+      "positive": "1"
+    },
+    {
+      "zip": "29591",
+      "positive": "1"
+    }
+  ],
+  "Georgetown": [
+    {
+      "zip": "29440",
+      "positive": "1"
+    },
+    {
+      "zip": "29576",
+      "positive": "1"
+    },
+    {
+      "zip": "29585",
+      "positive": "1"
+    }
+  ],
+  "Greenville": [
+    {
+      "zip": "29601",
+      "positive": "1"
+    },
+    {
+      "zip": "29605",
+      "positive": "1"
+    },
+    {
+      "zip": "29607",
+      "positive": "2"
+    },
+    {
+      "zip": "29611",
+      "positive": "3"
+    },
+    {
+      "zip": "29615",
+      "positive": "2"
+    },
+    {
+      "zip": "29644",
+      "positive": "2"
+    },
+    {
+      "zip": "29650",
+      "positive": "2"
+    },
+    {
+      "zip": "29651",
+      "positive": "1"
+    },
+    {
+      "zip": "29662",
+      "positive": "1"
+    },
+    {
+      "zip": "29669",
+      "positive": "1"
+    },
+    {
+      "zip": "29673",
+      "positive": "2"
+    },
+    {
+      "zip": "29681",
+      "positive": "2"
+    },
+    {
+      "zip": "29687",
+      "positive": "1"
+    },
+    {
+      "zip": "29690",
+      "positive": "1"
+    }
+  ],
+  "Greenwood": [
+    {
+      "zip": "29646",
+      "positive": "2"
+    }
+  ],
+  "Horry": [
+    {
+      "zip": "29526",
+      "positive": "2"
+    },
+    {
+      "zip": "29527",
+      "positive": "3"
+    },
+    {
+      "zip": "29554",
+      "positive": "1"
+    },
+    {
+      "zip": "29569",
+      "positive": "1"
+    },
+    {
+      "zip": "29576",
+      "positive": "3"
+    },
+    {
+      "zip": "29577",
+      "positive": "4"
+    },
+    {
+      "zip": "29582",
+      "positive": "1"
+    },
+    {
+      "zip": "29588",
+      "positive": "4"
+    }
+  ],
+  "Jasper": [
+    {
+      "zip": "29927",
+      "positive": "1"
+    },
+    {
+      "zip": "29936",
+      "positive": "1"
+    }
+  ],
+  "Kershaw": [
+    {
+      "zip": "29020",
+      "positive": "32"
+    },
+    {
+      "zip": "29021",
+      "positive": "2"
+    },
+    {
+      "zip": "29032",
+      "positive": "1"
+    },
+    {
+      "zip": "29045",
+      "positive": "8"
+    },
+    {
+      "zip": "29067",
+      "positive": "1"
+    },
+    {
+      "zip": "29078",
+      "positive": "11"
+    },
+    {
+      "zip": "29128",
+      "positive": "1"
+    },
+    {
+      "zip": "29175",
+      "positive": "1"
+    }
+  ],
+  "Lancaster": [
+    {
+      "zip": "29067",
+      "positive": "1"
+    },
+    {
+      "zip": "29646",
+      "positive": "1"
+    },
+    {
+      "zip": "29707",
+      "positive": "1"
+    },
+    {
+      "zip": "29720",
+      "positive": "3"
+    }
+  ],
+  "Lee": [
+    {
+      "zip": "29010",
+      "positive": "2"
+    }
+  ],
+  "Lexington": [
+    {
+      "zip": "29036",
+      "positive": "2"
+    },
+    {
+      "zip": "29053",
+      "positive": "1"
+    },
+    {
+      "zip": "29063",
+      "positive": "1"
+    },
+    {
+      "zip": "29070",
+      "positive": "2"
+    },
+    {
+      "zip": "29072",
+      "positive": "5"
+    },
+    {
+      "zip": "29073",
+      "positive": "2"
+    },
+    {
+      "zip": "29123",
+      "positive": "1"
+    },
+    {
+      "zip": "29160",
+      "positive": "1"
+    },
+    {
+      "zip": "29169",
+      "positive": "1"
+    },
+    {
+      "zip": "29170",
+      "positive": "1"
+    },
+    {
+      "zip": "29172",
+      "positive": "1"
+    },
+    {
+      "zip": "29210",
+      "positive": "1"
+    },
+    {
+      "zip": "29212",
+      "positive": "1"
+    }
+  ],
+  "Marion": [
+    {
+      "zip": "29574",
+      "positive": "1"
+    }
+  ],
+  "Marlboro": [
+    {
+      "zip": "29512",
+      "positive": "1"
+    }
+  ],
+  "Newberry": [
+    {
+      "zip": "29108",
+      "positive": "1"
+    }
+  ],
+  "Oconee": [
+    {
+      "zip": "29672",
+      "positive": "1"
+    },
+    {
+      "zip": "29678",
+      "positive": "1"
+    }
+  ],
+  "Orangeburg": [
+    {
+      "zip": "29038",
+      "positive": "1"
+    },
+    {
+      "zip": "29059",
+      "positive": "1"
+    },
+    {
+      "zip": "29107",
+      "positive": "1"
+    },
+    {
+      "zip": "29112",
+      "positive": "3"
+    },
+    {
+      "zip": "29115",
+      "positive": "3"
+    },
+    {
+      "zip": "29118",
+      "positive": "2"
+    },
+    {
+      "zip": "29432",
+      "positive": "1"
+    }
+  ],
+  "Pickens": [
+    {
+      "zip": "29640",
+      "positive": "2"
+    },
+    {
+      "zip": "29642",
+      "positive": "4"
+    }
+  ],
+  "Richland": [
+    {
+      "zip": "29016",
+      "positive": "2"
+    },
+    {
+      "zip": "29061",
+      "positive": "1"
+    },
+    {
+      "zip": "29063",
+      "positive": "1"
+    },
+    {
+      "zip": "29078",
+      "positive": "1"
+    },
+    {
+      "zip": "29201",
+      "positive": "2"
+    },
+    {
+      "zip": "29203",
+      "positive": "1"
+    },
+    {
+      "zip": "29204",
+      "positive": "4"
+    },
+    {
+      "zip": "29205",
+      "positive": "1"
+    },
+    {
+      "zip": "29206",
+      "positive": "1"
+    },
+    {
+      "zip": "29207",
+      "positive": "3"
+    },
+    {
+      "zip": "29209",
+      "positive": "1"
+    },
+    {
+      "zip": "29210",
+      "positive": "2"
+    },
+    {
+      "zip": "29223",
+      "positive": "8"
+    },
+    {
+      "zip": "29224",
+      "positive": "1"
+    },
+    {
+      "zip": "29229",
+      "positive": "3"
+    }
+  ],
+  "Saluda": [
+    {
+      "zip": "29129",
+      "positive": "1"
+    }
+  ],
+  "Spartanburg": [
+    {
+      "zip": "29302",
+      "positive": "3"
+    },
+    {
+      "zip": "29306",
+      "positive": "4"
+    },
+    {
+      "zip": "29316",
+      "positive": "2"
+    },
+    {
+      "zip": "29322",
+      "positive": "2"
+    },
+    {
+      "zip": "29376",
+      "positive": "2"
+    },
+    {
+      "zip": "29377",
+      "positive": "1"
+    },
+    {
+      "zip": "29385",
+      "positive": "1"
+    },
+    {
+      "zip": "29388",
+      "positive": "1"
+    }
+  ],
+  "Union": [],
+  "Williamsburg": [
+    {
+      "zip": "29510",
+      "positive": "1"
+    }
+  ],
+  "York": [
+    {
+      "zip": "29707",
+      "positive": "2"
+    },
+    {
+      "zip": "29708",
+      "positive": "2"
+    },
+    {
+      "zip": "29715",
+      "positive": "8"
+    },
+    {
+      "zip": "29730",
+      "positive": "3"
+    },
+    {
+      "zip": "29732",
+      "positive": "1"
+    }
+  ]
+}

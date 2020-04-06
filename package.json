@@ -6,12 +6,13 @@
   "scripts": {
     "clean": "(rm -r dist/* || true) && (mkdir dist || true)",
     "build-dev": "npm run clean &&  npm run cp-static && webpack -d --mode development",
-    "build-prod": "npm run clean && npm run cp-static && webpack -p --mode production",
+    "build-prod": "npm run clean && npm run cp-static && webpack -p --mode production && npm run copy-static-dirs",
     "cp-static": "cp -r src/static dist && cp -r src/data dist",
     "build": "npm run build-prod",
     "start": "webpack-dev-server --hot --mode development",
     "dev": "npm start",
-    "test": "jest"
+    "test": "jest",
+    "copy-static-dirs": "cp -r src/data src/static dist/covid-19-map-south-carolina"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "@babel/plugin-syntax-optional-chaining": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.7.4",
     "@hot-loader/react-dom": "^16.12.0",
@@ -65,12 +67,14 @@
     "csv-parse": "^4.8.6",
     "d3-array": "^2.4.0",
     "d3-scale": "^3.2.1",
+    "date-fns": "^2.11.1",
     "postcss-global-import": "^1.0.6",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-hot-loader": "^4.12.19",
     "react-hover-slideshow": "^1.4.4",
     "react-map-gl": "^5.2.3",
+    "react-placeholder": "^4.0.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",

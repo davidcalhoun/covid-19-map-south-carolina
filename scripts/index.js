@@ -84,10 +84,18 @@ async function casesToJSON(inputFilename, outputFilename) {
 
 	const cleanedOutput = removePrivateProps(output);
 
+
+
 	await writeFile(outputFilename, JSON.stringify(cleanedOutput, null, 2));
 }
 
 
+function test(data) {
+	
+}
 
-casesToJSON('../data/2020-04-03.txt', '../data/2020-04-03.json');
+
+const date = '2020-04-05';
+
+casesToJSON(`../data/${date}.txt`, `../data/${date}.json`);
 

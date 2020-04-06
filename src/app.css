@@ -1,4 +1,5 @@
 @global-import "./mapbox-gl.css";
+@global-import 'react-placeholder/lib/reactPlaceholder.css';
 
 :global html {
     display: flex;

@@ -1,112 +1,240 @@
 <!DOCTYPE html>
 <html class="no-js loading" lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title><%= title %></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Marcellus+SC&display=swap"
-		/>
-		<link rel="icon" type="image/png" href="/favicon.ico" />
+    <head>
+        <meta charset="utf-8" />
+        <title><%= title %></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Marcellus+SC&display=swap"
+        />
 
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="content-language" content="en" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="robots" content="all" />
-		<meta name="author" content="David Calhoun" />
-		<meta
-			name="description"
-			content="Methane emissions by country and year."
-		/>
+        <link
+            rel="apple-touch-icon"
+            sizes="57x57"
+            href="/covid-19-map-south-carolina/static/apple-icon-57x57.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="60x60"
+            href="/covid-19-map-south-carolina/static/apple-icon-60x60.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="72x72"
+            href="/covid-19-map-south-carolina/static/apple-icon-72x72.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="/covid-19-map-south-carolina/static/apple-icon-76x76.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="114x114"
+            href="/covid-19-map-south-carolina/static/apple-icon-114x114.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="120x120"
+            href="/covid-19-map-south-carolina/static/apple-icon-120x120.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="144x144"
+            href="/covid-19-map-south-carolina/static/apple-icon-144x144.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="152x152"
+            href="/covid-19-map-south-carolina/static/apple-icon-152x152.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/covid-19-map-south-carolina/static/apple-icon-180x180.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="/covid-19-map-south-carolina/static/android-icon-192x192.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/covid-19-map-south-carolina/static/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="/covid-19-map-south-carolina/static/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/covid-19-map-south-carolina/static/favicon-16x16.png"
+        />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+        <meta name="theme-color" content="#ffffff" />
 
-		<style>
-			.loading .loading-indicator {
-				display: block;
-				position: absolute;
-				left: 49vw;
-				top: 49vh;
-			}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="content-language" content="en" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="all" />
+        <meta name="author" content="David Calhoun" />
+        <meta
+            name="description"
+            content="COVID-19 in South Carolina by Zip Code."
+        />
 
-			.loading-indicator {
-				display: none;
-			}
+        <!-- Start Single Page Apps for GitHub Pages -->
+        <script type="text/javascript">
+            // Single Page Apps for GitHub Pages
+            // https://github.com/rafrex/spa-github-pages
+            // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+            // ----------------------------------------------------------------------
+            // This script checks to see if a redirect is present in the query string
+            // and converts it back into the correct url and adds it to the
+            // browser's history using window.history.replaceState(...),
+            // which won't cause the browser to attempt to load the new url.
+            // When the single page app is loaded further down in this file,
+            // the correct url will be waiting in the browser's history for
+            // the single page app to route accordingly.
+            (function(l) {
+                if (l.search) {
+                    var q = {};
+                    l.search
+                        .slice(1)
+                        .split("&")
+                        .forEach(function(v) {
+                            var a = v.split("=");
+                            q[a[0]] = a
+                                .slice(1)
+                                .join("=")
+                                .replace(/~and~/g, "&");
+                        });
+                    if (q.p !== undefined) {
+                        window.history.replaceState(
+                            null,
+                            null,
+                            l.pathname.slice(0, -1) +
+                                (q.p || "") +
+                                (q.q ? "?" + q.q : "") +
+                                l.hash
+                        );
+                    }
+                }
+            })(window.location);
+        </script>
+        <!-- End Single Page Apps for GitHub Pages -->
 
-			.sbl-square-to-circle {
-				height: 48px;
-				width: 48px;
-				color: #5a5a5a;
-				animation: rotateSquareToCircle 3s ease infinite;
-			}
-			.sbl-square-to-circle div {
-				height: 0;
-				width: 0;
-				box-sizing: border-box;
-				border: 5px solid;
-				position: absolute;
-				top: 40%;
-			}
-			.sbl-square-to-circle div:nth-child(1) {
-				left: 0;
-				animation: moveRight 2s ease infinite;
-			}
-			.sbl-square-to-circle div:nth-child(2) {
-				left: 0;
-				right: 0;
-				margin: auto;
-				border-radius: 50%;
-				animation: toCircle 2s ease infinite;
-			}
-			.sbl-square-to-circle div:nth-child(3) {
-				right: 0;
-				animation: moveLeft 2s ease infinite;
-			}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-5530615-5"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
 
-			@keyframes moveLeft {
-				25% {
-					transform: translateX(-19px);
-				}
-				50% {
-					transform: translateX(0);
-				}
-				75% {
-					transform: translateX(-19px);
-					border-radius: 50%;
-				}
-			}
+            gtag("config", "UA-5530615-5");
+        </script>
 
-			@keyframes moveRight {
-				25% {
-					transform: translateX(19px);
-				}
-				50% {
-					transform: translateX(0);
-				}
-				75% {
-					transform: translateX(19px);
-					border-radius: 50%;
-				}
-			}
+        <style>
+            .loading .loading-indicator {
+                display: block;
+                position: absolute;
+                left: 49vw;
+                top: 49vh;
+            }
 
-			@keyframes toCircle {
-				50% {
-					border-radius: 0%;
-				}
-			}
+            .loading-indicator {
+                display: none;
+            }
 
-			@keyframes rotateSquareToCircle {
-				50% {
-					transform: rotate(-270deg);
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<div class="loading-indicator sbl-square-to-circle">
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-		<div id="app"></div>
-	</body>
+            .sbl-square-to-circle {
+                height: 48px;
+                width: 48px;
+                color: #5a5a5a;
+                animation: rotateSquareToCircle 3s ease infinite;
+            }
+            .sbl-square-to-circle div {
+                height: 0;
+                width: 0;
+                box-sizing: border-box;
+                border: 5px solid;
+                position: absolute;
+                top: 40%;
+            }
+            .sbl-square-to-circle div:nth-child(1) {
+                left: 0;
+                animation: moveRight 2s ease infinite;
+            }
+            .sbl-square-to-circle div:nth-child(2) {
+                left: 0;
+                right: 0;
+                margin: auto;
+                border-radius: 50%;
+                animation: toCircle 2s ease infinite;
+            }
+            .sbl-square-to-circle div:nth-child(3) {
+                right: 0;
+                animation: moveLeft 2s ease infinite;
+            }
+
+            @keyframes moveLeft {
+                25% {
+                    transform: translateX(-19px);
+                }
+                50% {
+                    transform: translateX(0);
+                }
+                75% {
+                    transform: translateX(-19px);
+                    border-radius: 50%;
+                }
+            }
+
+            @keyframes moveRight {
+                25% {
+                    transform: translateX(19px);
+                }
+                50% {
+                    transform: translateX(0);
+                }
+                75% {
+                    transform: translateX(19px);
+                    border-radius: 50%;
+                }
+            }
+
+            @keyframes toCircle {
+                50% {
+                    border-radius: 0%;
+                }
+            }
+
+            @keyframes rotateSquareToCircle {
+                50% {
+                    transform: rotate(-270deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="loading-indicator sbl-square-to-circle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div id="app"></div>
+    </body>
 </html>

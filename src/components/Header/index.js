@@ -21,7 +21,7 @@ function Header({ breakpoint }) {
 	return (
 		<header className={styles.container}>
 			<Link to="/" replace>
-				<h1 className={styles.title}>{ SITE_NAME }</h1>
+				<h1 className={styles.heading}>{ SITE_NAME }</h1>
 			</Link>
 		</header>
 	);

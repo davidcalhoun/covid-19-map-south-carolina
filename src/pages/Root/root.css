@@ -15,24 +15,28 @@
 	flex: 1;
 }
 
-.tooltip {
-	position: absolute;
-	width: 15rem;
-	background-color: rgba(255, 255, 255, 0.9);
-	font-size: 0.9rem;
-	padding: 0.5rem;
+.dateSliderContainer {
+	padding: 0 4rem 1rem;
+	max-width: 200px;
 }
 
-.yearSliderContainer {
-	padding: 0 2rem;
-}
-
-.yearSliderContainer :global .MuiSlider-thumb .MuiSlider-valueLabel {
+.dateSliderContainer :global .MuiSlider-thumb .MuiSlider-valueLabel {
 	cursor: grab;
+	text-align: center;
+	font-size: 11px;
 }
 
-
-.yearSliderContainer :global .MuiSlider-thumb .MuiSlider-valueLabel > span {
+.dateSliderContainer :global .MuiSlider-thumb .MuiSlider-valueLabel > span {
 	width: 2rem;
 	height: 2rem;
+}
+
+.dateSliderValue {
+	background: red;
+}
+
+.mapNavContainer {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
 }
