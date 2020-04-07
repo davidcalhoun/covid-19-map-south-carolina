@@ -53,21 +53,6 @@ const dataLayer = {
 	},
 };
 
-function getPercentile(percentile = 0, colorStops, max = 100) {
-	return parseInt((percentile / colorStops) * max);
-}
-
-function getRank(rank) {
-	if (!rank) return "No data.";
-
-	return (
-		<span>
-			<span>{rank}</span>
-			<sup>{getIntOrdinal(rank)}</sup>
-		</span>
-	);
-}
-
 function DateSliderThumb(props) {
 	const { children } = props;
 
@@ -219,8 +204,6 @@ const Root = ({ breakpoint }) => {
 				zoom: viewport.zoom,
 			});
 		}
-
-
 
 		() => {
 			memoizedFeaturesForDate = null;
