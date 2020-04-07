@@ -33,7 +33,6 @@ export default function Legend(props) {
 
 	return (
 		<div className={styles.container}>
-			<h2 className={styles.legendHeading}>Confirmed Cases</h2>
 			<div className={styles.legendColorsContainer}>
 				<div className={styles.legendColors} />
 				<ReactPlaceholder
