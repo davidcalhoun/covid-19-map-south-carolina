@@ -1,5 +1,7 @@
 # Map Visualization: COVID-19 in South Carolina by Zip Code
 
+![](static/covid-19-south-carolina-map-app-preview.jpg)
+
 ## Intro
 After [SC DHEC](https://www.scdhec.gov) started regularly publishing a PDF of affected zip codes in the state of South Carolina (where I'm at currently), I thought it would be a fun exercise to track case over time on a map visualization.
 
