@@ -5,6 +5,7 @@ import ReactMapGL, {
 	Layer,
 	NavigationControl,
 	Popup,
+	WebMercatorViewport,
 } from "react-map-gl";
 import { range, descending } from "d3-array";
 import { scaleQuantile } from "d3-scale";
@@ -186,6 +187,8 @@ const Root = ({ breakpoint }) => {
 		const lng = parseFloat(query.get("lng"));
 		const zoom = parseFloat(query.get("zoom"));
 
+		document.title = SITE_NAME;
+
 		if (lat && lng && zoom) {
 			setViewState({
 				...viewState,
@@ -193,9 +196,31 @@ const Root = ({ breakpoint }) => {
 				longitude: lng,
 				zoom,
 			});
+		} else {
+			// Fit state bounds to device screen.
+			const viewport = new WebMercatorViewport({
+				width: window.innerWidth,
+				height: window.innerHeight,
+			}).fitBounds(
+				[
+					[-83.968730, 35.361338],
+					[-78.407567, 31.752057],
+				],
+				{
+					padding: 20,
+					offset: [0, -100],
+				}
+			);
+
+			setViewState({
+				...viewState,
+				latitude: viewport.latitude,
+				longitude: viewport.longitude,
+				zoom: viewport.zoom,
+			});
 		}
 
-		document.title = SITE_NAME;
+
 
 		() => {
 			memoizedFeaturesForDate = null;
@@ -263,16 +288,20 @@ const Root = ({ breakpoint }) => {
 
 			// Update if year changes while hovering (e.g. keyboard arrow interaction).
 			if (hoveredFeature.feature) {
-				const feature = memoizedFeaturesForDate[date].find(({ properties }) => properties["ZCTA5CE10"] === hoveredFeature.feature.properties["ZCTA5CE10"]);
+				const feature = memoizedFeaturesForDate[date].find(
+					({ properties }) =>
+						properties["ZCTA5CE10"] ===
+						hoveredFeature.feature.properties["ZCTA5CE10"]
+				);
 
 				setHoveredFeature({
 					...hoveredFeature,
 					feature: {
 						...hoveredFeature.feature,
 						properties: {
-							...feature.properties
-						}
-					}
+							...feature.properties,
+						},
+					},
 				});
 			}
 		}
@@ -359,8 +388,8 @@ const Root = ({ breakpoint }) => {
 				onViewStateChange={handleViewStateChange}
 				onHover={handleHover}
 				onMouseOut={handleMouseOut}
-				minZoom={6}
-				maxZoom={10}
+				minZoom={4}
+				maxZoom={15}
 			>
 				<div className={styles.mapNavContainer}>
 					<NavigationControl showCompass={false} />
