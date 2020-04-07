@@ -171,7 +171,7 @@ module.exports = (env, argv) => {
   }
 
   if (argv.mode === 'production') {
-    config.plugins.push(new BundleAnalyzerPlugin());
+    //config.plugins.push(new BundleAnalyzerPlugin());
 
     config.output.publicPath = "/covid-19-map-south-carolina/";
   }
