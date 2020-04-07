@@ -2,6 +2,8 @@
 
 ![](src/static/covid-19-south-carolina-map-app-preview.jpg)
 
+[App link](https://davidcalhoun.github.io/covid-19-map-south-carolina/)
+
 ## Intro
 After [SC DHEC](https://www.scdhec.gov) started regularly publishing a PDF of affected zip codes in the state of South Carolina (where I'm at currently), I thought it would be a fun exercise to track case over time on a map visualization.
 
