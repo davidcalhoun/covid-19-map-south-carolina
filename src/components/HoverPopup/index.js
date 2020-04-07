@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./hoverPopup.css";
 
-import { pluralize } from "../../utils";
+import { pluralize, getIntOrdinal } from "../../utils";
 
 export default function HoverPopup({ hoveredFeature, date }) {
 	if (!hoveredFeature || !hoveredFeature.feature) {
@@ -33,8 +33,7 @@ export default function HoverPopup({ hoveredFeature, date }) {
 			<p className={styles.zip}>{zip} {county && <span className={styles.county}>({county} County)</span>}</p>
 			{!!(typeof positiveCases === "number") && (
 				<p className={styles.percentile}>
-					<span>Percentile: </span>
-					<span>{percentile}</span>
+					{percentile}{getIntOrdinal(percentile)} percentile*
 				</p>
 			)}
 		</div>
