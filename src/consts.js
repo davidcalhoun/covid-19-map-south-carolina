@@ -1,3 +1,38 @@
+export const casesFiles = [
+	"2020-03-26.json",
+	"2020-04-02.json",
+	"2020-04-03.json",
+	"2020-04-04.json",
+	"2020-04-05.json",
+	"2020-04-06.json"
+];
+
+export const sliderMarks = [
+	{
+		value: 86,
+		label: "March 26, 2020",
+	},
+	{
+		value: 93,
+	},
+	{
+		value: 94,
+	},
+	{
+		value: 95,
+	},
+	{
+		value: 96,
+	},
+	{
+		value: 97,
+		label: "April 6, 2020",
+	},
+];
+
+export const MIN_DATE = sliderMarks[0].value;
+export const MAX_DATE = sliderMarks[sliderMarks.length - 1].value;
+
 export const SITE_NAME = "COVID-19 in South Carolina by Zip Code";
 
 export const MAPBOX_TOKEN_DEV =
@@ -15,17 +50,6 @@ export const BREAKPOINTS = {
 };
 
 export const isProd = !window.location.href.includes("http://localhost");
-
-export const casesFiles = [
-	"2020-03-26.json",
-	"2020-04-02.json",
-	"2020-04-03.json",
-	"2020-04-04.json",
-	"2020-04-05.json",
-];
-
-export const MIN_DATE = 86;
-export const MAX_DATE = 96;
 
 export const dataSources = [
 	{
@@ -53,26 +77,11 @@ export const dataSources = [
 		url:
 			"https://www.scdhec.gov/sites/default/files/media/document/Zip%20Code%20Counts%20and%20Estimated%20Numbers%20Updated_4_6_2020_0.pdf",
 	},
+	{
+		title: "4/6",
+		url: "https://scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Counts_and_Estimates_Public-04.07.2020.pdf"
+	}
 ];
 
-export const sliderMarks = [
-	{
-		value: 86,
-		label: "March 26, 2020",
-	},
-	{
-		value: 93,
-	},
-	{
-		value: 94,
-	},
-	{
-		value: 95,
-	},
-	{
-		value: 96,
-		label: "April 5, 2020",
-	},
-];
 
 
