@@ -22,15 +22,16 @@ function getLegendQuantileBounds(quantiles, start, end) {
 	}
 }
 
-const LegendPlaceHolder = ({ className }) => (
-	<div className={`${className} ${styles.legendPlaceholder}`}>
-		<TextBlock rows={6} color="#a4a4a47a" />
-	</div>
-);
+const LegendPlaceHolder = ({ className }) => {
+	return (
+		<div className={`${className} ${styles.legendPlaceholder}`}>
+			<TextBlock rows={6} color="#a4a4a47a" />
+		</div>
+	);
+};
 
 export default function Legend(props) {
 	const { quantiles } = props;
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.legendColorsContainer}>

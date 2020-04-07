@@ -7,8 +7,7 @@ import ReactMapGL, {
 	Popup,
 	WebMercatorViewport,
 } from "react-map-gl";
-import { range, descending } from "d3-array";
-import { scaleQuantile } from "d3-scale";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
@@ -35,10 +34,13 @@ import {
 	getMax,
 	flattenCases,
 	fillSequentialArray,
+	computeFeaturesForDate
 } from "../../utils";
 import { HoverPopup, InfoPanel, Legend } from "../../components";
 
 const MAPBOX_TOKEN = isProd ? MAPBOX_TOKEN_PROD : MAPBOX_TOKEN_DEV;
+const dataBasePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
+const geoJSONFilepath = "sc_south_carolina_zip_codes_geo.lowres.json";
 
 function useQuery() {
 	return new URLSearchParams(useLocation().search);
@@ -53,86 +55,7 @@ const dataLayer = {
 	},
 };
 
-function DateSliderThumb(props) {
-	const { children } = props;
-
-	return (
-		<span className={styles.dateSliderThumb} {...props}>
-			{children}
-		</span>
-	);
-}
-
-function findCasesByZip(cases, zipToFind) {
-	return cases[zipToFind];
-}
-
-function computeFeaturesForDate(date, casesForDate, allCases, features) {
-	const rangeSize = 15;
-
-	const dDomain = Object.values(allCases).reduce((accum, casesForDate) => {
-		const domain = Object.values(casesForDate).map(({ positive }) =>
-			parseInt(positive)
-		);
-
-		return [...accum, ...domain];
-	}, []);
-
-	const dDomainZeroesRemoved = dDomain.filter((val) => val > 0);
-
-	const domainMax = getMax(dDomainZeroesRemoved);
-
-	const dRange = fillSequentialArray(rangeSize);
-
-	const scale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(dRange);
-
-	const percentileScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(99));
-
-	const redScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(255));
-
-	const legendScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(100));
-
-	const opacityScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(19));
-
-	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
-		const { positive, county } =
-			findCasesByZip(casesForDate, zipGeoJSON.properties["ZCTA5CE10"]) ||
-			{};
-
-		return {
-			...zipGeoJSON,
-			properties: {
-				...zipGeoJSON.properties,
-				county,
-				positiveCases: parseInt(positive),
-				percentile: percentileScale(positive),
-				...(positive ? { red: redScale(positive) } : { red: 0 }),
-				...(positive
-					? { opacity: opacityScale(positive) / 20 }
-					: { opacity: 0 }),
-			},
-		};
-	});
-
-	return {
-		features: newGeoJSONFeatures,
-		legend: {
-			quantiles: legendScale.quantiles(),
-			domainMax,
-		},
-	};
-}
-
+// Memoizes scale calculations per date.
 let memoizedFeaturesForDate = {};
 
 const Root = ({ breakpoint }) => {
@@ -161,6 +84,7 @@ const Root = ({ breakpoint }) => {
 		10,
 		{ leading: true }
 	);
+	const [isInfoPanelInFocus, setIsInfoPanelInFocus] = useState(false);
 
 	const { geoJSONFeatures, cases, allCases, geoJSONDate } = data;
 	const { latitude, longitude, zoom } = viewState;
@@ -168,13 +92,14 @@ const Root = ({ breakpoint }) => {
 	function init() {
 		fetchAllData();
 
+		document.title = SITE_NAME;
+
+		// Attemps to grab viewport info from the URL.
 		const lat = parseFloat(query.get("lat"));
 		const lng = parseFloat(query.get("lng"));
 		const zoom = parseFloat(query.get("zoom"));
-
-		document.title = SITE_NAME;
-
-		if (lat && lng && zoom) {
+		const viewportInURL = lat && lng && zoom;
+		if (viewportInURL) {
 			setViewState({
 				...viewState,
 				latitude: lat,
@@ -182,7 +107,7 @@ const Root = ({ breakpoint }) => {
 				zoom,
 			});
 		} else {
-			// Fit state bounds to device screen.
+			// Default viewport: fit state bounds to window.
 			const viewport = new WebMercatorViewport({
 				width: window.innerWidth,
 				height: window.innerHeight,
@@ -206,20 +131,20 @@ const Root = ({ breakpoint }) => {
 		}
 
 		() => {
+			// Cleanup
 			memoizedFeaturesForDate = null;
 		};
 	}
 	useEffect(init, []);
 
+	/**
+	 * Fetches all GeoJSON for zip codes, as well as cases counts per day and zip code.
+	 */
 	async function fetchAllData() {
-		const basePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
-
-		const casesFilePaths = casesFiles.map(
-			(filename) => `${basePath}/${filename}`
-		);
+		const casesFilePaths = casesFiles.map(filename => `${dataBasePath}/${filename}`);
 
 		const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
-			`${basePath}/sc_south_carolina_zip_codes_geo.lowres.json`,
+			`${dataBasePath}/${geoJSONFilepath}`,
 			...casesFilePaths
 		);
 
@@ -228,10 +153,12 @@ const Root = ({ breakpoint }) => {
 			geoJSONFeatures: zipCodesGeoJSON.features,
 			cases: flattenCases(casesJSON[0], zipCodesGeoJSON.features),
 			allCases: casesJSON.reduce((all, casesForDate) => {
+				// Sanity check for any case file that already errored above.
 				if (!casesForDate.meta) {
 					return all;
 				}
 
+				// Merges zip codes with case counts for date.
 				all[casesForDate.meta.date] = flattenCases(
 					casesForDate,
 					zipCodesGeoJSON.features
@@ -244,11 +171,13 @@ const Root = ({ breakpoint }) => {
 		setDate(MIN_DATE);
 	}
 
+	// Update data in response to date changes.
 	useEffect(() => {
 		const needsInitialization = (!prevData || !prevData.cases) && cases;
 		const casesChanged = cases && geoJSONDate && geoJSONDate !== date;
 
 		if (needsInitialization || casesChanged) {
+			// Performs initial calculation if memoized value isn't found.
 			if (!memoizedFeaturesForDate[date]) {
 				const { features, legend } = computeFeaturesForDate(
 					date,
@@ -258,9 +187,11 @@ const Root = ({ breakpoint }) => {
 				);
 				memoizedFeaturesForDate[date] = features;
 
-				// TODO: only update once
-				const { quantiles, domainMax } = legend;
-				setLegendQuantiles([...quantiles, domainMax]);
+				// Initialize legend quantiles if needed.
+				if (!legendQuantiles.domainMax) {
+					const { quantiles, domainMax } = legend;
+					setLegendQuantiles([...quantiles, domainMax]);
+				}
 			}
 
 			setData({
@@ -269,8 +200,9 @@ const Root = ({ breakpoint }) => {
 				geoJSONDate: date,
 			});
 
-			// Update if year changes while hovering (e.g. keyboard arrow interaction).
-			if (hoveredFeature.feature) {
+			// Updates popup data when year changes while hovering (e.g. keyboard arrow interaction).
+			const userIsHovering = hoveredFeature.feature
+			if (userIsHovering) {
 				const feature = memoizedFeaturesForDate[date].find(
 					({ properties }) =>
 						properties["ZCTA5CE10"] ===
@@ -347,6 +279,10 @@ const Root = ({ breakpoint }) => {
 		);
 	}
 
+	function handleInfoPanelFocusBlur(isInFocus) {
+		setIsInfoPanelInFocus(isInFocus);
+	}
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.dateSliderContainer}>
@@ -383,9 +319,11 @@ const Root = ({ breakpoint }) => {
 					</Source>
 				)}
 				<Legend quantiles={legendQuantiles} />
-				<InfoPanel />
+				<InfoPanel onInfoPanelFocusBlur={handleInfoPanelFocusBlur} />
 			</ReactMapGL>
-			<HoverPopup hoveredFeature={hoveredFeature} date={date} />
+			{
+				!isInfoPanelInFocus && <HoverPopup hoveredFeature={hoveredFeature} date={date} />
+			}
 		</div>
 	);
 };

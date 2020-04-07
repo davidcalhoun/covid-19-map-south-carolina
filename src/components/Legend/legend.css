@@ -35,6 +35,8 @@
 }
 
 .legendPlaceholder {
+	height: 100px;
+	width: 40px;
 }
 
 .legendNumbers {

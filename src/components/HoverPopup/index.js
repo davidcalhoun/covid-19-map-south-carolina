@@ -8,7 +8,7 @@ export default function HoverPopup({ hoveredFeature, date }) {
 		return null;
 	}
 
-	const { feature, x, y } = hoveredFeature;
+	const { feature, x: rawX, y: rawY } = hoveredFeature;
 
 	const {
 		ZCTA5CE10: zip,
@@ -16,6 +16,18 @@ export default function HoverPopup({ hoveredFeature, date }) {
 		positiveCases,
 		percentile,
 	} = feature.properties;
+
+	let x = rawX;
+	let y = rawY;
+	if (x + 200 > window.innerWidth) {
+		// Move popup to the left of the cursor.
+		x = x - 200;
+	}
+
+	if (y + 220 > window.innerHeight) {
+		// Move popup above cursor.
+		y = y - 60;
+	}
 
 	return (
 		<div

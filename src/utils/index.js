@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
+import { range, descending } from "d3-array";
+import { scaleQuantile } from "d3-scale";
 
 export { default as useWindowResize } from "./useWindowResize";
 
@@ -95,6 +97,9 @@ export const dayOfYearToDisplayDate = (dayOfYear) => {
 	return format(date, "LLL d");
 };
 
+/**
+ * Combines static Zip code GeoJSON with case counts by date.
+ */
 export const flattenCases = (counties, features) => {
 	const flattened = Object.entries(counties).reduce(
 		(allZips, [countyName, countyCases]) => {
@@ -145,3 +150,73 @@ export const flattenCases = (counties, features) => {
 export const fillSequentialArray = (len) => {
 	return Array.from(new Array(len)).map((val, index) => index + 1);
 };
+
+function findCasesByZip(cases, zipToFind) {
+	return cases[zipToFind];
+}
+
+export const computeFeaturesForDate = (date, casesForDate, allCases, features) => {
+	const rangeSize = 15;
+
+	const dDomain = Object.values(allCases).reduce((accum, casesForDate) => {
+		const domain = Object.values(casesForDate).map(({ positive }) =>
+			parseInt(positive)
+		);
+
+		return [...accum, ...domain];
+	}, []);
+
+	const dDomainZeroesRemoved = dDomain.filter((val) => val > 0);
+
+	const domainMax = getMax(dDomainZeroesRemoved);
+
+	const dRange = fillSequentialArray(rangeSize);
+
+	const scale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(dRange);
+
+	const percentileScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(99));
+
+	const redScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(255));
+
+	const legendScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(100));
+
+	const opacityScale = scaleQuantile()
+		.domain(dDomainZeroesRemoved)
+		.range(fillSequentialArray(19));
+
+	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
+		const { positive, county } =
+			findCasesByZip(casesForDate, zipGeoJSON.properties["ZCTA5CE10"]) ||
+			{};
+
+		return {
+			...zipGeoJSON,
+			properties: {
+				...zipGeoJSON.properties,
+				county,
+				positiveCases: parseInt(positive),
+				percentile: percentileScale(positive),
+				...(positive ? { red: redScale(positive) } : { red: 0 }),
+				...(positive
+					? { opacity: opacityScale(positive) / 20 }
+					: { opacity: 0 }),
+			},
+		};
+	});
+
+	return {
+		features: newGeoJSONFeatures,
+		legend: {
+			quantiles: legendScale.quantiles(),
+			domainMax,
+		},
+	};
+}
