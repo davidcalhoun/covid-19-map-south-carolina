@@ -84,6 +84,9 @@ export default function InfoPanel(props) {
 						quantiles
 					</a>
 					. Data domain is all nonzero zip code counts for all dates.
+					<p>
+						Percentile calculated using data domain (all dates).
+					</p>
 					<h3 className={styles.heading}>Code Source</h3>
 					Source and implementation details readme at{" "}
 					<a

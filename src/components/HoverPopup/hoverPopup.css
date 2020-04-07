@@ -1,8 +1,26 @@
 .container {
 	position: absolute;
-	width: 15rem;
+	width: 6rem;
 	background-color: rgba(255, 255, 255, 0.9);
 	font-size: 0.9rem;
 	padding: 0.5rem;
 	color: black;
+}
+
+.container p {
+	margin: 0;
+}
+
+.county,
+.percentile,
+.cases,
+.zip {
+	color: #555;
+	font-size: 0.7rem;
+}
+
+.casesValue {
+	color: black;
+	font-weight: 800;
+	font-size: 1rem;
 }

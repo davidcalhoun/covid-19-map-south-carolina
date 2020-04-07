@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./hoverPopup.css";
 
+import { pluralize } from "../../utils";
+
 export default function HoverPopup({ hoveredFeature, date }) {
 	if (!hoveredFeature || !hoveredFeature.feature) {
 		return null;
@@ -23,21 +25,17 @@ export default function HoverPopup({ hoveredFeature, date }) {
 				top: y + 20,
 			}}
 		>
-			<div>
-				{zip} {county && `(${county})`}
-			</div>
-			<div>
+			<p className={styles.cases}>
 				{!!(typeof positiveCases === "number")
-					? `${positiveCases} positive case${
-							positiveCases === 1 ? "" : "s"
-					  }`
+					? <span><span className={styles.casesValue}>{positiveCases}</span> {pluralize(positiveCases, 'case')}</span>
 					: "No data"}
-			</div>
+			</p>
+			<p className={styles.zip}>{zip} {county && <span className={styles.county}>({county} County)</span>}</p>
 			{!!(typeof positiveCases === "number") && (
-				<span>
-					<span>Percentile (of entire date range): </span>
+				<p className={styles.percentile}>
+					<span>Percentile: </span>
 					<span>{percentile}</span>
-				</span>
+				</p>
 			)}
 		</div>
 	);
