@@ -14,7 +14,7 @@ const materialRegexp = /[\\/]node_modules[\\/](@material-ui)[\\/]/;
 const config = {
   entry: ["./src/index.js"],
   output: {
-    path: path.resolve(__dirname, "dist/covid-19-map-south-carolina"),
+    path: path.resolve(__dirname, "/covid-19-map-south-carolina"),
     filename: "[name].[contenthash].js",
     publicPath: "/"
   },

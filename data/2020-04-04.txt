@@ -1,8 +1,8 @@
 COVID-19 in South Carolina, by Zip Codes
-Cases as of 4/3/2020 at 11:59 PM
+Cases as of 4/4/2020 at 11:59 PM
 Lab Confirmed Cases
 
-1,917
+2,049
 
 Abbeville County
 Zip
@@ -39,6 +39,7 @@ Total
 6
 
 Aiken County
+
 Zip
 29006
 29105
@@ -61,6 +62,7 @@ Zip
 29853
 29856
 29860
+Unknown
 Total
 
 Positive
@@ -86,7 +88,8 @@ Cases (#)
 0
 0
 1
-24
+3
+27
 
 Allendale County
 Zip
@@ -144,8 +147,8 @@ Cases (#)
 0
 1
 0
-0
-5
+1
+6
 0
 1
 1
@@ -154,7 +157,7 @@ Cases (#)
 0
 2
 3
-68
+69
 
 Bamberg County
 Zip
@@ -199,8 +202,8 @@ Cases (#)
 0
 0
 0
-1
 2
+3
 
 Beaufort County
 Zip
@@ -224,23 +227,23 @@ Total
 
 Positive
 Cases (#)
-14
+17
 0
-11
+15
 10
 7
-25
+27
 1
 7
-10
+8
 4
-3
+4
 1
 0
 0
 1
 54
-148
+156
 
 Berkeley County
 Zip
@@ -270,7 +273,7 @@ Positive
 Cases (#)
 0
 0
-5
+6
 0
 0
 1
@@ -288,7 +291,7 @@ Cases (#)
 2
 9
 1
-45
+46
 
 Calhoun County
 Zip
@@ -308,9 +311,9 @@ Cases (#)
 0
 0
 0
-1
-0
 3
+0
+5
 
 Charleston County
 Zip
@@ -434,7 +437,7 @@ Cases (#)
 0
 5
 1
-1
+4
 0
 0
 0
@@ -495,16 +498,16 @@ Cases (#)
 2
 1
 0
-30
+34
 0
 0
 0
-8
+12
 0
 0
 0
-4
-45
+5
+54
 
 Colleton County
 Zip
@@ -542,9 +545,9 @@ Cases (#)
 0
 5
 0
-2
+1
 0
-9
+8
 
 Darlington County
 Zip
@@ -641,8 +644,8 @@ Cases (#)
 3
 8
 16
-4
-45
+3
+44
 
 Edgefield County
 Zip
@@ -665,14 +668,14 @@ Cases (#)
 0
 0
 1
-2
+3
 0
 0
 0
 0
 0
 2
-5
+6
 
 Fairfield County
 Zip
@@ -685,6 +688,7 @@ Zip
 29065
 29130
 29180
+Unknown
 Total
 
 Positive
@@ -697,8 +701,9 @@ Cases (#)
 0
 1
 6
-2
-12
+3
+1
+14
 
 Florence County
 Zip
@@ -728,11 +733,11 @@ Cases (#)
 3
 0
 0
-0
+1
 4
 1
 8
-35
+36
 
 Georgetown County
 Zip
@@ -746,13 +751,13 @@ Total
 
 Positive
 Cases (#)
-1
+2
 0
 1
 2
 9
 4
-17
+18
 
 Greenville County
 Zip
@@ -798,19 +803,19 @@ Cases (#)
 0
 3
 8
-11
+12
 0
 1
 5
 1
 6
 8
-18
+19
 0
 11
 1
-53
-183
+54
+186
 
 Greenwood County
 Zip
@@ -868,7 +873,7 @@ Cases (#)
 9
 0
 1
-4
+5
 5
 3
 0
@@ -880,7 +885,7 @@ Cases (#)
 1
 7
 5
-63
+64
 
 Hampton County
 Zip
@@ -903,7 +908,7 @@ Cases (#)
 0
 0
 0
-0
+1
 0
 0
 0
@@ -912,7 +917,7 @@ Cases (#)
 0
 1
 0
-1
+2
 
 Jasper County
 Zip
@@ -970,16 +975,20 @@ Cases (#)
 0
 3
 0
-24
+26
 0
 0
 1
 0
-4
-141
+9
+148
 
 Lancaster County
 Zip
+
+Positive
+Cases (#)
+
 29058
 29067
 29707
@@ -987,17 +996,16 @@ Zip
 29720
 Total
 
-Positive
-Cases (#)
 2
 2
 11
 0
-24
-39
+26
+41
 
 Laurens County
 Zip
+
 29037
 29178
 29325
@@ -1036,6 +1044,36 @@ Cases (#)
 0
 6
 
+Lee County
+Zip
+29009
+29010
+29020
+29032
+29040
+29069
+29080
+29104
+29128
+29153
+29550
+Total
+
+Positive
+Cases (#)
+0
+16
+0
+0
+0
+0
+1
+0
+0
+0
+0
+17
+
 Lexington County
 Zip
 29006
@@ -1068,19 +1106,19 @@ Cases (#)
 2
 7
 5
-18
+21
 13
 0
 0
 3
 3
+5
+3
 4
-3
-2
 1
-3
-12
-95
+4
+27
+117
 
 Marion County
 Zip
@@ -1127,6 +1165,7 @@ Cases (#)
 3
 
 McCormick County
+
 Zip
 29620
 29628
@@ -1165,7 +1204,6 @@ Zip
 29178
 29332
 29355
-Unknown
 Total
 
 Positive
@@ -1181,41 +1219,11 @@ Cases (#)
 1
 0
 1
-1
-8
-
-Lee County
-Zip
-29009
-29010
-29020
-29032
-29040
-29069
-29080
-29104
-29128
-29153
-29550
-Total
-
-Positive
-Cases (#)
-0
-15
-0
-0
-0
-0
-1
-0
-0
-0
-0
-16
+7
 
 Oconee County
 Zip
+
 29643
 29658
 29664
@@ -1271,6 +1279,7 @@ Zip
 29436
 29471
 29477
+Unknown
 Total
 
 Positive
@@ -1298,7 +1307,8 @@ Cases (#)
 0
 0
 0
-26
+1
+27
 
 Pickens County
 Zip
@@ -1327,14 +1337,14 @@ Cases (#)
 0
 6
 6
-1
+2
 0
 0
 0
 1
 2
 0
-17
+18
 
 Richland County
 Zip
@@ -1350,6 +1360,7 @@ Zip
 29130
 29180
 29201
+29202
 29203
 29204
 29205
@@ -1360,7 +1371,11 @@ Zip
 29210
 29212
 29223
+29224
+29225
+29227
 29229
+29250
 Unknown
 Total
 
@@ -1368,7 +1383,7 @@ Positive
 Cases (#)
 13
 1
-3
+2
 5
 2
 13
@@ -1378,19 +1393,24 @@ Cases (#)
 0
 1
 10
+1
 22
 14
 5
-9
+10
 7
 1
-14
+15
 10
-4
-38
-20
-41
-242
+6
+39
+1
+1
+2
+21
+1
+86
+297
 
 Saluda County
 Zip
@@ -1458,9 +1478,9 @@ Total
 Positive
 Cases (#)
 7
-6
+7
 3
-10
+11
 2
 5
 1
@@ -1480,11 +1500,11 @@ Cases (#)
 4
 1
 3
-4
+5
 0
 1
 5
-72
+75
 
 Sumter County
 Zip
@@ -1517,17 +1537,18 @@ Cases (#)
 0
 1
 11
-22
+23
 1
 13
 18
 0
 1
 5
-79
+80
 
 Union County
 Zip
+
 29031
 29178
 29321
@@ -1539,6 +1560,7 @@ Zip
 29379
 Total
 
+
 Positive
 Cases (#)
 0
@@ -1549,14 +1571,11 @@ Cases (#)
 1
 0
 0
-7
 9
+11
 
 Williamsburg County
 Zip
-
-Positive
-Cases (#)
 
 29056
 29111
@@ -1572,6 +1591,9 @@ Cases (#)
 29590
 Total
 
+Positive
+Cases (#)
+
 1
 0
 0
@@ -1583,10 +1605,11 @@ Total
 0
 0
 1
-1
-9
+2
+10
 
 York County
+
 Zip
 29702
 29704
@@ -1612,17 +1635,36 @@ Cases (#)
 0
 0
 0
+11
 10
-10
 0
-19
+20
 0
 0
-14
-23
+15
+24
 0
 0
 4
 1
-81
+85
+
+As South Carolina moves from containment strategy to a
+disease mitigation strategy, there's less focus on the number
+of individual cases in an area and more focus on limiting
+overall spread throughout the state. It's important to know:
+•
+
+•
+
+There are many people within our communities who have
+the virus and have never been tested, and because of this,
+we’ll never have information that accurately represents
+every case of COVID-19.
+Regardless of the number of reported cases within an area,
+all South Carolinians should take seriously the
+recommended precautions for protecting against this
+disease. This geographic listing by ZIP code is a reference
+to reported positive cases, but it doesn’t account for likely
+cases of COVID-19 within a community.
 

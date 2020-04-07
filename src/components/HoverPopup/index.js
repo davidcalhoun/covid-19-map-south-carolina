@@ -35,7 +35,7 @@ export default function HoverPopup({ hoveredFeature, date }) {
 			</div>
 			{!!(typeof positiveCases === "number") && (
 				<span>
-					<span>Percentile (in entire date range):</span>
+					<span>Percentile (of entire date range): </span>
 					<span>{percentile}</span>
 				</span>
 			)}

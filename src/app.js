@@ -39,9 +39,6 @@ function App() {
 					<Route exact path={`/`}>
 						<Root breakpoint={breakpoint} />
 					</Route>
-					<Route path={`/date/:date`}>
-						<Root breakpoint={breakpoint} />
-					</Route>
 				</Switch>
 			</React.StrictMode>
 		</Router>

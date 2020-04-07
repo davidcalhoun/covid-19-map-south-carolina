@@ -6,9 +6,9 @@ import {
 	Link,
 	Redirect,
 	useRouteMatch,
-	useParams
+	useParams,
 } from "react-router-dom";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 
 import styles from "./header.css";
 import { SITE_NAME } from "../../consts";
@@ -21,7 +21,7 @@ function Header({ breakpoint }) {
 	return (
 		<header className={styles.container}>
 			<Link to="/" replace>
-				<h1 className={styles.heading}>{ SITE_NAME }</h1>
+				<h1 className={styles.heading}>{SITE_NAME}</h1>
 			</Link>
 		</header>
 	);

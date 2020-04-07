@@ -142,16 +142,15 @@ function computeFeaturesForDate(date, casesForDate, allCases, features) {
 		features: newGeoJSONFeatures,
 		legend: {
 			quantiles: legendScale.quantiles(),
-			domainMax
-		}
-	}
+			domainMax,
+		},
+	};
 }
 
 let memoizedFeaturesForDate = {};
 
 const Root = ({ breakpoint }) => {
 	let history = useHistory();
-	let { date: dateInURL } = useParams();
 	const [viewState, setViewState] = useState({
 		latitude: 33.65043,
 		longitude: -80.1632,
@@ -165,7 +164,7 @@ const Root = ({ breakpoint }) => {
 		allCases: [],
 		geoJSONDate: null,
 	});
-	const [date, setDate] = useState(86);
+	const [date, setDate] = useState(MIN_DATE);
 	const [legendQuantiles, setLegendQuantiles] = useState([]);
 	const [hoveredFeature, setHoveredFeature] = useState({});
 	let query = useQuery();
@@ -173,7 +172,7 @@ const Root = ({ breakpoint }) => {
 	const prevData = usePrevious(data);
 	const [debouncedHandleDateChange] = useDebouncedCallback(
 		handleDateChange,
-		30,
+		10,
 		{ leading: true }
 	);
 
@@ -181,43 +180,7 @@ const Root = ({ breakpoint }) => {
 	const { latitude, longitude, zoom } = viewState;
 
 	function init() {
-		async function fetchAllData() {
-			const basePath = isProd
-				? "/covid-19-map-south-carolina/data"
-				: "/data";
-
-			const casesFilePaths = casesFiles.map(
-				(filename) => `${basePath}/${filename}`
-			);
-
-			const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
-				`${basePath}/sc_south_carolina_zip_codes_geo.lowres.json`,
-				...casesFilePaths
-			);
-
-			setData({
-				...data,
-				geoJSONFeatures: zipCodesGeoJSON.features,
-				cases: flattenCases(casesJSON[0], zipCodesGeoJSON.features),
-				allCases: casesJSON.reduce((all, casesForDate) => {
-					if (!casesForDate.meta) {
-						return all;
-					}
-
-					all[casesForDate.meta.date] = flattenCases(
-						casesForDate,
-						zipCodesGeoJSON.features
-					);
-
-					return all;
-				}, {}),
-			});
-		}
 		fetchAllData();
-
-		if (dateInURL) {
-			setDate(dateInURL);
-		}
 
 		const lat = parseFloat(query.get("lat"));
 		const lng = parseFloat(query.get("lng"));
@@ -240,13 +203,45 @@ const Root = ({ breakpoint }) => {
 	}
 	useEffect(init, []);
 
+	async function fetchAllData() {
+		const basePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
+
+		const casesFilePaths = casesFiles.map(
+			(filename) => `${basePath}/${filename}`
+		);
+
+		const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
+			`${basePath}/sc_south_carolina_zip_codes_geo.lowres.json`,
+			...casesFilePaths
+		);
+
+		setData({
+			...data,
+			geoJSONFeatures: zipCodesGeoJSON.features,
+			cases: flattenCases(casesJSON[0], zipCodesGeoJSON.features),
+			allCases: casesJSON.reduce((all, casesForDate) => {
+				if (!casesForDate.meta) {
+					return all;
+				}
+
+				all[casesForDate.meta.date] = flattenCases(
+					casesForDate,
+					zipCodesGeoJSON.features
+				);
+
+				return all;
+			}, {}),
+		});
+
+		setDate(MIN_DATE);
+	}
+
 	useEffect(() => {
 		const needsInitialization = (!prevData || !prevData.cases) && cases;
 		const casesChanged = cases && geoJSONDate && geoJSONDate !== date;
 
 		if (needsInitialization || casesChanged) {
 			if (!memoizedFeaturesForDate[date]) {
-				console.log('not found in cache', date);
 				const { features, legend } = computeFeaturesForDate(
 					date,
 					cases,
@@ -258,8 +253,6 @@ const Root = ({ breakpoint }) => {
 				// TODO: only update once
 				const { quantiles, domainMax } = legend;
 				setLegendQuantiles([...quantiles, domainMax]);
-			} else {
-				console.log('cache hit!', date)
 			}
 
 			setData({
@@ -271,13 +264,14 @@ const Root = ({ breakpoint }) => {
 	}, [data]);
 
 	useEffect(() => {
+		console.log(111, date)
 		if (!allCases) return;
 
 		const casesForDate = allCases[date];
 
 		if (!casesForDate) {
 			console.warn(
-				`Could not find cases for day of year ${date}.`,
+				`Could not find cases for day of year DUCK ${date}.`,
 				allCases
 			);
 			return;
@@ -301,9 +295,7 @@ const Root = ({ breakpoint }) => {
 	function handleDateChange(event, date) {
 		setDate(date);
 
-		updateSelfUrl(
-			`/date/${date}?lat=${latitude}&lng=${longitude}&zoom=${zoom}`
-		);
+		updateSelfUrl(`/?lat=${latitude}&lng=${longitude}&zoom=${zoom}`);
 	}
 
 	function handleHover(event) {
@@ -325,7 +317,7 @@ const Root = ({ breakpoint }) => {
 		setViewState(viewState);
 
 		debouncedUpdateSelfUrl(
-			`/date/${date}?lat=${latitude}&lng=${longitude}&zoom=${zoom}`
+			`/?lat=${latitude}&lng=${longitude}&zoom=${zoom}`
 		);
 	}
 

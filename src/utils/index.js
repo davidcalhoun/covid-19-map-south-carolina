@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 export { default as useWindowResize } from "./useWindowResize";
 
-export const parseJSON = str => {
+export const parseJSON = (str) => {
 	let json;
 	try {
 		json = JSON.parse(str);
@@ -15,7 +15,7 @@ export const parseJSON = str => {
 };
 
 // https://en.wikipedia.org/wiki/Ordinal_indicator
-export const getIntOrdinal = integer => {
+export const getIntOrdinal = (integer) => {
 	const integerStr = `${integer}`;
 	const ending = integerStr.substr(integerStr.length - 1, 1);
 
@@ -38,7 +38,7 @@ export const getIntOrdinal = integer => {
 	}
 };
 
-export const fetchJSON = async function (url) {
+export const fetchJSON = async function(url) {
 	let rawJSON;
 	let json;
 	try {
@@ -49,32 +49,32 @@ export const fetchJSON = async function (url) {
 		}
 
 		json = await rawJSON.json();
-	} catch(e) {
+	} catch (e) {
 		console.warn(`Error fetching ${url}: ${e}`);
 		return {};
 	}
 
 	return json;
-}
+};
 
 export const fetchMultipleJSON = async function(...urls) {
 	return Promise.all(urls.map(fetchJSON));
-}
+};
 
-// custom hook for getting previous value 
+// custom hook for getting previous value
 export function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
+	const ref = useRef();
+	useEffect(() => {
+		ref.current = value;
+	});
+	return ref.current;
 }
 
 export const getMax = (numsArr) => Math.max(...numsArr);
 
-export const round = num => Math.floor(num);
+export const round = (num) => Math.floor(num);
 
-export const pluralize = (num, prefix) => num === 1 ? prefix : `${prefix}s`;
+export const pluralize = (num, prefix) => (num === 1 ? prefix : `${prefix}s`);
 
 export const getDateFromDayNum = (dayNum, year) => {
 	var date = new Date();
@@ -140,7 +140,7 @@ export const flattenCases = (counties, features) => {
 	);
 
 	return flattened;
-}
+};
 
 export const fillSequentialArray = (len) => {
 	return Array.from(new Array(len)).map((val, index) => index + 1);

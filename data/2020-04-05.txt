@@ -1,14 +1,20 @@
 COVID-19 in South Carolina, by Zip Codes
-Cases as of 4/4/2020 at 11:59 PM
-Lab Confirmed Cases
+Cases as of 4/5/2020 at 11:59 PM
+Reported Cases
 
-2,049
 
 Abbeville County
+
 Zip
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
 
 29620
 29627
@@ -38,9 +44,10 @@ Total
 0
 6
 
-Aiken County
 
+Aiken County
 Zip
+
 29006
 29105
 29129
@@ -65,8 +72,6 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
 0
 0
 0
@@ -74,7 +79,7 @@ Cases (#)
 0
 1
 2
-4
+5
 2
 0
 0
@@ -88,11 +93,22 @@ Cases (#)
 0
 0
 1
-3
+2
 27
+
 
 Allendale County
 Zip
+
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 29810
 29812
 29827
@@ -101,8 +117,6 @@ Zip
 29932
 Total
 
-Positive
-Cases (#)
 1
 0
 1
@@ -111,8 +125,19 @@ Cases (#)
 0
 2
 
+
 Anderson County
 Zip
+
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 29611
 29621
 29624
@@ -135,20 +160,18 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
 0
 23
-5
-12
-5
-5
-0
-0
-1
-0
-1
 6
+13
+5
+5
+0
+0
+1
+0
+1
+7
 0
 1
 1
@@ -157,8 +180,7 @@ Cases (#)
 0
 2
 3
-69
-
+72
 Bamberg County
 Zip
 29003
@@ -172,8 +194,16 @@ Zip
 29843
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total
+Possible
+Cases
+
 2
 1
 2
@@ -185,6 +215,28 @@ Cases (#)
 0
 5
 
+12
+0
+12
+6
+0
+1
+1
+0
+4
+37
+
+14
+1
+14
+6
+0
+1
+1
+0
+4
+42
+
 Barnwell County
 Zip
 29812
@@ -195,8 +247,15 @@ Zip
 29853
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 1
 0
@@ -205,8 +264,23 @@ Cases (#)
 2
 3
 
+6
+6
+1
+2
+1
+10
+25
+
+6
+7
+1
+2
+1
+12
+28
+
 Beaufort County
-Zip
 29902
 29904
 29906
@@ -225,28 +299,70 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 17
 0
-15
-10
+26
+11
 7
-27
+30
 1
 7
-8
-4
-4
+9
+6
+5
+1
 1
 0
-0
 1
-54
-156
+41
+163
+
+104
+6
+160
+68
+43
+184
+6
+43
+55
+37
+31
+0
+6
+6
+2
+0
+752
+
+121
+6
+186
+79
+50
+214
+7
+50
+64
+43
+36
+1
+7
+6
+3
+41
+915
 
 Berkeley County
-Zip
 29059
 29406
 29410
@@ -269,32 +385,84 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
-6
-0
-0
-1
-14
-0
-0
-1
-11
-0
-0
+5
 0
 0
 1
+16
+0
+0
+1
+13
+0
+0
+0
 0
 2
-9
+0
+2
+11
 1
-46
+52
+
+0
+0
+37
+6
+6
+6
+98
+6
+6
+18
+80
+0
+6
+6
+4
+12
+8
+31
+74
+0
+404
+
+0
+0
+42
+6
+6
+7
+114
+6
+6
+19
+93
+0
+6
+6
+4
+14
+8
+33
+85
+1
+456
 
 Calhoun County
 Zip
+
 29030
 29047
 29053
@@ -304,8 +472,15 @@ Zip
 29160
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 2
 0
 0
@@ -314,6 +489,24 @@ Cases (#)
 3
 0
 5
+
+9
+3
+3
+1
+1
+18
+8
+42
+
+11
+3
+3
+1
+1
+21
+8
+47
 
 Charleston County
 Zip
@@ -352,42 +545,119 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 9
 22
 2
-8
-10
-22
-0
-0
-29
-28
 12
+12
+23
+0
+0
+36
+31
+14
 2
 0
 1
 0
-4
+5
 1
 1
 6
 1
-3
+4
 0
 12
 8
 1
-45
-30
-3
-6
+47
+31
+4
+7
 0
 1
-3
 4
-274
+3
+300
+
+55
+135
+12
+74
+74
+141
+6
+0
+221
+190
+68
+23
+6
+6
+5
+31
+4
+6
+37
+0
+25
+0
+74
+20
+6
+289
+190
+23
+43
+1
+8
+25
+0
+1800
+
+64
+157
+14
+86
+86
+164
+6
+0
+257
+221
+82
+25
+6
+7
+5
+36
+5
+7
+43
+1
+29
+0
+86
+28
+7
+336
+221
+27
+50
+1
+9
+29
+3
+2100
 
 Cherokee County
 Zip
@@ -402,18 +672,44 @@ Zip
 29743
 Total
 
-Positive
-Cases (#)
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
-0
-0
-0
-1
-1
 0
 0
 0
 2
+2
+0
+0
+0
+4
+
+0
+0
+3
+2
+12
+12
+1
+6
+1
+39
+
+0
+0
+3
+2
+14
+14
+1
+6
+1
+43
 
 Chester County
 Zip
@@ -429,19 +725,48 @@ Zip
 29742
 Total
 
-Positive
-Cases (#)
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 2
 0
-5
+8
 1
 4
 0
 0
 0
+15
+
+4
+2
+10
+1
+49
+5
+25
+6
+0
+1
+103
+
+4
+2
 12
+1
+57
+6
+29
+6
+0
+1
+118
 
 Chesterfield County
 Zip
@@ -460,25 +785,69 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 1
-4
+5
 0
 0
 0
 2
-0
+1
 0
 0
 3
 1
 2
-13
+15
+
+0
+5
+31
+6
+6
+2
+12
+6
+0
+6
+18
+6
+0
+99
+
+0
+6
+36
+6
+6
+2
+14
+7
+0
+6
+21
+7
+2
+114
 
 Clarendon County
 Zip
+
+Reported
+Cases
+
+Reported
+Cases
+
 29001
 29051
 29056
@@ -493,21 +862,56 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 2
 1
 0
-34
+37
 0
 0
 0
 12
-0
+1
 0
 0
 5
-54
+58
+
+11
+5
+0
+227
+6
+0
+3
+74
+6
+0
+1
+0
+333
+
+13
+6
+0
+264
+6
+0
+3
+86
+7
+0
+1
+5
+391
 
 Colleton County
 Zip
@@ -529,12 +933,19 @@ Zip
 29945
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
-0
+2
 0
 0
 0
@@ -547,10 +958,45 @@ Cases (#)
 0
 1
 0
-8
+10
+
+0
+6
+0
+12
+3
+6
+6
+2
+6
+12
+0
+5
+31
+6
+6
+2
+104
+
+0
+6
+0
+14
+3
+6
+6
+2
+6
+14
+0
+5
+36
+6
+7
+2
+114
 
 Darlington County
-Zip
 29069
 29101
 29161
@@ -563,22 +1009,52 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
-0
-0
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
+1
 0
 0
 0
 0
 3
-14
+5
+16
 1
 1
-19
+27
+
+6
+1
+1
+5
+0
+25
+31
+91
+4
+0
+164
+
+7
+1
+1
+5
+0
+28
+36
+107
+5
+1
+191
 
 Dillon County
-Zip
 29525
 29536
 29543
@@ -592,8 +1068,15 @@ Zip
 29592
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
@@ -607,8 +1090,35 @@ Cases (#)
 0
 1
 
+0
+6
+6
+6
+6
+5
+6
+0
+0
+1
+5
+42
+
+0
+6
+6
+7
+6
+5
+6
+0
+0
+1
+5
+43
+
 Dorchester County
 Zip
+
 29018
 29414
 29418
@@ -627,12 +1137,19 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
-9
+12
 0
 0
 0
@@ -640,12 +1157,48 @@ Cases (#)
 1
 0
 2
-2
 3
-8
+3
+12
 16
 3
-44
+52
+
+0
+0
+18
+63
+1
+0
+6
+6
+24
+2
+12
+12
+18
+64
+96
+0
+323
+
+0
+0
+18
+75
+1
+0
+6
+6
+25
+2
+14
+15
+21
+76
+112
+3
+375
 
 Edgefield County
 Zip
@@ -662,8 +1215,15 @@ Zip
 29860
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
@@ -676,6 +1236,32 @@ Cases (#)
 0
 2
 6
+
+1
+0
+3
+6
+21
+1
+2
+0
+0
+5
+10
+48
+
+1
+0
+3
+7
+24
+1
+2
+0
+0
+5
+12
+54
 
 Fairfield County
 Zip
@@ -691,8 +1277,15 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 2
@@ -701,9 +1294,33 @@ Cases (#)
 0
 1
 6
+5
+1
+16
+
+2
+6
+1
+1
+2
+2
+6
+29
+36
+0
+85
+
+2
+6
 3
 1
-14
+3
+2
+7
+35
+41
+1
+101
 
 Florence County
 Zip
@@ -722,12 +1339,19 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
-12
-1
+13
+3
 6
 0
 3
@@ -737,9 +1361,41 @@ Cases (#)
 4
 1
 8
-36
+39
+
+4
+5
+74
+25
+37
+6
+18
+1
+6
+10
+25
+6
+0
+218
+
+4
+5
+87
+28
+43
+6
+21
+1
+6
+11
+29
+7
+8
+257
+
 
 Georgetown County
+
 Zip
 29440
 29510
@@ -749,15 +1405,38 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
-2
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
+4
 0
 1
 2
 9
-4
-18
+5
+21
+
+25
+11
+10
+28
+55
+0
+129
+
+29
+11
+11
+30
+64
+5
+150
 
 Greenville County
 Zip
@@ -788,34 +1467,95 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
-5
-13
-7
-4
-14
-12
-2
-0
-0
-3
-8
-12
-0
-1
-5
-1
 6
+15
+11
+5
+15
+12
+3
+0
+0
+4
 8
-19
+14
+0
+2
+7
+1
+7
+8
+20
 0
 11
 1
 54
-186
+204
+
+0
+3
+37
+92
+68
+31
+85
+74
+18
+3
+4
+17
+49
+53
+1
+10
+43
+6
+27
+49
+123
+6
+68
+6
+0
+872
+
+0
+3
+43
+107
+79
+36
+100
+86
+21
+3
+4
+21
+57
+67
+1
+12
+50
+7
+34
+57
+143
+6
+79
+7
+51
+1076
 
 Greenwood County
 Zip
@@ -831,19 +1571,50 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 5
 4
 0
 0
-0
+1
 0
 0
 1
-10
+11
+
+0
+1
+31
+24
+6
+6
+3
+6
+4
+0
+81
+
+0
+1
+36
+28
+6
+6
+4
+6
+4
+1
+92
 
 Horry County
 Zip
@@ -866,26 +1637,72 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 1
-6
+7
 9
 0
 1
 5
 5
 3
-0
-3
-10
-6
-2
-0
 1
-7
+4
+10
+10
 5
+0
+2
+8
+5
+76
+
+6
+43
+55
+6
+6
+31
+31
+18
+6
+25
+46
+61
+31
+4
+12
+49
+0
+430
+
+7
+50
 64
+6
+7
+36
+36
+21
+7
+29
+56
+71
+36
+4
+14
+57
+5
+506
+
 
 Hampton County
 Zip
@@ -903,21 +1720,56 @@ Zip
 29945
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
-0
-1
-0
-0
-0
-0
-0
-0
-1
 0
 2
+0
+0
+0
+0
+0
+0
+1
+0
+3
+
+0
+6
+4
+12
+6
+4
+6
+6
+4
+1
+6
+2
+56
+
+0
+6
+4
+14
+6
+4
+6
+6
+4
+1
+7
+2
+59
 
 Jasper County
 Zip
@@ -933,19 +1785,50 @@ Zip
 29945
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 1
 1
 0
+0
+5
 0
 4
 0
+0
+0
+11
+
+6
+6
 3
+3
+31
+6
+31
+6
 0
+1
+91
+
+7
+7
+3
+3
+36
+6
+35
+6
 0
-0
-9
+1
+102
 
 Kershaw County
 Zip
@@ -965,13 +1848,20 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 2
 0
-77
+85
 1
-29
+32
 0
 3
 0
@@ -980,15 +1870,43 @@ Cases (#)
 0
 1
 0
+2
+152
+
+12
+1
+507
+6
+142
+0
 9
-148
+6
+175
+5
+7
+6
+0
+0
+876
+
+14
+1
+592
+7
+174
+0
+12
+6
+201
+5
+7
+7
+0
+2
+1028
 
 Lancaster County
 Zip
-
-Positive
-Cases (#)
-
 29058
 29067
 29707
@@ -996,16 +1914,35 @@ Cases (#)
 29720
 Total
 
+Reported
+Cases
 2
 2
-11
+13
 0
 26
-41
+43
+
+Estimated
+Cases
+12
+22
+80
+0
+160
+273
+
+Total Possible
+Cases
+14
+24
+93
+0
+186
+316
 
 Laurens County
 Zip
-
 29037
 29178
 29325
@@ -1024,8 +1961,15 @@ Zip
 29692
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 2
@@ -1044,6 +1988,42 @@ Cases (#)
 0
 6
 
+0
+0
+12
+6
+2
+6
+3
+6
+6
+6
+1
+8
+12
+0
+0
+2
+72
+
+0
+0
+14
+6
+2
+6
+3
+7
+7
+6
+1
+8
+14
+0
+0
+2
+78
+
 Lee County
 Zip
 29009
@@ -1059,22 +2039,56 @@ Zip
 29550
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 16
 0
 0
 0
 0
+2
+0
+0
+0
+0
+18
+
+0
+104
+16
+0
+3
 1
+6
+3
+9
+4
+1
+147
+
 0
+120
+16
 0
-0
-0
-17
+3
+1
+8
+3
+9
+4
+1
+165
 
 Lexington County
+
 Zip
 29006
 29033
@@ -1097,28 +2111,77 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 2
 1
+10
+7
+2
+9
+6
+24
+15
+0
+0
+3
+5
+6
+5
+4
+1
+4
+20
+124
+
+7
+6
+47
+40
+12
+7
+30
+154
+92
+1
+1
+18
+23
+37
+31
+31
+22
+58
+0
+617
+
 9
 7
-2
-7
-5
-21
-13
-0
-0
-3
-3
-5
-3
-4
+57
+47
+14
+16
+36
+178
+107
 1
-4
-27
-117
+1
+21
+28
+43
+36
+35
+23
+62
+20
+741
 
 Marion County
 Zip
@@ -1129,18 +2192,47 @@ Zip
 29574
 29581
 29592
+Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
-0
+1
 0
 0
 2
 0
 0
-2
+1
+3
+
+6
+6
+1
+6
+12
+1
+1
+0
+34
+
+6
+7
+1
+6
+14
+1
+1
+1
+38
 
 Marlboro County
 Zip
@@ -1153,8 +2245,15 @@ Zip
 29596
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 3
 0
 0
@@ -1162,10 +2261,27 @@ Cases (#)
 0
 0
 0
-3
+6
+
+37
+6
+6
+0
+6
+6
+6
+68
+
+43
+6
+6
+0
+6
+6
+6
+74
 
 McCormick County
-
 Zip
 29620
 29628
@@ -1178,18 +2294,47 @@ Zip
 29848
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
 0
-1
+2
 0
 0
 0
 0
-1
+2
+
+0
+0
+0
+3
+12
+4
+6
+6
+2
+34
+
+0
+0
+0
+3
+14
+4
+6
+6
+2
+36
 
 Newberry County
 Zip
@@ -1206,8 +2351,15 @@ Zip
 29355
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
@@ -1221,9 +2373,33 @@ Cases (#)
 1
 7
 
-Oconee County
-Zip
+1
+4
+4
+25
+6
+6
+12
+6
+5
+0
+3
+72
 
+1
+4
+4
+28
+6
+7
+13
+6
+6
+0
+4
+79
+
+Oconee County
 29643
 29658
 29664
@@ -1238,8 +2414,15 @@ Zip
 29696
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
@@ -1254,8 +2437,36 @@ Cases (#)
 0
 8
 
+5
+6
+6
+6
+6
+6
+31
+6
+1
+6
+12
+6
+97
+
+5
+6
+6
+6
+7
+7
+36
+6
+1
+6
+13
+6
+105
+
+
 Orangeburg County
-Zip
 29018
 29030
 29038
@@ -1282,8 +2493,15 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 2
@@ -1307,11 +2525,64 @@ Cases (#)
 0
 0
 0
+2
+28
+
+6
+3
+18
+6
+3
+6
+6
+6
+17
+6
+68
+30
+6
 1
-27
+2
+6
+4
+0
+6
+5
+0
+0
+0
+0
+205
+
+6
+3
+20
+6
+4
+6
+7
+7
+20
+6
+79
+35
+6
+1
+2
+7
+4
+0
+6
+6
+0
+0
+0
+2
+233
 
 Pickens County
 Zip
+
 29611
 29630
 29631
@@ -1328,15 +2599,22 @@ Zip
 29685
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
-1
+2
 0
 0
 6
-6
+7
 2
 0
 0
@@ -1344,7 +2622,39 @@ Cases (#)
 1
 2
 0
-18
+20
+
+2
+6
+12
+6
+2
+37
+30
+11
+2
+6
+0
+6
+12
+6
+139
+
+2
+6
+14
+6
+2
+43
+37
+13
+2
+6
+0
+7
+14
+6
+159
 
 Richland County
 Zip
@@ -1360,7 +2670,6 @@ Zip
 29130
 29180
 29201
-29202
 29203
 29204
 29205
@@ -1371,46 +2680,96 @@ Zip
 29210
 29212
 29223
-29224
-29225
-29227
 29229
-29250
 Unknown
 Total
 
-Positive
-Cases (#)
-13
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
+17
 1
 2
-5
+8
 2
-13
-6
+14
+7
 0
 3
 0
 1
-10
-1
-22
-14
-5
-10
-7
-1
+12
+27
 15
-10
-6
-39
+8
+12
+7
+2
+18
+12
+8
+44
+30
+61
+311
+
+115
+19
+18
+109
+12
+92
+91
 1
+3
+1
+1
+74
+166
+98
+49
+74
+43
+12
+111
+58
+22
+270
+184
+0
+1625
+
+132
+20
+20
+117
+14
+106
+98
+1
+6
 1
 2
-21
-1
 86
-297
+193
+113
+57
+86
+50
+14
+129
+70
+30
+314
+214
+61
+1936
 
 Saluda County
 Zip
@@ -1428,8 +2787,15 @@ Zip
 29848
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
@@ -1443,6 +2809,34 @@ Cases (#)
 1
 0
 4
+
+3
+2
+6
+1
+1
+4
+6
+6
+0
+0
+3
+0
+33
+
+3
+2
+6
+1
+1
+6
+7
+6
+0
+0
+4
+0
+37
 
 Spartanburg County
 Zip
@@ -1475,24 +2869,31 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
-7
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
+8
 7
 3
-11
-2
-5
+12
+3
+6
 1
+6
+0
+0
 4
-0
-0
-3
-1
+2
 0
 8
 0
-0
+2
 3
 0
 0
@@ -1500,11 +2901,69 @@ Cases (#)
 4
 1
 3
-5
+6
 0
 1
-5
-75
+7
+88
+
+49
+43
+18
+74
+18
+37
+6
+33
+4
+6
+25
+10
+6
+49
+3
+12
+18
+4
+6
+6
+25
+6
+18
+36
+0
+39
+0
+553
+
+57
+50
+21
+86
+21
+43
+7
+39
+4
+6
+29
+12
+6
+57
+3
+14
+21
+4
+6
+7
+29
+7
+21
+42
+0
+40
+7
+641
 
 Sumter County
 Zip
@@ -1526,10 +2985,17 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
-5
+6
 1
 0
 0
@@ -1537,46 +3003,108 @@ Cases (#)
 0
 1
 11
-23
+26
 1
-13
+17
 18
 0
-1
+3
 5
-80
+90
+
+1
+34
+7
+6
+0
+3
+2
+3
+53
+160
+12
+101
+111
+0
+18
+0
+510
+
+1
+40
+8
+6
+0
+4
+2
+4
+64
+186
+13
+118
+129
+0
+21
+5
+600
 
 Union County
 Zip
-
 29031
 29178
 29321
 29335
 29353
-29364
 29372
 29374
 29379
+Unknown
 Total
 
+Reported
+Cases
 
-Positive
-Cases (#)
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 1
 0
 0
+0
+0
+10
+1
+12
+
+4
+1
+6
+1
+6
 1
 0
+61
 0
-9
-11
+80
+
+4
+1
+7
+1
+6
+1
+0
+71
+1
+92
 
 Williamsburg County
 Zip
-
 29056
 29111
 29440
@@ -1591,25 +3119,58 @@ Zip
 29590
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
 
 1
 0
 0
 3
 0
-2
+3
 0
 1
 0
 0
 1
 2
+11
+
+6
+0
+0
+7
+6
+14
+0
+6
+1
+6
+6
+12
+66
+
+7
+0
+0
 10
+6
+17
+0
+7
+1
+6
+7
+14
+77
 
 York County
-
 Zip
 29702
 29704
@@ -1629,42 +3190,66 @@ Zip
 Unknown
 Total
 
-Positive
-Cases (#)
+Reported
+Cases
+
+Estimated
+Cases
+
+Total Possible
+Cases
+
 0
 0
 0
 0
 11
-10
+13
 0
-20
+22
 0
 0
 15
-24
+25
 0
 0
+5
 4
+95
+
+0
+5
+0
+0
+68
+80
 1
-85
+135
+6
+6
+92
+154
+6
+5
+31
+0
+588
 
-As South Carolina moves from containment strategy to a
-disease mitigation strategy, there's less focus on the number
-of individual cases in an area and more focus on limiting
-overall spread throughout the state. It's important to know:
-•
-
-•
-
-There are many people within our communities who have
-the virus and have never been tested, and because of this,
-we’ll never have information that accurately represents
-every case of COVID-19.
-Regardless of the number of reported cases within an area,
-all South Carolinians should take seriously the
-recommended precautions for protecting against this
-disease. This geographic listing by ZIP code is a reference
-to reported positive cases, but it doesn’t account for likely
-cases of COVID-19 within a community.
+0
+5
+0
+0
+79
+93
+1
+157
+6
+6
+107
+179
+6
+5
+36
+4
+683
 

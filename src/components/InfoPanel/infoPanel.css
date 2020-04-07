@@ -8,7 +8,7 @@
 		1px 1px 0 white;
 	padding: 0.5rem;
 	width: 15rem;
-	background-color: rgba(255,255,255,0.8);
+	background-color: rgba(255, 255, 255, 0.8);
 	border-radius: 3px;
 }
 
@@ -39,5 +39,4 @@
 }
 
 .sourceLink {
-	margin-right: 0.5rem;
 }
