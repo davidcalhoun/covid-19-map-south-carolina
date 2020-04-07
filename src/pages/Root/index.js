@@ -260,6 +260,21 @@ const Root = ({ breakpoint }) => {
 				geoJSONFeatures: memoizedFeaturesForDate[date],
 				geoJSONDate: date,
 			});
+
+			// Update if year changes while hovering (e.g. keyboard arrow interaction).
+			if (hoveredFeature.feature) {
+				const feature = memoizedFeaturesForDate[date].find(({ properties }) => properties["ZCTA5CE10"] === hoveredFeature.feature.properties["ZCTA5CE10"]);
+
+				setHoveredFeature({
+					...hoveredFeature,
+					feature: {
+						...hoveredFeature.feature,
+						properties: {
+							...feature.properties
+						}
+					}
+				});
+			}
 		}
 	}, [data]);
 
