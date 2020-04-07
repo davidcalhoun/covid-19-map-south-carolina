@@ -264,14 +264,13 @@ const Root = ({ breakpoint }) => {
 	}, [data]);
 
 	useEffect(() => {
-		console.log(111, date)
 		if (!allCases) return;
 
 		const casesForDate = allCases[date];
 
 		if (!casesForDate) {
 			console.warn(
-				`Could not find cases for day of year DUCK ${date}.`,
+				`Could not find cases for day of year ${date}.`,
 				allCases
 			);
 			return;
