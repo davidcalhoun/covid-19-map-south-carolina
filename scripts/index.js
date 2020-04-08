@@ -105,7 +105,7 @@ function test(data) {
 }
 
 
-const date = '2020-04-06';
+const date = '2020-04-07';
 
 casesToJSON(`../data/${date}.txt`, `../data/${date}.json`);
 
