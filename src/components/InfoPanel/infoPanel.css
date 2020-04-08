@@ -42,6 +42,11 @@
 	margin-top: 0;
 }
 
+.mainHeading {
+	line-height: 1rem;
+	margin: 0 0 0.5rem;
+}
+
 .heading {
 	margin: 0;
 }
@@ -62,4 +67,3 @@
 	top: 0.25rem;
 	fill: #3f51b5;
 }
-

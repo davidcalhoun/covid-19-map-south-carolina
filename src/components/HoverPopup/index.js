@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "./hoverPopup.css";
 
+import styles from "./hoverPopup.css";
 import { pluralize, getIntOrdinal } from "../../utils";
 
 export default function HoverPopup({ hoveredFeature, date }) {

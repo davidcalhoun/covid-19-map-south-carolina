@@ -1,7 +1,26 @@
 import React, { useState, useEffect } from "react";
-import styles from "./infoPanel.css";
+import {HTMLOverlay} from 'react-map-gl';
 
+import styles from "./infoPanel.css";
 import { dataSources } from "../../consts";
+
+const InfoIcon = () => {
+	return (
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+			<title>Open</title>
+			<path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z" />
+		</svg>
+	);
+};
+
+const CloseIcon = () => {
+	return (
+		<svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+			<title>Close</title>
+			<path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z" />
+		</svg>
+	);
+};
 
 export default function InfoPanel(props) {
 	const [isOpen, setIsOpen] = useState(false);
@@ -28,19 +47,20 @@ export default function InfoPanel(props) {
 	}
 
 	return (
-		<div className={`${styles.container} ${isOpen && styles.containerOpen}`} onMouseOut={handleMouseOut} onMouseMove={handleMouseEnter}>
-			<svg
+		<div
+			className={`${styles.container} ${isOpen && styles.containerOpen}`}
+			onMouseOut={handleMouseOut}
+			onMouseMove={handleMouseEnter}
+		>
+			<div
 				onClick={toggleIsOpen}
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 512 512"
 				className={styles.infoIcon}
 			>
-				<title>Toggle Info panel</title>
-				<path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z" />
-			</svg>
+				{isOpen ? <CloseIcon/> : <InfoIcon/>}
+			</div>
 			{isOpen && (
 				<div className={styles.innerContainer}>
-					<h2 className={styles.heading}>Info</h2>
+					<h2 className={styles.mainHeading}>Info</h2>
 					<p>
 						Unofficial side project created by{" "}
 						<a

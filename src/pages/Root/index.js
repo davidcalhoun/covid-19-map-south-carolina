@@ -320,7 +320,7 @@ const Root = ({ breakpoint }) => {
 					</Source>
 				)}
 				<Legend quantiles={legendQuantiles} />
-				<InfoPanel onInfoPanelFocusBlur={handleInfoPanelFocusBlur} />
+				<InfoPanel onInfoPanelFocusBlur={handleInfoPanelFocusBlur} captureScroll={isInfoPanelInFocus} />
 			</ReactMapGL>
 			{
 				!isInfoPanelInFocus && <HoverPopup hoveredFeature={hoveredFeature} date={date} />
