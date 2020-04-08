@@ -19,7 +19,7 @@
 	border-color: black;
 }
 
-.innerContainer {
+.scrollContainer {
 	max-height: 60vh;
 	overflow: scroll;
 }
