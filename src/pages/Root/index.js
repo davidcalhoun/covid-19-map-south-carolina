@@ -310,7 +310,6 @@ const Root = ({ breakpoint }) => {
 				onMouseOut={handleMouseOut}
 				minZoom={4}
 				maxZoom={15}
-				scrollZoom={!isInfoPanelInFocus}
 			>
 				<div className={styles.mapNavContainer}>
 					<NavigationControl showCompass={false} />

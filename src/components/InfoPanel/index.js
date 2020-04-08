@@ -37,6 +37,8 @@ export default function InfoPanel(props) {
 
 	function toggleIsOpen() {
 		setIsOpen(!isOpen);
+
+		onInfoPanelFocusBlur(isOpen);
 	}
 
 	function handleMouseEnter() {
@@ -145,6 +147,7 @@ export default function InfoPanel(props) {
 	return (
 		<HTMLOverlay
 			redraw={redraw}
+			captureScroll={isInFocus}
 			captureDrag={isInFocus}
 			captureClick={isInFocus}
 			captureDoubleClick={isInFocus}
