@@ -21,7 +21,7 @@ export default function HoverPopup({ hoveredFeature, date }) {
 
 	let x = rawX;
 	let y = rawY;
-	if (x + 200 > window.innerWidth) {
+	if (x + 160 > window.innerWidth) {
 		// Move popup to the left.
 		if (hasCursor) {
 			x = x - 180;
