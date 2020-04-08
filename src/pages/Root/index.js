@@ -85,6 +85,7 @@ const Root = ({ breakpoint }) => {
 		{ leading: true }
 	);
 	const [isInfoPanelInFocus, setIsInfoPanelInFocus] = useState(false);
+	const [userIsMovingMap, setUserIsMovingMap] = useState(false);
 
 	const { geoJSONFeatures, cases, allCases, geoJSONDate } = data;
 	const { latitude, longitude, zoom } = viewState;
@@ -257,6 +258,8 @@ const Root = ({ breakpoint }) => {
 	}
 
 	function handleHover(event) {
+		if (userIsMovingMap) return;
+
 		const {
 			features,
 			srcEvent: { offsetX, offsetY },
@@ -282,6 +285,14 @@ const Root = ({ breakpoint }) => {
 
 	function handleInfoPanelFocusBlur(isInFocus) {
 		setIsInfoPanelInFocus(isInFocus);
+	}
+
+	function handleInteractionStateChange(interactionState) {
+		const { inTransition, isDragging, isPanning, isRotating, isZooming } = interactionState;
+
+		const userIsMoving = inTransition || isDragging || isPanning || isRotating || isZooming;
+
+		setUserIsMovingMap(userIsMoving);
 	}
 
 	return (
@@ -310,6 +321,7 @@ const Root = ({ breakpoint }) => {
 				onMouseOut={handleMouseOut}
 				minZoom={4}
 				maxZoom={15}
+				onInteractionStateChange={handleInteractionStateChange}
 			>
 				<div className={styles.mapNavContainer}>
 					<NavigationControl showCompass={false} />
