@@ -260,11 +260,12 @@ const Root = ({ breakpoint }) => {
 		const {
 			features,
 			srcEvent: { offsetX, offsetY },
+			pointerType
 		} = event;
 
 		const feature = features && features.find((f) => f.layer.id === "data");
 
-		setHoveredFeature({ feature, x: offsetX, y: offsetY });
+		setHoveredFeature({ pointerType, feature, x: offsetX, y: offsetY });
 	}
 
 	function handleMouseOut() {
