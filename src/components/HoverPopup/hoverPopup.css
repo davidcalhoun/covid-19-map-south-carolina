@@ -5,6 +5,8 @@
 	font-size: 0.9rem;
 	padding: 0.5rem;
 	color: black;
+	border-radius: 3px;
+	border: 1px solid black;
 }
 
 .container p {

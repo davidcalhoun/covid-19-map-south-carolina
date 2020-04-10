@@ -5,7 +5,8 @@ export const casesFiles = [
 	"2020-04-04.json",
 	"2020-04-05.json",
 	"2020-04-06.json",
-	"2020-04-07.json"
+	"2020-04-07.json",
+	"2020-04-08.json"
 ];
 
 export const sliderMarks = [
@@ -30,7 +31,10 @@ export const sliderMarks = [
 	},
 	{
 		value: 98,
-		label: "April 7, 2020"
+	},
+	{
+		value: 99,
+		label: "April 8, 2020"
 	},
 ];
 
@@ -88,6 +92,10 @@ export const dataSources = [
 	{
 		title: "4/7",
 		url: "https://www.scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Counts_and_Estimated_Numbers-04.08.2020.pdf"
+	},
+	{
+		title: "4/8",
+		url: "https://www.scdhec.gov/sites/default/files/media/document/Zip-Code-Counts-Estimated-Numbers-4_9_2020.pdf"
 	}
 ];
 

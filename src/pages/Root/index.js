@@ -34,7 +34,7 @@ import {
 	getMax,
 	flattenCases,
 	fillSequentialArray,
-	computeFeaturesForDate
+	computeFeaturesForDate,
 } from "../../utils";
 import { HoverPopup, InfoPanel, Legend } from "../../components";
 
@@ -51,7 +51,18 @@ const dataLayer = {
 	type: "fill",
 	paint: {
 		"fill-color": ["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
-		"fill-opacity": ["get", "opacity"],
+		"fill-opacity": [
+			"case",
+			["boolean", ["feature-state", "hover"], false],
+			1,
+			["get", "opacity"]
+		],
+		"fill-outline-color": [
+			"case",
+			["boolean", ["feature-state", "hover"], false],
+			"blue",
+			"black",
+		],
 	},
 };
 
@@ -114,7 +125,7 @@ const Root = ({ breakpoint }) => {
 				height: window.innerHeight,
 			}).fitBounds(
 				[
-					[-83.968730, 35.361338],
+					[-83.96873, 35.361338],
 					[-76.384959, 31.402005],
 				],
 				{
@@ -142,7 +153,9 @@ const Root = ({ breakpoint }) => {
 	 * Fetches all GeoJSON for zip codes, as well as cases counts per day and zip code.
 	 */
 	async function fetchAllData() {
-		const casesFilePaths = casesFiles.map(filename => `${dataBasePath}/${filename}`);
+		const casesFilePaths = casesFiles.map(
+			(filename) => `${dataBasePath}/${filename}`
+		);
 
 		const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
 			`${dataBasePath}/${geoJSONFilepath}`,
@@ -202,7 +215,7 @@ const Root = ({ breakpoint }) => {
 			});
 
 			// Updates popup data when year changes while hovering (e.g. keyboard arrow interaction).
-			const userIsHovering = hoveredFeature.feature
+			const userIsHovering = hoveredFeature.feature;
 			if (userIsHovering) {
 				const feature = memoizedFeaturesForDate[date].find(
 					({ properties }) =>
@@ -263,7 +276,7 @@ const Root = ({ breakpoint }) => {
 		const {
 			features,
 			srcEvent: { offsetX, offsetY },
-			pointerType
+			pointerType,
 		} = event;
 
 		const feature = features && features.find((f) => f.layer.id === "data");
@@ -288,9 +301,16 @@ const Root = ({ breakpoint }) => {
 	}
 
 	function handleInteractionStateChange(interactionState) {
-		const { inTransition, isDragging, isPanning, isRotating, isZooming } = interactionState;
+		const {
+			inTransition,
+			isDragging,
+			isPanning,
+			isRotating,
+			isZooming,
+		} = interactionState;
 
-		const userIsMoving = inTransition || isDragging || isPanning || isRotating || isZooming;
+		const userIsMoving =
+			inTransition || isDragging || isPanning || isRotating || isZooming;
 
 		setUserIsMovingMap(userIsMoving);
 	}
@@ -332,11 +352,14 @@ const Root = ({ breakpoint }) => {
 					</Source>
 				)}
 				<Legend quantiles={legendQuantiles} />
-				<InfoPanel onInfoPanelFocusBlur={handleInfoPanelFocusBlur} captureScroll={isInfoPanelInFocus} />
+				<InfoPanel
+					onInfoPanelFocusBlur={handleInfoPanelFocusBlur}
+					captureScroll={isInfoPanelInFocus}
+				/>
 			</ReactMapGL>
-			{
-				!isInfoPanelInFocus && <HoverPopup hoveredFeature={hoveredFeature} date={date} />
-			}
+			{!isInfoPanelInFocus && (
+				<HoverPopup hoveredFeature={hoveredFeature} date={date} />
+			)}
 		</div>
 	);
 };

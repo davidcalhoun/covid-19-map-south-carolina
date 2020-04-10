@@ -1,11 +1,11 @@
 {
   "meta": {
-    "date": 98
+    "date": 99
   },
   "Abbeville": [
     {
       "zip": "29620",
-      "positive": "6"
+      "positive": "7"
     },
     {
       "zip": "29627",
@@ -75,15 +75,15 @@
     },
     {
       "zip": "29164",
-      "positive": "1"
-    },
-    {
-      "zip": "29801",
       "positive": "3"
     },
     {
+      "zip": "29801",
+      "positive": "5"
+    },
+    {
       "zip": "29803",
-      "positive": "7"
+      "positive": "12"
     },
     {
       "zip": "29805",
@@ -99,7 +99,7 @@
     },
     {
       "zip": "29829",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29831",
@@ -171,23 +171,23 @@
     },
     {
       "zip": "29621",
-      "positive": "27"
+      "positive": "28"
     },
     {
       "zip": "29624",
-      "positive": "6"
+      "positive": "7"
     },
     {
       "zip": "29625",
-      "positive": "13"
+      "positive": "16"
     },
     {
       "zip": "29626",
-      "positive": "5"
+      "positive": "6"
     },
     {
       "zip": "29627",
-      "positive": "5"
+      "positive": "7"
     },
     {
       "zip": "29630",
@@ -211,7 +211,7 @@
     },
     {
       "zip": "29655",
-      "positive": "8"
+      "positive": "9"
     },
     {
       "zip": "29657",
@@ -223,7 +223,7 @@
     },
     {
       "zip": "29670",
-      "positive": "1"
+      "positive": "2"
     },
     {
       "zip": "29673",
@@ -239,7 +239,7 @@
     },
     {
       "zip": "29697",
-      "positive": "2"
+      "positive": "3"
     }
   ],
   "Bamberg": [
@@ -283,7 +283,7 @@
   "Barnwell": [
     {
       "zip": "29812",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29817",
@@ -317,15 +317,15 @@
     },
     {
       "zip": "29906",
-      "positive": "19"
+      "positive": "20"
     },
     {
       "zip": "29907",
-      "positive": "11"
+      "positive": "13"
     },
     {
       "zip": "29909",
-      "positive": "7"
+      "positive": "9"
     },
     {
       "zip": "29910",
@@ -337,11 +337,11 @@
     },
     {
       "zip": "29920",
-      "positive": "6"
+      "positive": "8"
     },
     {
       "zip": "29926",
-      "positive": "11"
+      "positive": "13"
     },
     {
       "zip": "29928",
@@ -365,7 +365,7 @@
     },
     {
       "zip": "29945",
-      "positive": "1"
+      "positive": "2"
     }
   ],
   "Berkeley": [
@@ -395,7 +395,7 @@
     },
     {
       "zip": "29445",
-      "positive": "17"
+      "positive": "20"
     },
     {
       "zip": "29450",
@@ -469,7 +469,7 @@
     },
     {
       "zip": "29135",
-      "positive": "3"
+      "positive": "4"
     },
     {
       "zip": "29160",
@@ -499,7 +499,7 @@
     },
     {
       "zip": "29407",
-      "positive": "24"
+      "positive": "25"
     },
     {
       "zip": "29409",
@@ -511,7 +511,7 @@
     },
     {
       "zip": "29412",
-      "positive": "35"
+      "positive": "36"
     },
     {
       "zip": "29414",
@@ -519,7 +519,7 @@
     },
     {
       "zip": "29418",
-      "positive": "14"
+      "positive": "15"
     },
     {
       "zip": "29420",
@@ -531,7 +531,7 @@
     },
     {
       "zip": "29425",
-      "positive": "1"
+      "positive": "2"
     },
     {
       "zip": "29426",
@@ -579,7 +579,7 @@
     },
     {
       "zip": "29464",
-      "positive": "48"
+      "positive": "49"
     },
     {
       "zip": "29466",
@@ -625,7 +625,7 @@
     },
     {
       "zip": "29340",
-      "positive": "2"
+      "positive": "3"
     },
     {
       "zip": "29341",
@@ -647,7 +647,7 @@
   "Chester": [
     {
       "zip": "29014",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29031",
@@ -655,7 +655,7 @@
     },
     {
       "zip": "29055",
-      "positive": "4"
+      "positive": "3"
     },
     {
       "zip": "29704",
@@ -697,7 +697,7 @@
     },
     {
       "zip": "29520",
-      "positive": "6"
+      "positive": "7"
     },
     {
       "zip": "29550",
@@ -739,7 +739,7 @@
   "Clarendon": [
     {
       "zip": "29001",
-      "positive": "3"
+      "positive": "4"
     },
     {
       "zip": "29051",
@@ -751,7 +751,7 @@
     },
     {
       "zip": "29102",
-      "positive": "49"
+      "positive": "51"
     },
     {
       "zip": "29111",
@@ -833,7 +833,7 @@
     },
     {
       "zip": "29488",
-      "positive": "5"
+      "positive": "7"
     },
     {
       "zip": "29493",
@@ -871,11 +871,11 @@
     },
     {
       "zip": "29532",
-      "positive": "4"
+      "positive": "5"
     },
     {
       "zip": "29540",
-      "positive": "4"
+      "positive": "5"
     },
     {
       "zip": "29550",
@@ -893,7 +893,7 @@
     },
     {
       "zip": "29536",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29543",
@@ -932,6 +932,78 @@
       "positive": "0"
     }
   ],
+  "Florence": [
+    {
+      "zip": "29114",
+      "positive": "0"
+    },
+    {
+      "zip": "29161",
+      "positive": "0"
+    },
+    {
+      "zip": "29501",
+      "positive": "21"
+    },
+    {
+      "zip": "29505",
+      "positive": "3"
+    },
+    {
+      "zip": "29506",
+      "positive": "7"
+    },
+    {
+      "zip": "29530",
+      "positive": "0"
+    },
+    {
+      "zip": "29541",
+      "positive": "3"
+    },
+    {
+      "zip": "29554",
+      "positive": "0"
+    },
+    {
+      "zip": "29555",
+      "positive": "0"
+    },
+    {
+      "zip": "29560",
+      "positive": "4"
+    },
+    {
+      "zip": "29583",
+      "positive": "4"
+    },
+    {
+      "zip": "29591",
+      "positive": "2"
+    }
+  ],
+  "Georgetown": [
+    {
+      "zip": "29440",
+      "positive": "7"
+    },
+    {
+      "zip": "29510",
+      "positive": "0"
+    },
+    {
+      "zip": "29554",
+      "positive": "1"
+    },
+    {
+      "zip": "29576",
+      "positive": "3"
+    },
+    {
+      "zip": "29585",
+      "positive": "10"
+    }
+  ],
   "Dorchester": [
     {
       "zip": "29018",
@@ -947,7 +1019,7 @@
     },
     {
       "zip": "29420",
-      "positive": "14"
+      "positive": "16"
     },
     {
       "zip": "29426",
@@ -991,7 +1063,7 @@
     },
     {
       "zip": "29485",
-      "positive": "17"
+      "positive": "18"
     }
   ],
   "Edgefield": [
@@ -1063,7 +1135,7 @@
     },
     {
       "zip": "29055",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29065",
@@ -1078,78 +1150,6 @@
       "positive": "6"
     }
   ],
-  "Florence": [
-    {
-      "zip": "29114",
-      "positive": "0"
-    },
-    {
-      "zip": "29161",
-      "positive": "0"
-    },
-    {
-      "zip": "29501",
-      "positive": "17"
-    },
-    {
-      "zip": "29505",
-      "positive": "3"
-    },
-    {
-      "zip": "29506",
-      "positive": "6"
-    },
-    {
-      "zip": "29530",
-      "positive": "0"
-    },
-    {
-      "zip": "29541",
-      "positive": "3"
-    },
-    {
-      "zip": "29554",
-      "positive": "0"
-    },
-    {
-      "zip": "29555",
-      "positive": "0"
-    },
-    {
-      "zip": "29560",
-      "positive": "3"
-    },
-    {
-      "zip": "29583",
-      "positive": "4"
-    },
-    {
-      "zip": "29591",
-      "positive": "2"
-    }
-  ],
-  "Georgetown": [
-    {
-      "zip": "29440",
-      "positive": "6"
-    },
-    {
-      "zip": "29510",
-      "positive": "0"
-    },
-    {
-      "zip": "29554",
-      "positive": "1"
-    },
-    {
-      "zip": "29576",
-      "positive": "2"
-    },
-    {
-      "zip": "29585",
-      "positive": "10"
-    }
-  ],
   "Greenville": [
     {
       "zip": "29322",
@@ -1161,15 +1161,15 @@
     },
     {
       "zip": "29601",
-      "positive": "7"
+      "positive": "8"
     },
     {
       "zip": "29605",
-      "positive": "18"
+      "positive": "23"
     },
     {
       "zip": "29607",
-      "positive": "13"
+      "positive": "17"
     },
     {
       "zip": "29609",
@@ -1177,11 +1177,11 @@
     },
     {
       "zip": "29611",
-      "positive": "17"
+      "positive": "19"
     },
     {
       "zip": "29615",
-      "positive": "13"
+      "positive": "16"
     },
     {
       "zip": "29617",
@@ -1205,7 +1205,7 @@
     },
     {
       "zip": "29651",
-      "positive": "18"
+      "positive": "21"
     },
     {
       "zip": "29654",
@@ -1217,7 +1217,7 @@
     },
     {
       "zip": "29662",
-      "positive": "7"
+      "positive": "9"
     },
     {
       "zip": "29669",
@@ -1225,15 +1225,15 @@
     },
     {
       "zip": "29673",
-      "positive": "9"
+      "positive": "10"
     },
     {
       "zip": "29680",
-      "positive": "12"
+      "positive": "14"
     },
     {
       "zip": "29681",
-      "positive": "22"
+      "positive": "26"
     },
     {
       "zip": "29683",
@@ -1241,11 +1241,11 @@
     },
     {
       "zip": "29687",
-      "positive": "12"
+      "positive": "14"
     },
     {
       "zip": "29690",
-      "positive": "2"
+      "positive": "4"
     }
   ],
   "Greenwood": [
@@ -1263,7 +1263,7 @@
     },
     {
       "zip": "29649",
-      "positive": "6"
+      "positive": "7"
     },
     {
       "zip": "29653",
@@ -1284,72 +1284,6 @@
     {
       "zip": "29848",
       "positive": "0"
-    }
-  ],
-  "Horry": [
-    {
-      "zip": "29511",
-      "positive": "1"
-    },
-    {
-      "zip": "29526",
-      "positive": "10"
-    },
-    {
-      "zip": "29527",
-      "positive": "14"
-    },
-    {
-      "zip": "29544",
-      "positive": "0"
-    },
-    {
-      "zip": "29545",
-      "positive": "1"
-    },
-    {
-      "zip": "29566",
-      "positive": "6"
-    },
-    {
-      "zip": "29568",
-      "positive": "5"
-    },
-    {
-      "zip": "29569",
-      "positive": "3"
-    },
-    {
-      "zip": "29572",
-      "positive": "1"
-    },
-    {
-      "zip": "29575",
-      "positive": "5"
-    },
-    {
-      "zip": "29576",
-      "positive": "11"
-    },
-    {
-      "zip": "29577",
-      "positive": "12"
-    },
-    {
-      "zip": "29579",
-      "positive": "7"
-    },
-    {
-      "zip": "29581",
-      "positive": "0"
-    },
-    {
-      "zip": "29582",
-      "positive": "2"
-    },
-    {
-      "zip": "29588",
-      "positive": "14"
     }
   ],
   "Hampton": [
@@ -1399,7 +1333,73 @@
     },
     {
       "zip": "29945",
+      "positive": "1"
+    }
+  ],
+  "Horry": [
+    {
+      "zip": "29511",
+      "positive": "1"
+    },
+    {
+      "zip": "29526",
+      "positive": "11"
+    },
+    {
+      "zip": "29527",
+      "positive": "16"
+    },
+    {
+      "zip": "29544",
       "positive": "0"
+    },
+    {
+      "zip": "29545",
+      "positive": "1"
+    },
+    {
+      "zip": "29566",
+      "positive": "7"
+    },
+    {
+      "zip": "29568",
+      "positive": "6"
+    },
+    {
+      "zip": "29569",
+      "positive": "3"
+    },
+    {
+      "zip": "29572",
+      "positive": "1"
+    },
+    {
+      "zip": "29575",
+      "positive": "5"
+    },
+    {
+      "zip": "29576",
+      "positive": "12"
+    },
+    {
+      "zip": "29577",
+      "positive": "13"
+    },
+    {
+      "zip": "29579",
+      "positive": "7"
+    },
+    {
+      "zip": "29581",
+      "positive": "0"
+    },
+    {
+      "zip": "29582",
+      "positive": "2"
+    },
+    {
+      "zip": "29588",
+      "positive": "15"
     }
   ],
   "Jasper": [
@@ -1409,7 +1409,7 @@
     },
     {
       "zip": "29912",
-      "positive": "1"
+      "positive": "0"
     },
     {
       "zip": "29916",
@@ -1455,7 +1455,7 @@
     },
     {
       "zip": "29020",
-      "positive": "91"
+      "positive": "93"
     },
     {
       "zip": "29032",
@@ -1463,7 +1463,7 @@
     },
     {
       "zip": "29045",
-      "positive": "37"
+      "positive": "38"
     },
     {
       "zip": "29058",
@@ -1479,7 +1479,7 @@
     },
     {
       "zip": "29078",
-      "positive": "28"
+      "positive": "29"
     },
     {
       "zip": "29128",
@@ -1517,7 +1517,7 @@
     },
     {
       "zip": "29720",
-      "positive": "27"
+      "positive": "30"
     }
   ],
   "Laurens": [
@@ -1593,7 +1593,7 @@
     },
     {
       "zip": "29010",
-      "positive": "19"
+      "positive": "20"
     },
     {
       "zip": "29020",
@@ -1621,7 +1621,7 @@
     },
     {
       "zip": "29128",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29153",
@@ -1635,7 +1635,7 @@
   "Lexington": [
     {
       "zip": "29006",
-      "positive": "2"
+      "positive": "3"
     },
     {
       "zip": "29033",
@@ -1647,7 +1647,7 @@
     },
     {
       "zip": "29053",
-      "positive": "10"
+      "positive": "12"
     },
     {
       "zip": "29054",
@@ -1655,15 +1655,15 @@
     },
     {
       "zip": "29063",
-      "positive": "12"
+      "positive": "15"
     },
     {
       "zip": "29070",
-      "positive": "7"
+      "positive": "11"
     },
     {
       "zip": "29072",
-      "positive": "24"
+      "positive": "28"
     },
     {
       "zip": "29073",
@@ -1683,11 +1683,11 @@
     },
     {
       "zip": "29160",
-      "positive": "5"
+      "positive": "6"
     },
     {
       "zip": "29169",
-      "positive": "8"
+      "positive": "9"
     },
     {
       "zip": "29170",
@@ -1695,15 +1695,15 @@
     },
     {
       "zip": "29172",
-      "positive": "4"
+      "positive": "5"
     },
     {
       "zip": "29210",
-      "positive": "1"
+      "positive": "3"
     },
     {
       "zip": "29212",
-      "positive": "5"
+      "positive": "6"
     }
   ],
   "Marion": [
@@ -1785,7 +1785,7 @@
     },
     {
       "zip": "29835",
-      "positive": "2"
+      "positive": "3"
     },
     {
       "zip": "29838",
@@ -1819,7 +1819,7 @@
     },
     {
       "zip": "29108",
-      "positive": "4"
+      "positive": "5"
     },
     {
       "zip": "29122",
@@ -1869,7 +1869,7 @@
     },
     {
       "zip": "29672",
-      "positive": "1"
+      "positive": "2"
     },
     {
       "zip": "29676",
@@ -1893,7 +1893,7 @@
     },
     {
       "zip": "29693",
-      "positive": "2"
+      "positive": "3"
     },
     {
       "zip": "29696",
@@ -1911,7 +1911,7 @@
     },
     {
       "zip": "29038",
-      "positive": "2"
+      "positive": "3"
     },
     {
       "zip": "29039",
@@ -1923,7 +1923,7 @@
     },
     {
       "zip": "29048",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29059",
@@ -1935,7 +1935,7 @@
     },
     {
       "zip": "29112",
-      "positive": "4"
+      "positive": "5"
     },
     {
       "zip": "29113",
@@ -1967,7 +1967,7 @@
     },
     {
       "zip": "29146",
-      "positive": "0"
+      "positive": "1"
     },
     {
       "zip": "29160",
@@ -2021,7 +2021,7 @@
     },
     {
       "zip": "29642",
-      "positive": "8"
+      "positive": "9"
     },
     {
       "zip": "29657",
@@ -2055,19 +2055,19 @@
   "Richland": [
     {
       "zip": "29016",
-      "positive": "21"
+      "positive": "25"
     },
     {
       "zip": "29036",
-      "positive": "1"
-    },
-    {
-      "zip": "29044",
       "positive": "2"
     },
     {
+      "zip": "29044",
+      "positive": "4"
+    },
+    {
       "zip": "29045",
-      "positive": "8"
+      "positive": "9"
     },
     {
       "zip": "29052",
@@ -2099,15 +2099,15 @@
     },
     {
       "zip": "29201",
-      "positive": "14"
+      "positive": "18"
     },
     {
       "zip": "29203",
-      "positive": "34"
+      "positive": "38"
     },
     {
       "zip": "29204",
-      "positive": "18"
+      "positive": "23"
     },
     {
       "zip": "29205",
@@ -2127,23 +2127,23 @@
     },
     {
       "zip": "29209",
-      "positive": "22"
+      "positive": "24"
     },
     {
       "zip": "29210",
-      "positive": "19"
+      "positive": "20"
     },
     {
       "zip": "29212",
-      "positive": "11"
+      "positive": "14"
     },
     {
       "zip": "29223",
-      "positive": "62"
+      "positive": "70"
     },
     {
       "zip": "29229",
-      "positive": "35"
+      "positive": "42"
     }
   ],
   "Saluda": [
@@ -2169,11 +2169,11 @@
     },
     {
       "zip": "29129",
-      "positive": "3"
+      "positive": "4"
     },
     {
       "zip": "29138",
-      "positive": "1"
+      "positive": "2"
     },
     {
       "zip": "29166",
@@ -2227,11 +2227,11 @@
     },
     {
       "zip": "29125",
-      "positive": "4"
+      "positive": "6"
     },
     {
       "zip": "29128",
-      "positive": "11"
+      "positive": "12"
     },
     {
       "zip": "29150",
@@ -2243,11 +2243,11 @@
     },
     {
       "zip": "29153",
-      "positive": "20"
+      "positive": "23"
     },
     {
       "zip": "29154",
-      "positive": "27"
+      "positive": "29"
     },
     {
       "zip": "29162",
@@ -2255,13 +2255,13 @@
     },
     {
       "zip": "29168",
-      "positive": "3"
+      "positive": "4"
     }
   ],
   "Spartanburg": [
     {
       "zip": "29301",
-      "positive": "11"
+      "positive": "13"
     },
     {
       "zip": "29302",
@@ -2277,7 +2277,7 @@
     },
     {
       "zip": "29307",
-      "positive": "5"
+      "positive": "7"
     },
     {
       "zip": "29316",
@@ -2289,7 +2289,7 @@
     },
     {
       "zip": "29323",
-      "positive": "8"
+      "positive": "9"
     },
     {
       "zip": "29330",
@@ -2313,7 +2313,7 @@
     },
     {
       "zip": "29349",
-      "positive": "12"
+      "positive": "14"
     },
     {
       "zip": "29356",
@@ -2325,11 +2325,11 @@
     },
     {
       "zip": "29369",
-      "positive": "4"
+      "positive": "5"
     },
     {
       "zip": "29372",
-      "positive": "4"
+      "positive": "5"
     },
     {
       "zip": "29374",
@@ -2345,7 +2345,7 @@
     },
     {
       "zip": "29377",
-      "positive": "1"
+      "positive": "2"
     },
     {
       "zip": "29385",
@@ -2353,7 +2353,7 @@
     },
     {
       "zip": "29388",
-      "positive": "10"
+      "positive": "12"
     },
     {
       "zip": "29650",
@@ -2395,7 +2395,7 @@
     },
     {
       "zip": "29379",
-      "positive": "15"
+      "positive": "18"
     }
   ],
   "Williamsburg": [
@@ -2467,7 +2467,7 @@
     },
     {
       "zip": "29708",
-      "positive": "12"
+      "positive": "14"
     },
     {
       "zip": "29710",
@@ -2491,11 +2491,11 @@
     },
     {
       "zip": "29730",
-      "positive": "19"
+      "positive": "22"
     },
     {
       "zip": "29732",
-      "positive": "32"
+      "positive": "33"
     },
     {
       "zip": "29742",
