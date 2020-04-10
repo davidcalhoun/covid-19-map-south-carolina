@@ -97,6 +97,17 @@ export const dayOfYearToDisplayDate = (dayOfYear) => {
 	return format(date, "LLL d");
 };
 
+export const dayOfYearToLongDisplayDate = (dayOfYear) => {
+	const date = getDateFromDayNum(dayOfYear, 2020);
+	return format(date, "LLL d, yyyy");
+};
+
+
+export const dayOfYearToShortDay = (dayOfYear) => {
+	const date = getDateFromDayNum(dayOfYear, 2020);
+	return format(date, "L/d");
+};
+
 /**
  * Combines static Zip code GeoJSON with case counts by date.
  */
@@ -219,4 +230,20 @@ export const computeFeaturesForDate = (date, casesForDate, allCases, features) =
 			domainMax,
 		},
 	};
+}
+
+
+export const getSliderMarks = (cases) => {
+	const sliderMarks = cases.map(({ dayOfYear }, index) => {
+		const isFirst = index === 0;
+		const isLast = index === (cases.length - 1);
+		const isBoundingDay = isFirst || isLast;
+
+		return {
+			value: dayOfYear,
+			...(isBoundingDay && { label: dayOfYearToLongDisplayDate(dayOfYear) })
+		};
+	});
+
+	return sliderMarks;
 }

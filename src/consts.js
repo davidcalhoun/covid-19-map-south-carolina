@@ -1,45 +1,48 @@
-export const casesFiles = [
-	"2020-03-26.json",
-	"2020-04-02.json",
-	"2020-04-03.json",
-	"2020-04-04.json",
-	"2020-04-05.json",
-	"2020-04-06.json",
-	"2020-04-07.json",
-	"2020-04-08.json"
+export const casesData = [
+	{
+		filename: "2020-03-26.json",
+		dayOfYear: 86,
+		sourceUrl: "https://scdhec.gov/sites/default/files/media/document/Covid-Zip-Code-Analysis-3_27_2020.pdf"
+	},
+	{
+		filename: "2020-04-02.json",
+		dayOfYear: 93,
+		sourceUrl: "https://scdhec.gov/sites/default/files/media/document/Covid%20Zip%20Analysis%204_3_2020%20No%20Estimates_0.pdf"
+	},
+	{
+		filename: "2020-04-03.json",
+		dayOfYear: 94,
+		sourceUrl: "https://scdhec.gov/sites/default/files/media/document/Covid%20Zip%20Code%20Analysis_Public_4_4_20.pdf"
+	},
+	{
+		filename: "2020-04-04.json",
+		dayOfYear: 95,
+		sourceUrl: "https://scdhec.gov/sites/default/files/media/document/Covid-Zip-Code-Analysis-Public-4_5_2020.pdf"
+	},
+	{
+		filename: "2020-04-05.json",
+		dayOfYear: 96,
+		sourceUrl: "https://www.scdhec.gov/sites/default/files/media/document/Zip%20Code%20Counts%20and%20Estimated%20Numbers%20Updated_4_6_2020_0.pdf"
+	},
+	{
+		filename: "2020-04-06.json",
+		dayOfYear: 97,
+		sourceUrl: "https://scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Counts_and_Estimates_Public-04.07.2020.pdf"
+	},
+	{
+		filename: "2020-04-07.json",
+		dayOfYear: 98,
+		sourceUrl: "https://www.scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Counts_and_Estimated_Numbers-04.08.2020.pdf"
+	},
+	{
+		filename: "2020-04-08.json",
+		dayOfYear: 99,
+		sourceUrl: "https://www.scdhec.gov/sites/default/files/media/document/Zip-Code-Counts-Estimated-Numbers-4_9_2020.pdf"
+	}
 ];
 
-export const sliderMarks = [
-	{
-		value: 86,
-		label: "March 26, 2020",
-	},
-	{
-		value: 93,
-	},
-	{
-		value: 94,
-	},
-	{
-		value: 95,
-	},
-	{
-		value: 96,
-	},
-	{
-		value: 97,
-	},
-	{
-		value: 98,
-	},
-	{
-		value: 99,
-		label: "April 8, 2020"
-	},
-];
-
-export const MIN_DATE = sliderMarks[0].value;
-export const MAX_DATE = sliderMarks[sliderMarks.length - 1].value;
+export const MIN_DATE = casesData[0].dayOfYear;
+export const MAX_DATE = casesData[casesData.length - 1].dayOfYear;
 
 export const SITE_NAME = "COVID-19 in South Carolina by Zip Code";
 
@@ -58,46 +61,4 @@ export const BREAKPOINTS = {
 };
 
 export const isProd = !window.location.href.includes("http://localhost");
-
-export const dataSources = [
-	{
-		title: "3/26",
-		url:
-			"https://scdhec.gov/sites/default/files/media/document/Covid-Zip-Code-Analysis-3_27_2020.pdf",
-	},
-	{
-		title: "4/2",
-		url:
-			"https://scdhec.gov/sites/default/files/media/document/Covid%20Zip%20Analysis%204_3_2020%20No%20Estimates_0.pdf",
-	},
-	{
-		title: "4/3",
-		url:
-			"https://scdhec.gov/sites/default/files/media/document/Covid%20Zip%20Code%20Analysis_Public_4_4_20.pdf",
-	},
-	{
-		title: "4/4",
-		url:
-			"https://scdhec.gov/sites/default/files/media/document/Covid-Zip-Code-Analysis-Public-4_5_2020.pdf",
-	},
-	{
-		title: "4/5",
-		url:
-			"https://www.scdhec.gov/sites/default/files/media/document/Zip%20Code%20Counts%20and%20Estimated%20Numbers%20Updated_4_6_2020_0.pdf",
-	},
-	{
-		title: "4/6",
-		url: "https://scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Counts_and_Estimates_Public-04.07.2020.pdf"
-	},
-	{
-		title: "4/7",
-		url: "https://www.scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Counts_and_Estimated_Numbers-04.08.2020.pdf"
-	},
-	{
-		title: "4/8",
-		url: "https://www.scdhec.gov/sites/default/files/media/document/Zip-Code-Counts-Estimated-Numbers-4_9_2020.pdf"
-	}
-];
-
-
 

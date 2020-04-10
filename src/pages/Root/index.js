@@ -19,10 +19,9 @@ import {
 	MAPBOX_TOKEN_DEV,
 	MAPBOX_TOKEN_PROD,
 	isProd,
-	casesFiles,
 	MIN_DATE,
 	MAX_DATE,
-	sliderMarks,
+	casesData
 } from "../../consts";
 import styles from "./root.css";
 import {
@@ -35,6 +34,7 @@ import {
 	flattenCases,
 	fillSequentialArray,
 	computeFeaturesForDate,
+	getSliderMarks
 } from "../../utils";
 import { HoverPopup, InfoPanel, Legend } from "../../components";
 
@@ -153,8 +153,8 @@ const Root = ({ breakpoint }) => {
 	 * Fetches all GeoJSON for zip codes, as well as cases counts per day and zip code.
 	 */
 	async function fetchAllData() {
-		const casesFilePaths = casesFiles.map(
-			(filename) => `${dataBasePath}/${filename}`
+		const casesFilePaths = casesData.map(
+			({filename}) => `${dataBasePath}/${filename}`
 		);
 
 		const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
@@ -322,7 +322,7 @@ const Root = ({ breakpoint }) => {
 					value={date}
 					aria-labelledby="discrete-slider"
 					step={null}
-					marks={sliderMarks}
+					marks={getSliderMarks(casesData)}
 					min={MIN_DATE}
 					max={MAX_DATE}
 					onChange={debouncedHandleDateChange}

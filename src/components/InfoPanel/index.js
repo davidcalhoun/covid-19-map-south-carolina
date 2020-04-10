@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { HTMLOverlay } from "react-map-gl";
 
 import styles from "./infoPanel.css";
-import { dataSources } from "../../consts";
+import { casesData } from "../../consts";
+import { dayOfYearToShortDay } from "../../utils";
 
 const InfoIcon = () => {
 	return (
@@ -95,19 +96,21 @@ export default function InfoPanel(props) {
 								.
 							</p>
 							<h3 className={styles.heading}>Sources</h3>
-							{dataSources.map(({ title, url }, index) => {
-								const isLast = index === dataSources.length - 1;
+							{casesData.map(({ dayOfYear, sourceUrl }, index) => {
+								const shortDay = dayOfYearToShortDay(dayOfYear);
+								const isLast = index === casesData.length - 1;
+
 								return (
 									<span
-										key={url}
+										key={sourceUrl}
 										className={styles.sourceLink}
 									>
 										<a
-											href={url}
+											href={sourceUrl}
 											target="_blank"
 											rel="noopener noreferrer"
 										>
-											{title}
+											{shortDay}
 										</a>
 										{!isLast && `, `}
 									</span>
