@@ -92,7 +92,7 @@ const Root = ({ breakpoint }) => {
 	const prevData = usePrevious(data);
 	const [debouncedHandleDateChange] = useDebouncedCallback(
 		handleDateChange,
-		10,
+		1,
 		{ leading: true }
 	);
 	const [isInfoPanelInFocus, setIsInfoPanelInFocus] = useState(false);
@@ -325,7 +325,7 @@ const Root = ({ breakpoint }) => {
 					marks={getSliderMarks(casesData)}
 					min={MIN_DATE}
 					max={MAX_DATE}
-					onChange={debouncedHandleDateChange}
+					onChange={handleDateChange}
 					valueLabelDisplay="on"
 					valueLabelFormat={dayOfYearToDisplayDate}
 				/>

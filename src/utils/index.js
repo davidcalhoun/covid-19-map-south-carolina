@@ -166,6 +166,7 @@ function findCasesByZip(cases, zipToFind) {
 	return cases[zipToFind];
 }
 
+let cachedScales = {};
 export const computeFeaturesForDate = (date, casesForDate, allCases, features) => {
 	const rangeSize = 15;
 
@@ -176,32 +177,30 @@ export const computeFeaturesForDate = (date, casesForDate, allCases, features) =
 
 		return [...accum, ...domain];
 	}, []);
-
+	
 	const dDomainZeroesRemoved = dDomain.filter((val) => val > 0);
 
 	const domainMax = getMax(dDomainZeroesRemoved);
 
 	const dRange = fillSequentialArray(rangeSize);
 
-	const scale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(dRange);
+	if (!cachedScales.percentile) {
+		cachedScales.percentile = scaleQuantile()
+			.domain(dDomainZeroesRemoved)
+			.range(fillSequentialArray(99));
 
-	const percentileScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(99));
+		cachedScales.red = scaleQuantile()
+			.domain(dDomainZeroesRemoved)
+			.range(fillSequentialArray(255));
 
-	const redScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(255));
+		cachedScales.legend = scaleQuantile()
+			.domain(dDomainZeroesRemoved)
+			.range(fillSequentialArray(100));
 
-	const legendScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(100));
-
-	const opacityScale = scaleQuantile()
-		.domain(dDomainZeroesRemoved)
-		.range(fillSequentialArray(19));
+		cachedScales.opacity = scaleQuantile()
+			.domain(dDomainZeroesRemoved)
+			.range(fillSequentialArray(19));
+	}
 
 	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
 		const { positive, county } =
@@ -214,10 +213,10 @@ export const computeFeaturesForDate = (date, casesForDate, allCases, features) =
 				...zipGeoJSON.properties,
 				county,
 				positiveCases: parseInt(positive),
-				percentile: percentileScale(positive),
-				...(positive ? { red: redScale(positive) } : { red: 0 }),
+				percentile: cachedScales.percentile(positive),
+				...(positive ? { red: cachedScales.red(positive) } : { red: 0 }),
 				...(positive
-					? { opacity: opacityScale(positive) / 20 }
+					? { opacity: cachedScales.opacity(positive) / 20 }
 					: { opacity: 0 }),
 			},
 		};
@@ -226,7 +225,7 @@ export const computeFeaturesForDate = (date, casesForDate, allCases, features) =
 	return {
 		features: newGeoJSONFeatures,
 		legend: {
-			quantiles: legendScale.quantiles(),
+			quantiles: cachedScales.legend.quantiles(),
 			domainMax,
 		},
 	};
