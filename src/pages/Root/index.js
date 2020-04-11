@@ -277,8 +277,6 @@ const Root = ({ breakpoint }) => {
 
 	function handleDateChange(event, date) {
 		setDate(date);
-
-		updateSelfUrl(`/?lat=${latitude}&lng=${longitude}&zoom=${zoom}`);
 	}
 
 	function handleHover(event) {
