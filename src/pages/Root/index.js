@@ -21,7 +21,7 @@ import {
 	isProd,
 	MIN_DATE,
 	MAX_DATE,
-	casesData
+	casesData,
 } from "../../consts";
 import styles from "./root.css";
 import {
@@ -34,7 +34,7 @@ import {
 	flattenCases,
 	fillSequentialArray,
 	computeFeaturesForDate,
-	getSliderMarks
+	getSliderMarks,
 } from "../../utils";
 import { HoverPopup, InfoPanel, Legend } from "../../components";
 
@@ -55,7 +55,7 @@ const dataLayer = {
 			"case",
 			["boolean", ["feature-state", "hover"], false],
 			1,
-			["get", "opacity"]
+			["get", "opacity"],
 		],
 		"fill-outline-color": [
 			"case",
@@ -63,6 +63,17 @@ const dataLayer = {
 			"blue",
 			"black",
 		],
+	},
+};
+
+const extrusionDataLayer = {
+	id: "data",
+	type: "fill-extrusion",
+	paint: {
+		"fill-extrusion-color": ["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
+		"fill-extrusion-height": ["get", "height"],
+		"fill-extrusion-base": 0,
+		"fill-extrusion-opacity": 0.7
 	},
 };
 
@@ -154,7 +165,7 @@ const Root = ({ breakpoint }) => {
 	 */
 	async function fetchAllData() {
 		const casesFilePaths = casesData.map(
-			({filename}) => `${dataBasePath}/${filename}`
+			({ filename }) => `${dataBasePath}/${filename}`
 		);
 
 		const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
@@ -348,6 +359,7 @@ const Root = ({ breakpoint }) => {
 				</div>
 				{geoJSONData.features && (
 					<Source type="geojson" data={geoJSONData}>
+						{/* <Layer {...extrusionDataLayer} /> */}
 						<Layer {...dataLayer} />
 					</Source>
 				)}

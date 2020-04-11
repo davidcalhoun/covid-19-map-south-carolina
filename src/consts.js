@@ -38,6 +38,11 @@ export const casesData = [
 		filename: "2020-04-08.json",
 		dayOfYear: 99,
 		sourceUrl: "https://www.scdhec.gov/sites/default/files/media/document/Zip-Code-Counts-Estimated-Numbers-4_9_2020.pdf"
+	},
+	{
+		filename: "2020-04-09.json",
+		dayOfYear: 100,
+		sourceUrl: "https://www.scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Analysis_Public-04.10.2020.pdf"
 	}
 ];
 

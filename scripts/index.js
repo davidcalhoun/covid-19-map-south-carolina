@@ -1,3 +1,9 @@
+import { fileURLToPath } from 'url';
+import { dirname, normalize } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 import { promises as fs } from "fs";
 
 const { readFile, writeFile } = fs;
@@ -47,7 +53,13 @@ function removePrivateProps(objRaw) {
 }
 
 async function casesToJSON(inputFilename, outputFilename) {
-	const cases = await readFile(inputFilename, "utf8");
+	let cases;
+	try {
+		cases = await readFile(inputFilename, "utf8");
+	} catch(e) {
+		console.error(`Could not find file ${inputFilename}`);
+		return;
+	}
 
 	// Iterates through each line in the file sequentially.
 	const output = cases.split('\n').reduce((accum, line) => {
@@ -105,7 +117,7 @@ function test(data) {
 }
 
 
-const date = '2020-04-08';
+const date = '2020-04-09';
 
-casesToJSON(`../data/${date}.txt`, `../data/${date}.json`);
+casesToJSON(normalize(`${__dirname}/../src/data/${date}.txt`), normalize(`${__dirname}/../src/data/${date}.json`));
 

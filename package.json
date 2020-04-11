@@ -12,7 +12,8 @@
     "start": "webpack-dev-server --hot --mode development",
     "dev": "npm start",
     "test": "jest",
-    "copy-static-dirs": "cp -r src/data src/static dist/covid-19-map-south-carolina"
+    "copy-static-dirs": "cp -r src/data src/static dist/covid-19-map-south-carolina",
+    "data": "node scripts/index.js"
   },
   "repository": {
     "type": "git",

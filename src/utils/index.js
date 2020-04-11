@@ -200,6 +200,10 @@ export const computeFeaturesForDate = (date, casesForDate, allCases, features) =
 		cachedScales.opacity = scaleQuantile()
 			.domain(dDomainZeroesRemoved)
 			.range(fillSequentialArray(19));
+
+		cachedScales.height = scaleQuantile()
+			.domain(dDomainZeroesRemoved)
+			.range(fillSequentialArray(10000));
 	}
 
 	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
@@ -218,6 +222,7 @@ export const computeFeaturesForDate = (date, casesForDate, allCases, features) =
 				...(positive
 					? { opacity: cachedScales.opacity(positive) / 20 }
 					: { opacity: 0 }),
+				height: positive ? cachedScales.height(positive) : 0
 			},
 		};
 	});
