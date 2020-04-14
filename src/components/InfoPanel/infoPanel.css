@@ -9,6 +9,7 @@
 	border: 1px solid transparent;
 	width: 1rem;
 	height: 1rem;
+	box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
 .containerOpen {
