@@ -40,7 +40,8 @@ import { HoverPopup, InfoPanel, Legend } from "../../components";
 
 const MAPBOX_TOKEN = isProd ? MAPBOX_TOKEN_PROD : MAPBOX_TOKEN_DEV;
 const dataBasePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
-const geoJSONFilepath = "sc_south_carolina_zip_codes_geo.lowres.json";
+const geoJSONFilename = "sc_south_carolina_zip_codes_geo.lowres.json";
+const zipMetaFilename = "scZipMeta.json";
 
 function useQuery() {
 	return new URLSearchParams(useLocation().search);
@@ -168,14 +169,16 @@ const Root = ({ breakpoint }) => {
 			({ filename }) => `${dataBasePath}/${filename}`
 		);
 
-		const [zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
-			`${dataBasePath}/${geoJSONFilepath}`,
+		const [zipMeta, zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
+			`${dataBasePath}/${zipMetaFilename}`,
+			`${dataBasePath}/${geoJSONFilename}`,
 			...casesFilePaths
 		);
 
 		setData({
 			...data,
 			geoJSONFeatures: zipCodesGeoJSON.features,
+			zipMeta,
 			cases: flattenCases(casesJSON[0], zipCodesGeoJSON.features),
 			allCases: casesJSON.reduce((all, casesForDate) => {
 				// Sanity check for any case file that already errored above.
@@ -186,7 +189,8 @@ const Root = ({ breakpoint }) => {
 				// Merges zip codes with case counts for date.
 				all[casesForDate.meta.date] = flattenCases(
 					casesForDate,
-					zipCodesGeoJSON.features
+					zipCodesGeoJSON.features,
+					zipMeta
 				);
 
 				return all;

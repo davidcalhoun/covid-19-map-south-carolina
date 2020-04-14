@@ -96,26 +96,41 @@ export default function InfoPanel(props) {
 								.
 							</p>
 							<h3 className={styles.heading}>Sources</h3>
-							{casesData.map(({ dayOfYear, sourceUrl }, index) => {
-								const shortDay = dayOfYearToShortDay(dayOfYear);
-								const isLast = index === casesData.length - 1;
+							{casesData.map(
+								({ dayOfYear, sourceUrl }, index) => {
+									const shortDay = dayOfYearToShortDay(
+										dayOfYear
+									);
+									const isLast =
+										index === casesData.length - 1;
 
-								return (
-									<span
-										key={sourceUrl}
-										className={styles.sourceLink}
-									>
-										<a
-											href={sourceUrl}
-											target="_blank"
-											rel="noopener noreferrer"
+									return (
+										<span
+											key={sourceUrl}
+											className={styles.sourceLink}
 										>
-											{shortDay}
-										</a>
-										{!isLast && `, `}
-									</span>
-								);
-							})}
+											<a
+												href={sourceUrl}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{shortDay}
+											</a>
+											{!isLast && `, `}
+										</span>
+									);
+								}
+							)}
+							<p>
+								Zip code metadata from{" "}
+								<a
+									href="https://simplemaps.com/data/us-zips"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									simplemaps.com
+								</a>
+							</p>
 							<h3 className={styles.heading}>Scale</h3>
 							<p>
 								*Percentile calculated using data domain (all

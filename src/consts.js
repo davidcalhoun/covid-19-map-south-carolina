@@ -43,6 +43,21 @@ export const casesData = [
 		filename: "2020-04-09.json",
 		dayOfYear: 100,
 		sourceUrl: "https://www.scdhec.gov/sites/default/files/media/document/COVID19_Zip_Code_Analysis_Public-04.10.2020.pdf"
+	},
+	{
+		filename: "2020-04-10.json",
+		dayOfYear: 101,
+		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
+	},
+	{
+		filename: "2020-04-11.json",
+		dayOfYear: 102,
+		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
+	},
+	{
+		filename: "2020-04-12.json",
+		dayOfYear: 103,
+		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
 	}
 ];
 

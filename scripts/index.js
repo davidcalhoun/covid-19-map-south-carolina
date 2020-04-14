@@ -112,12 +112,64 @@ async function casesToJSON(inputFilename, outputFilename) {
 }
 
 
-function test(data) {
-	
+async function newCasesToJSON(inputFilename, outputFilename) {
+	let cases;
+	try {
+		cases = await readFile(inputFilename, "utf8");
+	} catch(e) {
+		console.error(`Could not find file ${inputFilename}`);
+		return;
+	}
+
+	// Iterates through each line in the file sequentially.
+	const output = cases.split('\n').reduce((accum, line) => {
+		if (line === 'Zip') {
+			accum._currentSection = 'zip';
+			accum._indeces = [];
+			accum._curIndex = 0;
+		}
+
+		if (line === 'Reported Cases') {
+			accum._currentSection = 'counts';
+			accum._curIndex = 0;
+		}
+
+		// Checks if the current line appears to be a zip code.
+		if (isZipCode(line) && accum._currentSection === 'zip') {
+			accum._indeces[accum._curIndex] = line;
+			accum._curIndex++;
+
+			return accum;
+		}
+
+		// Checks if the current line appears to be a confirmed case count.
+		// Note: this assumes that the confirmed case count list will always appear first.  Subsequent
+		// lists of numbers (e.g. estimated cases, possible cases) will be ignored
+		
+		if (isCaseCount(line) && accum._currentSection === 'counts') {
+			const zipCode = accum._indeces[accum._curIndex];
+
+			if (typeof zipCode === 'undefined') {
+				return accum;
+			}
+
+			accum[zipCode] = line;
+			accum._curIndex++;
+			return accum;
+		}
+
+		return accum;
+	}, {});
+
+	const cleanedOutput = removePrivateProps(output);
+
+
+
+	await writeFile(outputFilename, JSON.stringify(cleanedOutput, null, 2));
 }
 
 
-const date = '2020-04-09';
+const date = '2020-04-12';
 
-casesToJSON(normalize(`${__dirname}/../src/data/${date}.txt`), normalize(`${__dirname}/../src/data/${date}.json`));
+newCasesToJSON(normalize(`${__dirname}/../src/data/${date}.txt`), normalize(`${__dirname}/../src/data/${date}.json`));
 

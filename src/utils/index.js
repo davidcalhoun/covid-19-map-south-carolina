@@ -108,10 +108,7 @@ export const dayOfYearToShortDay = (dayOfYear) => {
 	return format(date, "L/d");
 };
 
-/**
- * Combines static Zip code GeoJSON with case counts by date.
- */
-export const flattenCases = (counties, features) => {
+const flattenByCounty = (counties, features) => {
 	const flattened = Object.entries(counties).reduce(
 		(allZips, [countyName, countyCases]) => {
 			if (countyName === "meta") {
@@ -156,13 +153,52 @@ export const flattenCases = (counties, features) => {
 	);
 
 	return flattened;
+}
+
+const flattenByZip = (zips, features, zipMeta) => {
+	const flattened = Object.entries(zips).reduce((accum, [zip, positive]) => {
+		if (zip === "meta") {
+			return accum;
+		}
+
+		if (!zipMeta[zip]) {
+			console.warn(`Could not find info for zip code ${zip}.`);
+			return accum;
+		}
+
+		const { countyNames, population } = zipMeta[zip];
+
+		accum[zip] = {
+			zip,
+			positive,
+			county: countyNames.length > 1 ? `${countyNames.join(', ')} counties` : `${countyNames[0]} county`,
+			population
+		};
+
+		return accum;
+	}, {});
+
+	console.log(flattened)
+
+	return flattened;
+}
+
+/**
+ * Combines static Zip code GeoJSON with case counts by date.
+ */
+export const flattenCases = (counties, features, zipMeta) => {
+	const isByZip = counties.meta.byZip;
+
+	return isByZip
+		? flattenByZip(counties, features, zipMeta)
+		: flattenByCounty(counties, features);
 };
 
 export const fillSequentialArray = (len) => {
 	return Array.from(new Array(len)).map((val, index) => index + 1);
 };
 
-function findCasesByZip(cases, zipToFind) {
+function findCasesByZip(cases, zipToFind, zipMeta) {
 	return cases[zipToFind];
 }
 
