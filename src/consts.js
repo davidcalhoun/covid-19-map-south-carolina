@@ -58,6 +58,11 @@ export const casesData = [
 		filename: "2020-04-12.json",
 		dayOfYear: 103,
 		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
+	},
+	{
+		filename: "2020-04-13.json",
+		dayOfYear: 104,
+		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
 	}
 ];
 
