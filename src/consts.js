@@ -47,22 +47,22 @@ export const casesData = [
 	{
 		filename: "2020-04-10.json",
 		dayOfYear: 101,
-		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-10.pdf"
 	},
 	{
 		filename: "2020-04-11.json",
 		dayOfYear: 102,
-		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-11.pdf"
 	},
 	{
 		filename: "2020-04-12.json",
 		dayOfYear: 103,
-		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-12.pdf"
 	},
 	{
 		filename: "2020-04-13.json",
 		dayOfYear: 104,
-		sourceUrl: "https://www.scdhec.gov/sc-cases-county-zip-code-covid-19"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-13.pdf"
 	}
 ];
 
