@@ -169,7 +169,7 @@ async function newCasesToJSON(inputFilename, outputFilename) {
 }
 
 
-const date = '2020-04-14';
+const date = '2020-04-15';
 
 newCasesToJSON(normalize(`${__dirname}/../src/data/${date}.txt`), normalize(`${__dirname}/../src/data/${date}.json`));
 
