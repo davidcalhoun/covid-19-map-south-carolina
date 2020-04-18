@@ -1,6 +1,8 @@
 import { fileURLToPath } from 'url';
 import { dirname, normalize } from 'path';
 
+const date = '2020-04-16';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -167,9 +169,6 @@ async function newCasesToJSON(inputFilename, outputFilename) {
 
 	await writeFile(outputFilename, JSON.stringify(cleanedOutput, null, 2));
 }
-
-
-const date = '2020-04-15';
 
 newCasesToJSON(normalize(`${__dirname}/../src/data/${date}.txt`), normalize(`${__dirname}/../src/data/${date}.json`));
 
