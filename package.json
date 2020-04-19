@@ -13,7 +13,8 @@
     "dev": "npm start",
     "test": "jest",
     "copy-static-dirs": "cp -r src/data src/static dist/covid-19-map-south-carolina",
-    "data": "node scripts/index.js"
+    "data": "node scripts/index.js",
+    "bump": "! npm outdated && npm update && npm audit fix || echo 'Package up to date'"
   },
   "repository": {
     "type": "git",
