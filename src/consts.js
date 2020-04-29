@@ -123,6 +123,16 @@ export const casesData = [
 		filename: "2020-04-25.json",
 		dayOfYear: 116,
 		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-25.pdf"
+	},
+	{
+		filename: "2020-04-26.json",
+		dayOfYear: 117,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-26.pdf"
+	},
+	{
+		filename: "2020-04-27.json",
+		dayOfYear: 118,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-27.pdf"
 	}
 ];
 
