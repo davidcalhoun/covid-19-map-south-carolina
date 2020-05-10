@@ -17,6 +17,7 @@ export default function HoverPopup({ hoveredFeature, date }) {
 		county,
 		positiveCases,
 		percentile,
+		perCapita
 	} = feature.properties;
 
 	let x = rawX;
@@ -42,6 +43,8 @@ export default function HoverPopup({ hoveredFeature, date }) {
 
 	const hasCases = Number.isInteger(positiveCases);
 
+	const per10k = Math.ceil(perCapita * 10000);
+
 	return (
 		<div
 			className={styles.container}
@@ -50,14 +53,15 @@ export default function HoverPopup({ hoveredFeature, date }) {
 				top: y + 20,
 			}}
 		>
-			<p className={styles.cases}>
+			<p className={styles.detail}>
 				{hasCases
 					? <span><span className={styles.casesValue}>{positiveCases}</span> {pluralize(positiveCases, 'case')}</span>
 					: "No data"}
 			</p>
-			<p className={styles.zip}>{zip} {county && <span className={styles.county}>({county} County)</span>}</p>
+			<p className={styles.detail}>{zip} {county && <span className={styles.county}>({county} County)</span>}</p>
+			<p className={styles.detail}>{per10k} {pluralize(per10k, 'case')} per 10k people</p>
 			{hasCases && (
-				<p className={styles.percentile}>
+				<p className={styles.detail}>
 					{percentile}{getIntOrdinal(percentile)} percentile*
 				</p>
 			)}

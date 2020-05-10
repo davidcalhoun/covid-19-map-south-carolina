@@ -40,7 +40,7 @@ export const getIntOrdinal = (integer) => {
 	}
 };
 
-export const fetchJSON = async function(url) {
+export const fetchJSON = async function (url) {
 	let rawJSON;
 	let json;
 	try {
@@ -59,7 +59,7 @@ export const fetchJSON = async function(url) {
 	return json;
 };
 
-export const fetchMultipleJSON = async function(...urls) {
+export const fetchMultipleJSON = async function (...urls) {
 	return Promise.all(urls.map(fetchJSON));
 };
 
@@ -92,6 +92,11 @@ export const getDateFromDayNum = (dayNum, year) => {
 	return date;
 };
 
+export const dayOfYearToDate = (dayOfYear) => {
+	const date = getDateFromDayNum(dayOfYear, 2020);
+	return format(date, "yyyy-MM-dd");
+};
+
 export const dayOfYearToDisplayDate = (dayOfYear) => {
 	const date = getDateFromDayNum(dayOfYear, 2020);
 	return format(date, "LLL d");
@@ -102,163 +107,196 @@ export const dayOfYearToLongDisplayDate = (dayOfYear) => {
 	return format(date, "LLL d, yyyy");
 };
 
-
 export const dayOfYearToShortDay = (dayOfYear) => {
 	const date = getDateFromDayNum(dayOfYear, 2020);
 	return format(date, "L/d");
 };
 
-const flattenByCounty = (counties, features) => {
-	const flattened = Object.entries(counties).reduce(
-		(allZips, [countyName, countyCases]) => {
-			if (countyName === "meta") {
-				allZips.meta = countyCases;
-				return allZips;
-			}
-
-			const zipsInCounty = countyCases.reduce((accum2, curCase) => {
-				accum2[curCase.zip] = {
-					...curCase,
-					county: countyName,
-				};
-
-				return accum2;
-			}, {});
-
-			const all = Object.values(zipsInCounty).reduce((zips, zipObj) => {
-				const { zip, positive, county } = zipObj;
-
-				if (zips[zip]) {
-					return {
-						...zips,
-						[zip]: {
-							...zips[zip],
-							county: `${zips[zip].county}, ${county}`,
-							positive:
-								parseInt(zips[zip].positive) +
-								parseInt(positive),
-						},
-					};
-				} else {
-					return {
-						...zips,
-						[zip]: zipObj,
-					};
-				}
-			}, allZips);
-
-			return all;
-		},
-		{}
-	);
-
-	return flattened;
-}
-
-const flattenByZip = (zips, features, zipMeta) => {
-	const flattened = Object.entries(zips).reduce((accum, [zip, positive]) => {
-		if (zip === "meta") {
-			return accum;
-		}
-
-		if (!zipMeta[zip]) {
-			console.warn(`Could not find info for zip code ${zip}.`);
-			return accum;
-		}
-
-		const { countyNames, population } = zipMeta[zip];
-
-		accum[zip] = {
-			zip,
-			positive,
-			county: countyNames.length > 1 ? `${countyNames.join(', ')} counties` : `${countyNames[0]} county`,
-			population
-		};
-
-		return accum;
-	}, {});
-
-	console.log(flattened)
-
-	return flattened;
-}
-
-/**
- * Combines static Zip code GeoJSON with case counts by date.
- */
-export const flattenCases = (counties, features, zipMeta) => {
-	const isByZip = counties.meta.byZip;
-
-	return isByZip
-		? flattenByZip(counties, features, zipMeta)
-		: flattenByCounty(counties, features);
-};
+// const flattenByCounty = (counties, features) => {
+// 	const flattened = Object.entries(counties).reduce(
+// 		(allZips, [countyName, countyCases]) => {
+// 			if (countyName === "meta") {
+// 				allZips.meta = countyCases;
+// 				return allZips;
+// 			}
+//
+// 			const zipsInCounty = countyCases.reduce((accum2, curCase) => {
+// 				accum2[curCase.zip] = {
+// 					...curCase,
+// 					county: countyName,
+// 				};
+//
+// 				return accum2;
+// 			}, {});
+//
+// 			const all = Object.values(zipsInCounty).reduce((zips, zipObj) => {
+// 				const { zip, positive, county } = zipObj;
+//
+// 				if (zips[zip]) {
+// 					return {
+// 						...zips,
+// 						[zip]: {
+// 							...zips[zip],
+// 							county: `${zips[zip].county}, ${county}`,
+// 							positive:
+// 								parseInt(zips[zip].positive) +
+// 								parseInt(positive),
+// 						},
+// 					};
+// 				} else {
+// 					return {
+// 						...zips,
+// 						[zip]: zipObj,
+// 					};
+// 				}
+// 			}, allZips);
+//
+// 			return all;
+// 		},
+// 		{}
+// 	);
+//
+// 	return flattened;
+// }
+//
+// const flattenByZip = (zips, features, zipMeta) => {
+// 	const flattened = Object.entries(zips).reduce((accum, [zip, positive]) => {
+// 		if (zip === "meta") {
+// 			return accum;
+// 		}
+//
+// 		if (!zipMeta[zip]) {
+// 			console.warn(`Could not find info for zip code ${zip}.`);
+// 			return accum;
+// 		}
+//
+// 		const { countyNames, population } = zipMeta[zip];
+//
+// 		accum[zip] = {
+// 			zip,
+// 			positive,
+// 			county: countyNames.length > 1 ? `${countyNames.join(', ')} counties` : `${countyNames[0]} county`,
+// 			population
+// 		};
+//
+// 		return accum;
+// 	}, {});
+//
+// 	console.log(flattened)
+//
+// 	return flattened;
+// }
+//
+// /**
+//  * Combines static Zip code GeoJSON with case counts by date.
+//  */
+// export const flattenCases = (counties, features, zipMeta) => {
+// 	const isByZip = counties.meta.byZip;
+//
+// 	return isByZip
+// 		? flattenByZip(counties, features, zipMeta)
+// 		: flattenByCounty(counties, features);
+// };
 
 export const fillSequentialArray = (len) => {
 	return Array.from(new Array(len)).map((val, index) => index + 1);
 };
 
-function findCasesByZip(cases, zipToFind, zipMeta) {
-	return cases[zipToFind];
+function getDomain(zipCodes, isPerCapita) {
+	if (isPerCapita) {
+		return Object.entries(zipCodes).reduce((domain, [zip, zipObj]) => {
+			if (zip === "meta") {
+				return domain;
+			}
+
+			const cases = zipObj.cases.map((c) => {
+				return (c / parseInt(zipObj.population)) * 10000;
+			});
+
+			return [...domain, ...cases];
+		}, []);
+	} else {
+		return Object.entries(zipCodes).reduce((domain, [zip, zipObj]) => {
+			if (zip === "meta") {
+				return domain;
+			}
+
+			return [...domain, ...zipObj.cases];
+		}, []);
+	}
 }
 
 let cachedScales = {};
-export const computeFeaturesForDate = (date, casesForDate, allCases, features) => {
+export const computeFeaturesForDate = (
+	dayOfYear,
+	zipCodes,
+	features,
+	isPerCapita
+) => {
 	const rangeSize = 15;
 
-	const dDomain = Object.values(allCases).reduce((accum, casesForDate) => {
-		const domain = Object.values(casesForDate).map(({ positive }) =>
-			parseInt(positive)
-		);
+	const date = dayOfYearToDate(dayOfYear);
 
-		return [...accum, ...domain];
-	}, []);
-	
+	const dateIndex = zipCodes.meta.dates.indexOf(date);
+
+	const dDomain = getDomain(zipCodes, isPerCapita);
+
 	const dDomainZeroesRemoved = dDomain.filter((val) => val > 0);
 
 	const domainMax = getMax(dDomainZeroesRemoved);
 
-	const dRange = fillSequentialArray(rangeSize);
+	//const dRange = fillSequentialArray(rangeSize);
 
-	if (!cachedScales.percentile) {
-		cachedScales.percentile = scaleQuantile()
+	const cacheKey = isPerCapita
+		? "percentilePerCapita"
+		: "percentileTotalCases";
+	if (!cachedScales[cacheKey]) {
+		cachedScales[cacheKey] = {};
+		cachedScales[cacheKey].percentile = scaleQuantile()
 			.domain(dDomainZeroesRemoved)
 			.range(fillSequentialArray(99));
 
-		cachedScales.red = scaleQuantile()
+		cachedScales[cacheKey].red = scaleQuantile()
 			.domain(dDomainZeroesRemoved)
 			.range(fillSequentialArray(255));
 
-		cachedScales.legend = scaleQuantile()
+		cachedScales[cacheKey].legend = scaleQuantile()
 			.domain(dDomainZeroesRemoved)
 			.range(fillSequentialArray(100));
 
-		cachedScales.opacity = scaleQuantile()
+		cachedScales[cacheKey].opacity = scaleQuantile()
 			.domain(dDomainZeroesRemoved)
 			.range(fillSequentialArray(19));
 
-		// cachedScales.height = scaleQuantile()
+		// cachedScales[cacheKey].height = scaleQuantile()
 		// 	.domain(dDomainZeroesRemoved)
 		// 	.range(fillSequentialArray(10000));
 	}
 
 	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
-		const { positive, county } =
-			findCasesByZip(casesForDate, zipGeoJSON.properties["ZCTA5CE10"]) ||
-			{};
+		const zipCode = zipGeoJSON.properties["ZCTA5CE10"];
+
+		const perCapita = zipCodes[zipCode].cases[dateIndex] / parseInt(zipCodes[zipCode].population);
+
+		const val = isPerCapita
+			? perCapita
+			: zipCodes[zipCode].cases[dateIndex];
 
 		return {
 			...zipGeoJSON,
 			properties: {
 				...zipGeoJSON.properties,
-				county,
-				positiveCases: parseInt(positive),
-				percentile: cachedScales.percentile(positive),
-				...(positive ? { red: cachedScales.red(positive) } : { red: 0 }),
-				...(positive
-					? { opacity: cachedScales.opacity(positive) / 20 }
+				county: zipCodes[zipCode].countyNames.join(", "),
+				positiveCases: zipCodes[zipCode].cases[dateIndex],
+				perCapita,
+				percentile: cachedScales[cacheKey].percentile(val),
+				...(val
+					? { red: cachedScales[cacheKey].red(val) }
+					: { red: 0 }),
+				...(val
+					? { opacity: cachedScales[cacheKey].opacity(val) / 20 }
 					: { opacity: 0 }),
-				// height: positive ? cachedScales.height(positive) : 0
+				// height: positive ? cachedScales[cacheKey].height(positive) : 0
 			},
 		};
 	});
@@ -266,24 +304,25 @@ export const computeFeaturesForDate = (date, casesForDate, allCases, features) =
 	return {
 		features: newGeoJSONFeatures,
 		legend: {
-			quantiles: cachedScales.legend.quantiles(),
+			quantiles: cachedScales[cacheKey].legend.quantiles(),
 			domainMax,
 		},
 	};
-}
-
+};
 
 export const getSliderMarks = (cases) => {
 	const sliderMarks = cases.map(({ dayOfYear }, index) => {
 		const isFirst = index === 0;
-		const isLast = index === (cases.length - 1);
+		const isLast = index === cases.length - 1;
 		const isBoundingDay = isFirst || isLast;
 
 		return {
 			value: dayOfYear,
-			...(isBoundingDay && { label: dayOfYearToLongDisplayDate(dayOfYear) })
+			...(isBoundingDay && {
+				label: dayOfYearToLongDisplayDate(dayOfYear),
+			}),
 		};
 	});
 
 	return sliderMarks;
-}
+};

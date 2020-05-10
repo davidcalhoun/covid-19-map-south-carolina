@@ -13,10 +13,7 @@
 	margin: 0;
 }
 
-.county,
-.percentile,
-.cases,
-.zip {
+.detail {
 	color: #555;
 	font-size: 0.7rem;
 }

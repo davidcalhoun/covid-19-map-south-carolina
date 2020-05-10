@@ -47,117 +47,147 @@ export const casesData = [
 	{
 		filename: "2020-04-10.json",
 		dayOfYear: 101,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-10.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-10.pdf"
 	},
 	{
 		filename: "2020-04-11.json",
 		dayOfYear: 102,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-11.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-11.pdf"
 	},
 	{
 		filename: "2020-04-12.json",
 		dayOfYear: 103,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-12.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-12.pdf"
 	},
 	{
 		filename: "2020-04-13.json",
 		dayOfYear: 104,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-13.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-13.pdf"
 	},
 	{
 		filename: "2020-04-14.json",
 		dayOfYear: 105,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-14.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-14.pdf"
 	},
 	{
 		filename: "2020-04-15.json",
 		dayOfYear: 106,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-15.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-15.pdf"
 	},
 	{
 		filename: "2020-04-16.json",
 		dayOfYear: 107,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-16.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-16.pdf"
 	},
 	{
 		filename: "2020-04-17.json",
 		dayOfYear: 108,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-17.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-17.pdf"
 	},
 	{
 		filename: "2020-04-18.json",
 		dayOfYear: 109,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-18.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-18.pdf"
 	},
 	{
 		filename: "2020-04-19.json",
 		dayOfYear: 110,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-19.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-19.pdf"
 	},
 	{
 		filename: "2020-04-20.json",
 		dayOfYear: 111,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-20.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-20.pdf"
 	},
 	{
 		filename: "2020-04-21.json",
 		dayOfYear: 112,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-21.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-21.pdf"
 	},
 	{
 		filename: "2020-04-22.json",
 		dayOfYear: 113,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-22.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-22.pdf"
 	},
 	{
 		filename: "2020-04-23.json",
 		dayOfYear: 114,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-23.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-23.pdf"
 	},
 	{
 		filename: "2020-04-24.json",
 		dayOfYear: 115,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-24.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-24.pdf"
 	},
 	{
 		filename: "2020-04-25.json",
 		dayOfYear: 116,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-25.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-25.pdf"
 	},
 	{
 		filename: "2020-04-26.json",
 		dayOfYear: 117,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-26.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-26.pdf"
 	},
 	{
 		filename: "2020-04-27.json",
 		dayOfYear: 118,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-27.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-27.pdf"
 	},
 	{
 		filename: "2020-04-28.json",
 		dayOfYear: 119,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-28.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-28.pdf"
 	},
 	{
 		filename: "2020-04-29.json",
 		dayOfYear: 120,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-29.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-29.pdf"
 	},
 	{
 		filename: "2020-04-30.json",
 		dayOfYear: 121,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-04-30.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-04-30.pdf"
 	},
 	{
 		filename: "2020-05-01.json",
 		dayOfYear: 122,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-05-01.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-01.pdf"
 	},
 	{
 		filename: "2020-05-02.json",
 		dayOfYear: 123,
-		sourceUrl: "https://github.com/davidcalhoun/covid-19-map-south-carolina/blob/master/src/data/2020-05-02.pdf"
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-02.pdf"
+	},
+	{
+		filename: "2020-05-03.json",
+		dayOfYear: 124,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-03.pdf"
+	},
+	{
+		filename: "2020-05-04.json",
+		dayOfYear: 125,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-04.pdf"
+	},
+	{
+		filename: "2020-05-05.json",
+		dayOfYear: 126,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-05.pdf"
+	},
+	{
+		filename: "2020-05-06.json",
+		dayOfYear: 127,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-06.pdf"
+	},
+	{
+		filename: "2020-05-07.json",
+		dayOfYear: 128,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-07.pdf"
+	},
+	{
+		filename: "2020-05-08.json",
+		dayOfYear: 129,
+		sourceUrl: "https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-08.pdf"
 	}
 ];
 

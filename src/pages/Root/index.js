@@ -12,6 +12,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { useDebouncedCallback } from "use-debounce";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 import { getDateFromDayNum, dayOfYearToDisplayDate } from "../../utils";
 
 import {
@@ -41,7 +44,7 @@ import { HoverPopup, InfoPanel, Legend } from "../../components";
 const MAPBOX_TOKEN = isProd ? MAPBOX_TOKEN_PROD : MAPBOX_TOKEN_DEV;
 const dataBasePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
 const geoJSONFilename = "sc_south_carolina_zip_codes_geo.lowres.json";
-const zipMetaFilename = "scZipMeta.json";
+const zipMetaFilename = "casesMerged.json";
 
 function useQuery() {
 	return new URLSearchParams(useLocation().search);
@@ -71,10 +74,16 @@ const extrusionDataLayer = {
 	id: "data",
 	type: "fill-extrusion",
 	paint: {
-		"fill-extrusion-color": ["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
+		"fill-extrusion-color": [
+			"rgba",
+			["get", "red"],
+			0,
+			0,
+			["get", "opacity"],
+		],
 		"fill-extrusion-height": ["get", "height"],
 		"fill-extrusion-base": 0,
-		"fill-extrusion-opacity": 0.7
+		"fill-extrusion-opacity": 0.7,
 	},
 };
 
@@ -92,8 +101,7 @@ const Root = ({ breakpoint }) => {
 	});
 	let [data, setData] = useState({
 		geoJSONFeatures: [],
-		cases: null,
-		allCases: [],
+		zipCodes: null,
 		geoJSONDate: null,
 	});
 	const [date, setDate] = useState(MIN_DATE);
@@ -102,15 +110,12 @@ const Root = ({ breakpoint }) => {
 	let query = useQuery();
 	const [debouncedUpdateSelfUrl] = useDebouncedCallback(updateSelfUrl, 50);
 	const prevData = usePrevious(data);
-	const [debouncedHandleDateChange] = useDebouncedCallback(
-		handleDateChange,
-		1,
-		{ leading: true }
-	);
 	const [isInfoPanelInFocus, setIsInfoPanelInFocus] = useState(false);
 	const [userIsMovingMap, setUserIsMovingMap] = useState(false);
+	const [isPerCapita, setIsPerCapita] = useState(false);
+	const prevIsPerCapita = usePrevious(isPerCapita);
 
-	const { geoJSONFeatures, cases, allCases, geoJSONDate } = data;
+	const { geoJSONFeatures, zipCodes, geoJSONDate } = data;
 	const { latitude, longitude, zoom } = viewState;
 
 	function init() {
@@ -162,39 +167,22 @@ const Root = ({ breakpoint }) => {
 	useEffect(init, []);
 
 	/**
-	 * Fetches all GeoJSON for zip codes, as well as cases counts per day and zip code.
+	 * Fetches all GeoJSON for zip codes, as well as case counts per day and zip code.
 	 */
 	async function fetchAllData() {
-		const casesFilePaths = casesData.map(
-			({ filename }) => `${dataBasePath}/${filename}`
-		);
-
-		const [zipMeta, zipCodesGeoJSON, ...casesJSON] = await fetchMultipleJSON(
+		const [
+			zipCodes,
+			zipCodesGeoJSON,
+			...casesJSON
+		] = await fetchMultipleJSON(
 			`${dataBasePath}/${zipMetaFilename}`,
-			`${dataBasePath}/${geoJSONFilename}`,
-			...casesFilePaths
+			`${dataBasePath}/${geoJSONFilename}`
 		);
 
 		setData({
 			...data,
 			geoJSONFeatures: zipCodesGeoJSON.features,
-			zipMeta,
-			cases: flattenCases(casesJSON[0], zipCodesGeoJSON.features),
-			allCases: casesJSON.reduce((all, casesForDate) => {
-				// Sanity check for any case file that already errored above.
-				if (!casesForDate.meta) {
-					return all;
-				}
-
-				// Merges zip codes with case counts for date.
-				all[casesForDate.meta.date] = flattenCases(
-					casesForDate,
-					zipCodesGeoJSON.features,
-					zipMeta
-				);
-
-				return all;
-			}, {}),
+			zipCodes,
 		});
 
 		setDate(MIN_DATE);
@@ -202,19 +190,22 @@ const Root = ({ breakpoint }) => {
 
 	// Update data in response to date changes.
 	useEffect(() => {
-		const needsInitialization = (!prevData || !prevData.cases) && cases;
-		const casesChanged = cases && geoJSONDate && geoJSONDate !== date;
+		const needsInitialization =
+			(!prevData || !prevData.zipCodes) && zipCodes;
+		const casesChanged = zipCodes && geoJSONDate && geoJSONDate !== date;
+		const perCapitaChanged = prevIsPerCapita !== isPerCapita;
 
-		if (needsInitialization || casesChanged) {
+		if (needsInitialization || casesChanged || (perCapitaChanged && zipCodes)) {
 			// Performs initial calculation if memoized value isn't found.
-			if (!memoizedFeaturesForDate[date]) {
+			if (!memoizedFeaturesForDate[date] || !memoizedFeaturesForDate[date][isPerCapita]) {
 				const { features, legend } = computeFeaturesForDate(
 					date,
-					cases,
-					allCases,
-					geoJSONFeatures
+					zipCodes,
+					geoJSONFeatures,
+					isPerCapita
 				);
-				memoizedFeaturesForDate[date] = features;
+				memoizedFeaturesForDate[date] = memoizedFeaturesForDate[date] || {};
+				memoizedFeaturesForDate[date][isPerCapita] = features;
 
 				// Initialize legend quantiles if needed.
 				if (!legendQuantiles.domainMax) {
@@ -225,14 +216,14 @@ const Root = ({ breakpoint }) => {
 
 			setData({
 				...data,
-				geoJSONFeatures: memoizedFeaturesForDate[date],
+				geoJSONFeatures: memoizedFeaturesForDate[date][isPerCapita],
 				geoJSONDate: date,
 			});
 
 			// Updates popup data when year changes while hovering (e.g. keyboard arrow interaction).
 			const userIsHovering = hoveredFeature.feature;
 			if (userIsHovering) {
-				const feature = memoizedFeaturesForDate[date].find(
+				const feature = memoizedFeaturesForDate[date][isPerCapita].find(
 					({ properties }) =>
 						properties["ZCTA5CE10"] ===
 						hoveredFeature.feature.properties["ZCTA5CE10"]
@@ -249,26 +240,7 @@ const Root = ({ breakpoint }) => {
 				});
 			}
 		}
-	}, [data]);
-
-	useEffect(() => {
-		if (!allCases) return;
-
-		const casesForDate = allCases[date];
-
-		if (!casesForDate) {
-			console.warn(
-				`Could not find cases for day of year ${date}.`,
-				allCases
-			);
-			return;
-		}
-
-		setData({
-			...data,
-			cases: casesForDate,
-		});
-	}, [date]);
+	}, [data, date, isPerCapita]);
 
 	function updateSelfUrl(newUrl) {
 		history.replace(newUrl);
@@ -295,6 +267,10 @@ const Root = ({ breakpoint }) => {
 		const feature = features && features.find((f) => f.layer.id === "data");
 
 		setHoveredFeature({ pointerType, feature, x: offsetX, y: offsetY });
+	}
+
+	function handlePerCapitaChange() {
+		setIsPerCapita(!isPerCapita);
 	}
 
 	function handleMouseOut() {
@@ -343,6 +319,17 @@ const Root = ({ breakpoint }) => {
 					valueLabelFormat={dayOfYearToDisplayDate}
 				/>
 			</div>
+			{/* <FormControlLabel */}
+			{/* 	control={ */}
+			{/* 		<Checkbox */}
+			{/* 			checked={isPerCapita} */}
+			{/* 			onChange={handlePerCapitaChange} */}
+			{/* 			name="checkedB" */}
+			{/* 			color="primary" */}
+			{/* 		/> */}
+			{/* 	} */}
+			{/* 	label="Per Capita" */}
+			{/* /> */}
 			<ReactMapGL
 				{...viewState}
 				width="100%"
