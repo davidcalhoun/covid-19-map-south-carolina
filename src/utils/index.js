@@ -92,11 +92,6 @@ export const getDateFromDayNum = (dayNum, year) => {
 	return date;
 };
 
-export const dayOfYearToDate = (dayOfYear) => {
-	const date = getDateFromDayNum(dayOfYear, 2020);
-	return format(date, "yyyy-MM-dd");
-};
-
 export const dayOfYearToDisplayDate = (dayOfYear) => {
 	const date = getDateFromDayNum(dayOfYear, 2020);
 	return format(date, "LLL d");
@@ -110,6 +105,15 @@ export const dayOfYearToLongDisplayDate = (dayOfYear) => {
 export const dayOfYearToShortDay = (dayOfYear) => {
 	const date = getDateFromDayNum(dayOfYear, 2020);
 	return format(date, "L/d");
+};
+
+export const formatDay = (date = new Date()) => {
+	return format(date, "yyyy-MM-dd");
+}
+
+export const dayOfYearToDate = (dayOfYear) => {
+	const date = getDateFromDayNum(dayOfYear, 2020);
+	return formatDay(date);
 };
 
 // const flattenByCounty = (counties, features) => {
@@ -326,3 +330,24 @@ export const getSliderMarks = (cases) => {
 
 	return sliderMarks;
 };
+
+/* https://overreacted.io/making-setinterval-declarative-with-react-hooks/ */
+export function useInterval(callback, delay) {
+	const savedCallback = useRef();
+
+	// Remember the latest callback.
+	useEffect(() => {
+		savedCallback.current = callback;
+	}, [callback]);
+
+	// Set up the interval.
+	useEffect(() => {
+		function tick() {
+			savedCallback.current();
+		}
+		if (delay !== null) {
+			let id = setInterval(tick, delay);
+			return () => clearInterval(id);
+		}
+	}, [delay]);
+}

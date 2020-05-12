@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import styles from "./hoverPopup.css";
 import { pluralize, getIntOrdinal } from "../../utils";
@@ -59,11 +59,13 @@ export default function HoverPopup({ hoveredFeature, date }) {
 					: "No data"}
 			</p>
 			<p className={styles.detail}>{zip} {county && <span className={styles.county}>({county} County)</span>}</p>
-			<p className={styles.detail}>{per10k} {pluralize(per10k, 'case')} per 10k people</p>
 			{hasCases && (
+				<Fragment>
+				<p className={styles.detail}>{per10k} {pluralize(per10k, 'case')} per 10k people</p>
 				<p className={styles.detail}>
 					{percentile}{getIntOrdinal(percentile)} percentile*
 				</p>
+				</Fragment>
 			)}
 		</div>
 	);

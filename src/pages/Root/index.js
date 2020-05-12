@@ -15,7 +15,7 @@ import { useDebouncedCallback } from "use-debounce";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { getDateFromDayNum, dayOfYearToDisplayDate } from "../../utils";
+import { getDateFromDayNum, dayOfYearToDisplayDate, formatDay } from "../../utils";
 
 import {
 	SITE_NAME,
@@ -25,6 +25,7 @@ import {
 	MIN_DATE,
 	MAX_DATE,
 	casesData,
+	southCarolinaGeoJSON
 } from "../../consts";
 import styles from "./root.css";
 import {
@@ -39,7 +40,7 @@ import {
 	computeFeaturesForDate,
 	getSliderMarks,
 } from "../../utils";
-import { HoverPopup, InfoPanel, Legend } from "../../components";
+import { HoverPopup, InfoPanel, Legend, PlaceholderGeoJSON } from "../../components";
 
 const MAPBOX_TOKEN = isProd ? MAPBOX_TOKEN_PROD : MAPBOX_TOKEN_DEV;
 const dataBasePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
@@ -119,7 +120,7 @@ const Root = ({ breakpoint }) => {
 	const { latitude, longitude, zoom } = viewState;
 
 	function init() {
-		fetchAllData();
+		//fetchAllData();
 
 		document.title = SITE_NAME;
 
@@ -170,12 +171,15 @@ const Root = ({ breakpoint }) => {
 	 * Fetches all GeoJSON for zip codes, as well as case counts per day and zip code.
 	 */
 	async function fetchAllData() {
+		// Daily updates daily, so bust the cache daily.
+		const cacheBust = formatDay();
+
 		const [
 			zipCodes,
 			zipCodesGeoJSON,
 			...casesJSON
 		] = await fetchMultipleJSON(
-			`${dataBasePath}/${zipMetaFilename}`,
+			`${dataBasePath}/${zipMetaFilename}?${cacheBust}`,
 			`${dataBasePath}/${geoJSONFilename}`
 		);
 
@@ -304,6 +308,11 @@ const Root = ({ breakpoint }) => {
 		setUserIsMovingMap(userIsMoving);
 	}
 
+	function handleLoad() {
+		console.log(222, 'loaded')
+		fetchAllData();
+	}
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.dateSliderContainer}>
@@ -342,10 +351,12 @@ const Root = ({ breakpoint }) => {
 				minZoom={4}
 				maxZoom={15}
 				onInteractionStateChange={handleInteractionStateChange}
+				onLoad={handleLoad}
 			>
 				<div className={styles.mapNavContainer}>
 					<NavigationControl showCompass={false} />
 				</div>
+
 				{geoJSONData.features && (
 					<Source type="geojson" data={geoJSONData}>
 						{/* <Layer {...extrusionDataLayer} /> */}
