@@ -244,6 +244,12 @@ export const casesData = [
 		dayOfYear: 132,
 		sourceUrl:
 			"https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-11.pdf",
+	},
+	{
+		filename: "2020-05-12.json",
+		dayOfYear: 133,
+		sourceUrl:
+			"https://github.com/davidcalhoun/covid-19-data-south-carolina/blob/master/data/2020-05-12.pdf",
 	}
 ];
 
