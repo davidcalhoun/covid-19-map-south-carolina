@@ -12,20 +12,23 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { useDebouncedCallback } from "use-debounce";
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
-import { getDateFromDayNum, dayOfYearToDisplayDate, formatDay } from "../../utils";
+import {
+	getDateFromDayNum,
+	dayOfYearToDisplayDate,
+	formatDay,
+	getDayOfYear,
+} from "../../utils";
 
 import {
 	SITE_NAME,
 	MAPBOX_TOKEN_DEV,
 	MAPBOX_TOKEN_PROD,
 	isProd,
-	MIN_DATE,
-	MAX_DATE,
 	casesData,
-	southCarolinaGeoJSON
+	southCarolinaGeoJSON,
 } from "../../consts";
 import styles from "./root.css";
 import {
@@ -40,7 +43,12 @@ import {
 	computeFeaturesForDate,
 	getSliderMarks,
 } from "../../utils";
-import { HoverPopup, InfoPanel, Legend, PlaceholderGeoJSON } from "../../components";
+import {
+	HoverPopup,
+	InfoPanel,
+	Legend,
+	PlaceholderGeoJSON,
+} from "../../components";
 
 const MAPBOX_TOKEN = isProd ? MAPBOX_TOKEN_PROD : MAPBOX_TOKEN_DEV;
 const dataBasePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
@@ -105,7 +113,7 @@ const Root = ({ breakpoint }) => {
 		zipCodes: null,
 		geoJSONDate: null,
 	});
-	const [date, setDate] = useState(MIN_DATE);
+	const [date, setDate] = useState(0);
 	const [legendQuantiles, setLegendQuantiles] = useState([]);
 	const [hoveredFeature, setHoveredFeature] = useState({});
 	let query = useQuery();
@@ -114,10 +122,13 @@ const Root = ({ breakpoint }) => {
 	const [isInfoPanelInFocus, setIsInfoPanelInFocus] = useState(false);
 	const [userIsMovingMap, setUserIsMovingMap] = useState(false);
 	const [isPerCapita, setIsPerCapita] = useState(false);
+	const [minMaxDate, setMinMaxDate] = useState({ min: 0, max: 1 });
 	const prevIsPerCapita = usePrevious(isPerCapita);
+	const prevDate = usePrevious(date);
 
 	const { geoJSONFeatures, zipCodes, geoJSONDate } = data;
 	const { latitude, longitude, zoom } = viewState;
+	const { min: minDate, max: maxDate } = minMaxDate;
 
 	function init() {
 		//fetchAllData();
@@ -174,11 +185,7 @@ const Root = ({ breakpoint }) => {
 		// Daily updates daily, so bust the cache daily.
 		const cacheBust = formatDay();
 
-		const [
-			zipCodes,
-			zipCodesGeoJSON,
-			...casesJSON
-		] = await fetchMultipleJSON(
+		const [zipCodes, zipCodesGeoJSON] = await fetchMultipleJSON(
 			`${dataBasePath}/${zipMetaFilename}?${cacheBust}`,
 			`${dataBasePath}/${geoJSONFilename}`
 		);
@@ -189,7 +196,12 @@ const Root = ({ breakpoint }) => {
 			zipCodes,
 		});
 
-		setDate(MIN_DATE);
+		const oldestDate = getDayOfYear(zipCodes.meta.dates[0]);
+		const newestDate = getDayOfYear(zipCodes.meta.dates[zipCodes.meta.dates.length - 1]);
+
+		setMinMaxDate({ min: oldestDate, max: newestDate,  });
+
+		setDate(newestDate);
 	}
 
 	// Update data in response to date changes.
@@ -198,17 +210,28 @@ const Root = ({ breakpoint }) => {
 			(!prevData || !prevData.zipCodes) && zipCodes;
 		const casesChanged = zipCodes && geoJSONDate && geoJSONDate !== date;
 		const perCapitaChanged = prevIsPerCapita !== isPerCapita;
+		const dateChanged = date !== 0 && prevDate !== date;
 
-		if (needsInitialization || casesChanged || (perCapitaChanged && zipCodes)) {
+		if (
+			needsInitialization ||
+			casesChanged ||
+			(perCapitaChanged && zipCodes) ||
+			dateChanged
+		) {
 			// Performs initial calculation if memoized value isn't found.
-			if (!memoizedFeaturesForDate[date] || !memoizedFeaturesForDate[date][isPerCapita]) {
+			if (
+				!memoizedFeaturesForDate[date] ||
+				!memoizedFeaturesForDate[date][isPerCapita]
+			) {
 				const { features, legend } = computeFeaturesForDate(
 					date,
 					zipCodes,
 					geoJSONFeatures,
 					isPerCapita
 				);
-				memoizedFeaturesForDate[date] = memoizedFeaturesForDate[date] || {};
+				if (!memoizedFeaturesForDate[date]) {
+					memoizedFeaturesForDate[date] = {};
+				}
 				memoizedFeaturesForDate[date][isPerCapita] = features;
 
 				// Initialize legend quantiles if needed.
@@ -309,25 +332,29 @@ const Root = ({ breakpoint }) => {
 	}
 
 	function handleLoad() {
-		console.log(222, 'loaded')
 		fetchAllData();
 	}
 
+	const isLoading = geoJSONData.features.length === 0;
+
 	return (
 		<div className={styles.container}>
-			<div className={styles.dateSliderContainer}>
-				<Slider
-					value={date}
-					aria-labelledby="discrete-slider"
-					step={null}
-					marks={getSliderMarks(casesData)}
-					min={MIN_DATE}
-					max={MAX_DATE}
-					onChange={handleDateChange}
-					valueLabelDisplay="on"
-					valueLabelFormat={dayOfYearToDisplayDate}
-				/>
-			</div>
+			{!isLoading && (
+				<div className={styles.dateSliderContainer}>
+					<Slider
+						value={date}
+						aria-labelledby="discrete-slider"
+						step={null}
+						marks={getSliderMarks(zipCodes.meta.dates)}
+						min={minDate}
+						max={maxDate}
+						onChange={handleDateChange}
+						valueLabelDisplay="on"
+						valueLabelFormat={dayOfYearToDisplayDate}
+					/>
+				</div>
+			)}
+
 			{/* <FormControlLabel */}
 			{/* 	control={ */}
 			{/* 		<Checkbox */}
@@ -357,7 +384,7 @@ const Root = ({ breakpoint }) => {
 					<NavigationControl showCompass={false} />
 				</div>
 
-				{geoJSONData.features && (
+				{!isLoading && (
 					<Source type="geojson" data={geoJSONData}>
 						{/* <Layer {...extrusionDataLayer} /> */}
 						<Layer {...dataLayer} />

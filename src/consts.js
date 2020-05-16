@@ -253,9 +253,6 @@ export const casesData = [
 	}
 ];
 
-export const MIN_DATE = casesData[0].dayOfYear;
-export const MAX_DATE = casesData[casesData.length - 1].dayOfYear;
-
 export const SITE_NAME = "COVID-19 in South Carolina by Zip Code";
 
 export const MAPBOX_TOKEN_DEV =

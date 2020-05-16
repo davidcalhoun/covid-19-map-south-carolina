@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { format } from "date-fns";
+import { format, getDayOfYear as dateFnsGetDayOfYear, parseISO } from "date-fns";
 import { range, descending } from "d3-array";
 import { scaleQuantile } from "d3-scale";
 
@@ -76,6 +76,10 @@ export const getMax = (numsArr) => Math.max(...numsArr);
 
 export const round = (num) => Math.floor(num);
 
+export const roundFloat = (num, places = 2) => {
+	return parseFloat(parseFloat(num).toFixed(places));
+}
+
 export const pluralize = (num, prefix) => (num === 1 ? prefix : `${prefix}s`);
 
 export const getDateFromDayNum = (dayNum, year) => {
@@ -91,6 +95,21 @@ export const getDateFromDayNum = (dayNum, year) => {
 	date.setTime(timeOfFirst + dayNumMilli);
 	return date;
 };
+
+// https://stackoverflow.com/questions/8619879/javascript-calculate-the-day-of-the-year-1-366
+// export const getDayOfYears = (dateStr) => {
+// 	var now = new Date(dateStr);
+// 	var start = new Date(now.getFullYear(), 0, 0);
+// 	var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+// 	var oneDay = 1000 * 60 * 60 * 24;
+// 	var day = Math.floor(diff / oneDay);
+// 
+// 	return day;
+// }
+
+export const getDayOfYear = (dateStr) => {
+	return dateFnsGetDayOfYear(parseISO(dateStr));
+}
 
 export const dayOfYearToDisplayDate = (dayOfYear) => {
 	const date = getDateFromDayNum(dayOfYear, 2020);
@@ -314,18 +333,18 @@ export const computeFeaturesForDate = (
 	};
 };
 
-export const getSliderMarks = (cases) => {
-	const sliderMarks = cases.map(({ dayOfYear }, index) => {
+export const getSliderMarks = (dates) => {
+	const sliderMarks = dates.map((dateStr, index) => {
 		const isFirst = index === 0;
-		const isLast = index === cases.length - 1;
+		const isLast = index === dates.length - 1;
 		const isBoundingDay = isFirst || isLast;
 
 		return {
-			value: dayOfYear,
+			value: getDayOfYear(dateStr),
 			...(isBoundingDay && {
-				label: dayOfYearToLongDisplayDate(dayOfYear),
-			}),
-		};
+				label: format(parseISO(dateStr), "LLL d")
+			})
+		}
 	});
 
 	return sliderMarks;
