@@ -254,56 +254,54 @@ export const computeFeaturesForDate = (
 	dayOfYear,
 	zipCodes,
 	features,
-	isPerCapita
+	isPerCapita,
+	quantiles
 ) => {
-	const rangeSize = 15;
-
 	const date = dayOfYearToDate(dayOfYear);
-
 	const dateIndex = zipCodes.meta.dates.indexOf(date);
 
-	const dDomain = getDomain(zipCodes, isPerCapita);
-
-	const dDomainZeroesRemoved = dDomain.filter((val) => val > 0);
-
-	const domainMax = getMax(dDomainZeroesRemoved);
-
-	//const dRange = fillSequentialArray(rangeSize);
-
 	const cacheKey = isPerCapita
-		? "percentilePerCapita"
-		: "percentileTotalCases";
+		? "perCapita"
+		: "all";
+
+	const domain = isPerCapita
+		? quantiles.perCapita
+		: quantiles.all;
+
 	if (!cachedScales[cacheKey]) {
 		cachedScales[cacheKey] = {};
 		cachedScales[cacheKey].percentile = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
+			.domain(domain)
 			.range(fillSequentialArray(99));
 
 		cachedScales[cacheKey].red = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
+			.domain(domain)
 			.range(fillSequentialArray(255));
 
 		cachedScales[cacheKey].legend = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
+			.domain(domain)
 			.range(fillSequentialArray(100));
 
 		cachedScales[cacheKey].opacity = scaleQuantile()
-			.domain(dDomainZeroesRemoved)
+			.domain(domain)
 			.range(fillSequentialArray(19));
 
 		// cachedScales[cacheKey].height = scaleQuantile()
-		// 	.domain(dDomainZeroesRemoved)
+		// 	.domain(domain)
 		// 	.range(fillSequentialArray(10000));
 	}
 
 	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
 		const zipCode = zipGeoJSON.properties["ZCTA5CE10"];
 
-		const perCapita = zipCodes[zipCode].cases[dateIndex] / parseInt(zipCodes[zipCode].population);
+		const population = parseInt(zipCodes[zipCode].population);
+		const casesForDate = zipCodes[zipCode].cases[dateIndex];
+
+		const perCapita = (casesForDate / population) * 10000;
 
 		const val = isPerCapita
 			? perCapita
-			: zipCodes[zipCode].cases[dateIndex];
+			: casesForDate;
 
 		return {
 			...zipGeoJSON,
@@ -328,7 +326,7 @@ export const computeFeaturesForDate = (
 		features: newGeoJSONFeatures,
 		legend: {
 			quantiles: cachedScales[cacheKey].legend.quantiles(),
-			domainMax,
+			domainMax: quantiles[quantiles.length - 1],
 		},
 	};
 };

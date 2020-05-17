@@ -48,19 +48,19 @@ export default function Legend(props) {
 					<div className={styles.legendNumbers}>
 						<p>0 cases</p>
 						<p>
-							{quantiles[32]} {pluralize(quantiles[32], "case")}
+							{round(quantiles[32])} {pluralize(quantiles[32], "case")}
 						</p>
 						<p>
-							{quantiles[49]} {pluralize(quantiles[49], "case")}
+							{round(quantiles[49])} {pluralize(quantiles[49], "case")}
 						</p>
 						<p>
-							{quantiles[65]} {pluralize(quantiles[65], "case")}
+							{round(quantiles[65])} {pluralize(quantiles[65], "case")}
 						</p>
 						<p>
-							{quantiles[82]} {pluralize(quantiles[82], "case")}
+							{round(quantiles[82])} {pluralize(quantiles[82], "case")}
 						</p>
 						<p>
-							{quantiles[99]} {pluralize(quantiles[99], "case")}
+							{round(quantiles[99])} {pluralize(quantiles[99], "case")}
 						</p>
 					</div>
 				</ReactPlaceholder>

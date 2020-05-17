@@ -25,11 +25,10 @@ export default function HoverPopup({ hoveredFeature, date }) {
 	if (x + 160 > window.innerWidth) {
 		// Move popup to the left.
 		if (hasCursor) {
-			x = x - 180;
+			x = x - 200;
 		} else {
-			x = x - 160;
+			x = x - 180;
 		}
-		
 	}
 
 	if (y + 220 > window.innerHeight) {
@@ -41,9 +40,11 @@ export default function HoverPopup({ hoveredFeature, date }) {
 		}
 	}
 
+	// TODO: move popup below
+
 	const hasCases = Number.isInteger(positiveCases);
 
-	const per10k = roundFloat(perCapita * 10000);
+	const per10k = roundFloat(perCapita);
 
 	return (
 		<div

@@ -112,6 +112,10 @@ const Root = ({ breakpoint }) => {
 		geoJSONFeatures: [],
 		zipCodes: null,
 		geoJSONDate: null,
+		quantiles: {
+			all: [],
+			perCapita: []
+		}
 	});
 	const [date, setDate] = useState(0);
 	const [legendQuantiles, setLegendQuantiles] = useState([]);
@@ -126,7 +130,7 @@ const Root = ({ breakpoint }) => {
 	const prevIsPerCapita = usePrevious(isPerCapita);
 	const prevDate = usePrevious(date);
 
-	const { geoJSONFeatures, zipCodes, geoJSONDate } = data;
+	const { geoJSONFeatures, zipCodes, geoJSONDate, quantiles } = data;
 	const { latitude, longitude, zoom } = viewState;
 	const { min: minDate, max: maxDate } = minMaxDate;
 
@@ -194,6 +198,7 @@ const Root = ({ breakpoint }) => {
 			...data,
 			geoJSONFeatures: zipCodesGeoJSON.features,
 			zipCodes,
+			quantiles: zipCodes.meta.quantiles
 		});
 
 		const oldestDate = getDayOfYear(zipCodes.meta.dates[0]);
@@ -227,7 +232,8 @@ const Root = ({ breakpoint }) => {
 					date,
 					zipCodes,
 					geoJSONFeatures,
-					isPerCapita
+					isPerCapita,
+					quantiles
 				);
 				if (!memoizedFeaturesForDate[date]) {
 					memoizedFeaturesForDate[date] = {};
@@ -355,17 +361,17 @@ const Root = ({ breakpoint }) => {
 				</div>
 			)}
 
-			{/* <FormControlLabel */}
-			{/* 	control={ */}
-			{/* 		<Checkbox */}
-			{/* 			checked={isPerCapita} */}
-			{/* 			onChange={handlePerCapitaChange} */}
-			{/* 			name="checkedB" */}
-			{/* 			color="primary" */}
-			{/* 		/> */}
-			{/* 	} */}
-			{/* 	label="Per Capita" */}
-			{/* /> */}
+			<FormControlLabel
+				control={
+					<Checkbox
+						checked={isPerCapita}
+						onChange={handlePerCapitaChange}
+						name="checkedB"
+						color="primary"
+					/>
+				}
+				label="Per Capita"
+			/>
 			<ReactMapGL
 				{...viewState}
 				width="100%"
