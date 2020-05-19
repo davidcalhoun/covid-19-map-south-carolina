@@ -264,13 +264,10 @@ const Root = ({ breakpoint }) => {
 				memoizedFeaturesForDate[newDate] = {};
 			}
 			memoizedFeaturesForDate[newDate][newIsPerCapita] = features;
-
-			// Initialize legend quantiles if needed.
-			if (!legendQuantiles.domainMax) {
-				const { quantiles, domainMax } = legend;
-				setLegendQuantiles([...quantiles, domainMax]);
-			}
 		}
+
+		const curQuantiles = newIsPerCapita ? quantiles.perCapita : quantiles.all;
+		setLegendQuantiles(curQuantiles);
 
 		setData({
 			...data,
