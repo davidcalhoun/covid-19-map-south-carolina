@@ -77,7 +77,9 @@ export const getMax = (numsArr) => Math.max(...numsArr);
 export const round = (num) => Math.floor(num);
 
 export const roundFloat = (num, places = 2) => {
-	return parseFloat(parseFloat(num).toFixed(places));
+	if (num === 0) return num;
+
+	return parseFloat(num).toFixed(places);
 }
 
 export const pluralize = (num, prefix) => (num === 1 ? prefix : `${prefix}s`);
@@ -331,7 +333,7 @@ export const computeFeaturesForDate = (
 	};
 };
 
-export const getSliderMarks = (dates) => {
+export const getSliderMarks = (dates = []) => {
 	const sliderMarks = dates.map((dateStr, index) => {
 		const isFirst = index === 0;
 		const isLast = index === dates.length - 1;

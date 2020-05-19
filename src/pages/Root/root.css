@@ -15,6 +15,14 @@
 	flex: 1;
 }
 
+.controls {
+	display: flex;
+}
+
+.perCapita {
+	padding-left: 2rem;
+}
+
 .dateSliderContainer {
 	padding: 0 4rem 1rem;
 	max-width: 200px;

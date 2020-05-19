@@ -7,13 +7,20 @@ import ReactMapGL, {
 	Popup,
 	WebMercatorViewport,
 } from "react-map-gl";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import { useDebouncedCallback } from "use-debounce";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import ReactPlaceholder from "react-placeholder";
+import {
+	TextBlock,
+	MediaBlock,
+	TextRow,
+	RectShape,
+	RoundShape,
+} from "react-placeholder/lib/placeholders";
 
 import {
 	getDateFromDayNum,
@@ -96,6 +103,14 @@ const extrusionDataLayer = {
 	},
 };
 
+const SliderPlaceHolder = ({ className }) => {
+	return (
+		<div className={`${className}`}>
+			<RectShape style={{ width: 220, height: 55 }} color="#a4a4a47a" />
+		</div>
+	);
+};
+
 // Memoizes scale calculations per date.
 let memoizedFeaturesForDate = {};
 
@@ -114,8 +129,8 @@ const Root = ({ breakpoint }) => {
 		geoJSONDate: null,
 		quantiles: {
 			all: [],
-			perCapita: []
-		}
+			perCapita: [],
+		},
 	});
 	const [date, setDate] = useState(0);
 	const [legendQuantiles, setLegendQuantiles] = useState([]);
@@ -130,7 +145,14 @@ const Root = ({ breakpoint }) => {
 	const prevIsPerCapita = usePrevious(isPerCapita);
 	const prevDate = usePrevious(date);
 
-	const { geoJSONFeatures, zipCodes, geoJSONDate, quantiles } = data;
+	const {
+		geoJSONFeatures,
+		zipCodes,
+		geoJSONDate,
+		quantiles,
+		maxAll,
+		maxPerCapita,
+	} = data;
 	const { latitude, longitude, zoom } = viewState;
 	const { min: minDate, max: maxDate } = minMaxDate;
 
@@ -182,6 +204,15 @@ const Root = ({ breakpoint }) => {
 	}
 	useEffect(init, []);
 
+	// Update data in response to date changes.
+	useEffect(() => {
+		const needsInitialization = !prevData?.geoJSONDate && date !== 0;
+
+		if (needsInitialization) {
+			updateFeatures(date);
+		}
+	}, [data, date]);
+
 	/**
 	 * Fetches all GeoJSON for zip codes, as well as case counts per day and zip code.
 	 */
@@ -194,86 +225,81 @@ const Root = ({ breakpoint }) => {
 			`${dataBasePath}/${geoJSONFilename}`
 		);
 
+		const { quantiles } = zipCodes.meta;
+		const { maxAll, maxPerCapita } = quantiles;
+
 		setData({
 			...data,
 			geoJSONFeatures: zipCodesGeoJSON.features,
 			zipCodes,
-			quantiles: zipCodes.meta.quantiles
+			quantiles,
+			maxAll,
+			maxPerCapita,
 		});
 
 		const oldestDate = getDayOfYear(zipCodes.meta.dates[0]);
-		const newestDate = getDayOfYear(zipCodes.meta.dates[zipCodes.meta.dates.length - 1]);
+		const newestDate = getDayOfYear(
+			zipCodes.meta.dates[zipCodes.meta.dates.length - 1]
+		);
 
-		setMinMaxDate({ min: oldestDate, max: newestDate,  });
+		setMinMaxDate({ min: oldestDate, max: newestDate });
 
 		setDate(newestDate);
 	}
 
-	// Update data in response to date changes.
-	useEffect(() => {
-		const needsInitialization =
-			(!prevData || !prevData.zipCodes) && zipCodes;
-		const casesChanged = zipCodes && geoJSONDate && geoJSONDate !== date;
-		const perCapitaChanged = prevIsPerCapita !== isPerCapita;
-		const dateChanged = date !== 0 && prevDate !== date;
-
+	function updateFeatures(newDate = date, newIsPerCapita = isPerCapita) {
+		// Performs initial calculation if memoized value isn't found.
 		if (
-			needsInitialization ||
-			casesChanged ||
-			(perCapitaChanged && zipCodes) ||
-			dateChanged
+			!memoizedFeaturesForDate[newDate] ||
+			!memoizedFeaturesForDate[newDate][newIsPerCapita]
 		) {
-			// Performs initial calculation if memoized value isn't found.
-			if (
-				!memoizedFeaturesForDate[date] ||
-				!memoizedFeaturesForDate[date][isPerCapita]
-			) {
-				const { features, legend } = computeFeaturesForDate(
-					date,
-					zipCodes,
-					geoJSONFeatures,
-					isPerCapita,
-					quantiles
-				);
-				if (!memoizedFeaturesForDate[date]) {
-					memoizedFeaturesForDate[date] = {};
-				}
-				memoizedFeaturesForDate[date][isPerCapita] = features;
-
-				// Initialize legend quantiles if needed.
-				if (!legendQuantiles.domainMax) {
-					const { quantiles, domainMax } = legend;
-					setLegendQuantiles([...quantiles, domainMax]);
-				}
+			const { features, legend } = computeFeaturesForDate(
+				newDate,
+				zipCodes,
+				geoJSONFeatures,
+				newIsPerCapita,
+				quantiles
+			);
+			if (!memoizedFeaturesForDate[newDate]) {
+				memoizedFeaturesForDate[newDate] = {};
 			}
+			memoizedFeaturesForDate[newDate][newIsPerCapita] = features;
 
-			setData({
-				...data,
-				geoJSONFeatures: memoizedFeaturesForDate[date][isPerCapita],
-				geoJSONDate: date,
-			});
-
-			// Updates popup data when year changes while hovering (e.g. keyboard arrow interaction).
-			const userIsHovering = hoveredFeature.feature;
-			if (userIsHovering) {
-				const feature = memoizedFeaturesForDate[date][isPerCapita].find(
-					({ properties }) =>
-						properties["ZCTA5CE10"] ===
-						hoveredFeature.feature.properties["ZCTA5CE10"]
-				);
-
-				setHoveredFeature({
-					...hoveredFeature,
-					feature: {
-						...hoveredFeature.feature,
-						properties: {
-							...feature.properties,
-						},
-					},
-				});
+			// Initialize legend quantiles if needed.
+			if (!legendQuantiles.domainMax) {
+				const { quantiles, domainMax } = legend;
+				setLegendQuantiles([...quantiles, domainMax]);
 			}
 		}
-	}, [data, date, isPerCapita]);
+
+		setData({
+			...data,
+			geoJSONFeatures: memoizedFeaturesForDate[newDate][newIsPerCapita],
+			geoJSONDate: newDate,
+		});
+
+		// Updates popup data when year changes while hovering (e.g. keyboard arrow interaction).
+		const userIsHovering = hoveredFeature.feature;
+		if (userIsHovering) {
+			const feature = memoizedFeaturesForDate[newDate][
+				newIsPerCapita
+			].find(
+				({ properties }) =>
+					properties["ZCTA5CE10"] ===
+					hoveredFeature.feature.properties["ZCTA5CE10"]
+			);
+
+			setHoveredFeature({
+				...hoveredFeature,
+				feature: {
+					...hoveredFeature.feature,
+					properties: {
+						...feature.properties,
+					},
+				},
+			});
+		}
+	}
 
 	function updateSelfUrl(newUrl) {
 		history.replace(newUrl);
@@ -286,6 +312,8 @@ const Root = ({ breakpoint }) => {
 
 	function handleDateChange(event, date) {
 		setDate(date);
+
+		updateFeatures(date);
 	}
 
 	function handleHover(event) {
@@ -304,6 +332,8 @@ const Root = ({ breakpoint }) => {
 
 	function handlePerCapitaChange() {
 		setIsPerCapita(!isPerCapita);
+
+		updateFeatures(date, !isPerCapita);
 	}
 
 	function handleMouseOut() {
@@ -345,33 +375,42 @@ const Root = ({ breakpoint }) => {
 
 	return (
 		<div className={styles.container}>
-			{!isLoading && (
+			<div className={styles.controls}>
 				<div className={styles.dateSliderContainer}>
-					<Slider
-						value={date}
-						aria-labelledby="discrete-slider"
-						step={null}
-						marks={getSliderMarks(zipCodes.meta.dates)}
-						min={minDate}
-						max={maxDate}
-						onChange={handleDateChange}
-						valueLabelDisplay="on"
-						valueLabelFormat={dayOfYearToDisplayDate}
-					/>
+					<ReactPlaceholder
+						showLoadingAnimation
+						ready={!isLoading}
+						type="media"
+						rows={1}
+						customPlaceholder={<SliderPlaceHolder />}
+					>
+						<Slider
+							value={date}
+							aria-labelledby="discrete-slider"
+							step={null}
+							marks={getSliderMarks(zipCodes?.meta?.dates)}
+							min={minDate}
+							max={maxDate}
+							onChange={handleDateChange}
+							valueLabelDisplay="on"
+							valueLabelFormat={dayOfYearToDisplayDate}
+						/>
+					</ReactPlaceholder>
 				</div>
-			)}
+				<FormControlLabel
+					control={
+						<Checkbox
+							checked={isPerCapita}
+							onChange={handlePerCapitaChange}
+							name="checkedB"
+							color="primary"
+						/>
+					}
+					label="Per Capita"
+					className={styles.perCapita}
+				/>
+			</div>
 
-			<FormControlLabel
-				control={
-					<Checkbox
-						checked={isPerCapita}
-						onChange={handlePerCapitaChange}
-						name="checkedB"
-						color="primary"
-					/>
-				}
-				label="Per Capita"
-			/>
 			<ReactMapGL
 				{...viewState}
 				width="100%"
@@ -396,7 +435,12 @@ const Root = ({ breakpoint }) => {
 						<Layer {...dataLayer} />
 					</Source>
 				)}
-				<Legend quantiles={legendQuantiles} />
+				<Legend
+					quantiles={legendQuantiles}
+					isPerCapita={isPerCapita}
+					maxAll={maxAll}
+					maxPerCapita={maxPerCapita}
+				/>
 				<InfoPanel
 					onInfoPanelFocusBlur={handleInfoPanelFocusBlur}
 					captureScroll={isInfoPanelInFocus}

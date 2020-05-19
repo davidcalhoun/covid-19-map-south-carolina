@@ -9,7 +9,7 @@ import {
 import ReactPlaceholder from "react-placeholder";
 
 import styles from "./legend.css";
-import { round, pluralize } from "../../utils";
+import { round, pluralize, roundFloat } from "../../utils";
 
 function getLegendQuantileBounds(quantiles, start, end) {
 	const startNum = round(quantiles[start]);
@@ -30,8 +30,17 @@ const LegendPlaceHolder = ({ className }) => {
 	);
 };
 
+const getLabel = (value, quantiles, isPerCapita) => {
+	return isPerCapita
+		? `${roundFloat(quantiles[value])} per 10k`
+		: `${round(quantiles[value])} ${pluralize(quantiles[value], "case")}`;
+}
+
 export default function Legend(props) {
-	const { quantiles } = props;
+	const { quantiles, isPerCapita, maxAll, maxPerCapita } = props;
+
+	const maxVal = isPerCapita ? roundFloat(maxPerCapita) : maxAll;
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.legendColorsContainer}>
@@ -46,21 +55,21 @@ export default function Legend(props) {
 					}
 				>
 					<div className={styles.legendNumbers}>
-						<p>0 cases</p>
+						<p>0 {isPerCapita ? ' per 10k' : 'cases'}</p>
 						<p>
-							{round(quantiles[32])} {pluralize(quantiles[32], "case")}
+							{getLabel(32, quantiles, isPerCapita)}
 						</p>
 						<p>
-							{round(quantiles[49])} {pluralize(quantiles[49], "case")}
+							{getLabel(49, quantiles, isPerCapita)}
 						</p>
 						<p>
-							{round(quantiles[65])} {pluralize(quantiles[65], "case")}
+							{getLabel(65, quantiles, isPerCapita)}
 						</p>
 						<p>
-							{round(quantiles[82])} {pluralize(quantiles[82], "case")}
+							{getLabel(82, quantiles, isPerCapita)}
 						</p>
 						<p>
-							{round(quantiles[99])} {pluralize(quantiles[99], "case")}
+							{maxVal} {isPerCapita ? ' per 10k' : 'cases'}
 						</p>
 					</div>
 				</ReactPlaceholder>

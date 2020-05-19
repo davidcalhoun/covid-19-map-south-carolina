@@ -56,8 +56,9 @@ export default function InfoPanel(props) {
 	function redraw({ width, height }) {
 		return (
 			<div
-				className={`${styles.container} ${isOpen &&
-					styles.containerOpen}`}
+				className={`${styles.container} ${
+					isOpen && styles.containerOpen
+				}`}
 				onMouseLeave={handleMouseOut}
 				onMouseEnter={handleMouseEnter}
 			>
@@ -96,31 +97,17 @@ export default function InfoPanel(props) {
 								.
 							</p>
 							<h3 className={styles.heading}>Sources</h3>
-							{casesData.map(
-								({ dayOfYear, sourceUrl }, index) => {
-									const shortDay = dayOfYearToShortDay(
-										dayOfYear
-									);
-									const isLast =
-										index === casesData.length - 1;
-
-									return (
-										<span
-											key={sourceUrl}
-											className={styles.sourceLink}
-										>
-											<a
-												href={sourceUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												{shortDay}
-											</a>
-											{!isLast && `, `}
-										</span>
-									);
-								}
-							)}
+							Zip code case counts sourced from SC DHEC.{" "}
+							<a
+								href="https://github.com/davidcalhoun/covid-19-map-south-carolina#data"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								View the readme
+							</a>{" "}
+							for info about data processing and original data PDF
+							archives.
+							<p/>
 							<p>
 								Zip code metadata from{" "}
 								<a
@@ -132,10 +119,10 @@ export default function InfoPanel(props) {
 								</a>
 							</p>
 							<h3 className={styles.heading}>Scale</h3>
-							<p>
-								*Percentile calculated using data domain (all
-								dates).
-							</p>
+							{/* <p> */}
+							{/* 	*Percentile calculated using data domain (all */}
+							{/* 	dates). */}
+							{/* </p> */}
 							Choropleth map colors are determined using{" "}
 							<a
 								href="https://github.com/d3/d3-scale#quantile-scales"
