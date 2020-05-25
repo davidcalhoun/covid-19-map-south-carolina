@@ -412,7 +412,7 @@ const Root = ({ breakpoint }) => {
 				{...viewState}
 				width="100%"
 				height="100%"
-				mapStyle="mapbox://styles/mapbox/outdoors-v11"
+				mapStyle="mapbox://styles/mapbox/light-v10"
 				mapboxApiAccessToken={MAPBOX_TOKEN}
 				onViewStateChange={handleViewStateChange}
 				onHover={handleHover}
