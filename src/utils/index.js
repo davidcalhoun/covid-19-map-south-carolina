@@ -84,17 +84,13 @@ export const roundFloat = (num, places = 2) => {
 
 export const pluralize = (num, prefix) => (num === 1 ? prefix : `${prefix}s`);
 
-export const getDateFromDayNum = (dayNum, year) => {
-	var date = new Date();
-	if (year) {
-		date.setFullYear(year);
-	}
-	date.setMonth(0);
-	date.setDate(0);
-	var timeOfFirst = date.getTime(); // this is the time in milliseconds of 1/1/YYYY
-	var dayMilli = 1000 * 60 * 60 * 24;
-	var dayNumMilli = dayNum * dayMilli;
-	date.setTime(timeOfFirst + dayNumMilli);
+export const getDateFromDayNum = (dayNum, year = new Date().getFullYear()) => {
+	const firstDayMS = new Date(`${year}-01-01T00:00:01Z`).getTime();
+	const msInADay = 1000 * 60 * 60 * 24;
+	const dayNumMilli = dayNum * msInADay;
+
+	const date = new Date().setTime(firstDayMS + dayNumMilli);
+
 	return date;
 };
 
