@@ -14,7 +14,7 @@ Here's a [link to the COVID-19 in South Carolina visualization](https://davidcal
 * Zip code GeoJSON minified with [https://github.com/maxogden/simplify-geojson](simplify-geojson)
 
 ## Data
-* Each [day's data files are here](https://github.com/davidcalhoun/covid-19-map-south-carolina/tree/master/data).  If you see a discrepancy somewhere, please help me out and submit a pull request!
+* Each [day's data files are here](https://github.com/davidcalhoun/covid-19-data-south-carolina/tree/master/data).  If you see a discrepancy somewhere, please help me out and submit a pull request!
 
 * Note that the color legend for Per Capita cases only uses data for zip codes with a population greater than 100.  This is because unusually small zip codes (such as 29912) heavily skew the data.
 
