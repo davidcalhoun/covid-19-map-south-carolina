@@ -17,6 +17,13 @@
 
 .controls {
 	display: flex;
+	flex-direction: column;
+}
+
+@media (--viewport-7) {
+	.controls {
+		flex-direction: row;
+	}
 }
 
 .perCapita {
@@ -25,7 +32,13 @@
 
 .dateSliderContainer {
 	padding: 0 4rem 1rem;
-	max-width: 200px;
+	max-width: 100%;
+}
+
+@media (--viewport-7) {
+	.dateSliderContainer {
+		max-width: 200px;
+	}
 }
 
 .dateSliderContainer :global .MuiSlider-thumb .MuiSlider-valueLabel {
@@ -51,4 +64,5 @@
 }
 
 .viewMode {
+	padding: 0 1rem;
 }

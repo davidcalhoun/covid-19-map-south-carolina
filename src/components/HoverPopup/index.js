@@ -74,17 +74,17 @@ export default function HoverPopup({ hoveredFeature, date }) {
 				)}
 			</p>
 			{hasCases && (
-				<Fragment>
-					<p className={styles.detail}>
+				<ul className={styles.detailContainer}>
+					<li className={styles.detail}>
 						{per10k} {pluralize(per10k, "case")} per 10k.
-					</p>
-					<p className={styles.detail}>
+					</li>
+					<li className={styles.detail}>
 						{changePercentForDisplay(averageChange)}% change (last 7-day average).
-					</p>
+					</li>
 					{/* <p className={styles.detail}> */}
 					{/* 	{percentile}{getIntOrdinal(percentile)} percentile* */}
 					{/* </p> */}
-				</Fragment>
+				</ul>
 			)}
 		</div>
 	);

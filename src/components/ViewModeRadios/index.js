@@ -10,7 +10,7 @@ import styles from "./viewModeRadios.css";
 const defaultView = "all";
 
 export default function ViewModeRadios(props) {
-	const { onChange } = props;
+	const { onChange, className } = props;
 	const [view, setView] = useState(defaultView);
 
 	const handleChange = (event) => {
@@ -19,7 +19,7 @@ export default function ViewModeRadios(props) {
 	};
 
 	return (
-		<FormControl component="fieldset" className={styles.container}>
+		<FormControl component="fieldset" className={`${styles.container} ${className}`}>
 			<FormLabel component="legend">View By:</FormLabel>
 			<RadioGroup
 				aria-label="view mode"

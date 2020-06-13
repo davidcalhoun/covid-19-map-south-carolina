@@ -276,6 +276,10 @@ const getValForDate = (zipCode, dateIndex, viewMode) => {
 	};
 };
 
+export const filterLessThanOne = (arr) => {
+	return arr.filter(val => val >= 1);
+}
+
 let cachedScales = {};
 export const computeFeaturesForDate = (
 	dayOfYear,
@@ -291,7 +295,11 @@ export const computeFeaturesForDate = (
 
 	if (!cachedScales[cacheKey]) {
 		// Perf improvement: use precomputed fine-grained quantiles as representative of the data domain.
-		const domain = getQuantilesFromViewMode(viewMode, quantiles);
+		const rawDomain = getQuantilesFromViewMode(viewMode, quantiles);
+
+		const domain = viewMode === 'change'
+			? filterLessThanOne(rawDomain)
+			: rawDomain;
 
 		cachedScales[cacheKey] = {};
 		cachedScales[cacheKey].percentile = scaleQuantile()
@@ -324,6 +332,14 @@ export const computeFeaturesForDate = (
 			viewMode
 		);
 
+		const red = (val && (viewMode !== 'change' || (viewMode === 'change' && val > 1)))
+			? { red: cachedScales[cacheKey].red(val) }
+			: { red: 0 };
+
+		const opacity = (val && (viewMode !== 'change' || (viewMode === 'change' && val > 1)))
+			? { opacity: cachedScales[cacheKey].opacity(val) / 20 }
+			: { opacity: 0 };
+
 		return {
 			...zipGeoJSON,
 			properties: {
@@ -333,12 +349,8 @@ export const computeFeaturesForDate = (
 				perCapita,
 				averageChange,
 				percentile: cachedScales[cacheKey].percentile(val),
-				...(val
-					? { red: cachedScales[cacheKey].red(val) }
-					: { red: 0 }),
-				...(val
-					? { opacity: cachedScales[cacheKey].opacity(val) / 20 }
-					: { opacity: 0 }),
+				...red,
+				...opacity,
 				// height: positive ? cachedScales[cacheKey].height(positive) : 0
 			},
 		};
@@ -396,7 +408,7 @@ export function getQuantilesFromViewMode(viewMode, quantiles) {
 		case "percapita":
 			return quantiles.perCapita;
 		case "change":
-			return quantiles.averageChange;
+			return filterLessThanOne(quantiles.averageChange);
 		case "all":
 		default:
 			return quantiles.all;
