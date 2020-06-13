@@ -9,7 +9,7 @@ import {
 import ReactPlaceholder from "react-placeholder";
 
 import styles from "./legend.css";
-import { round, pluralize, roundFloat } from "../../utils";
+import { round, pluralize, roundFloat, changePercentForDisplay } from "../../utils";
 
 function getLegendQuantileBounds(quantiles, start, end) {
 	const startNum = round(quantiles[start]);
@@ -30,16 +30,48 @@ const LegendPlaceHolder = ({ className }) => {
 	);
 };
 
-const getLabel = (value, quantiles, isPerCapita) => {
-	return isPerCapita
-		? `${roundFloat(quantiles[value])} per 10k`
-		: `${round(quantiles[value])} ${pluralize(quantiles[value], "case")}`;
+const getLabel = (value, quantiles, viewMode) => {
+	switch (viewMode) {
+		case "percapita":
+			return `${roundFloat(quantiles[value])}${getSuffix(viewMode)}`;
+		case "change":
+			return `${changePercentForDisplay(quantiles[value])}${getSuffix(viewMode)}`;
+		case "all":
+		default:
+			return `${round(quantiles[value])} ${getSuffix(viewMode, quantiles[value])}`;
+	}
+}
+
+function getMaxVal (props, viewMode) {
+	const { maxAll, maxPerCapita, maxAverageChange } = props;
+
+	switch (viewMode) {
+		case "percapita":
+			return roundFloat(maxPerCapita);
+		case "change":
+			return round(maxAverageChange * 100);
+		case "all":
+		default:
+			return maxAll;
+	}
+}
+
+function getSuffix(viewMode, val) {
+	switch (viewMode) {
+		case "percapita":
+			return ' per 10k';
+		case "change":
+			return '% change';
+		case "all":
+		default:
+			return ` ${pluralize(val, "case")}`;
+	}
 }
 
 export default function Legend(props) {
-	const { quantiles, isPerCapita, maxAll, maxPerCapita } = props;
+	const { quantiles, viewMode } = props;
 
-	const maxVal = isPerCapita ? roundFloat(maxPerCapita) : maxAll;
+	const maxVal = getMaxVal(props, viewMode);
 
 	return (
 		<div className={styles.container}>
@@ -55,21 +87,21 @@ export default function Legend(props) {
 					}
 				>
 					<div className={styles.legendNumbers}>
-						<p>0 {isPerCapita ? ' per 10k' : 'cases'}</p>
+						<p>{getLabel(0, quantiles, viewMode)}</p>
 						<p>
-							{getLabel(32, quantiles, isPerCapita)}
+							{getLabel(32, quantiles, viewMode)}
 						</p>
 						<p>
-							{getLabel(49, quantiles, isPerCapita)}
+							{getLabel(49, quantiles, viewMode)}
 						</p>
 						<p>
-							{getLabel(65, quantiles, isPerCapita)}
+							{getLabel(65, quantiles, viewMode)}
 						</p>
 						<p>
-							{getLabel(82, quantiles, isPerCapita)}
+							{getLabel(82, quantiles, viewMode)}
 						</p>
 						<p>
-							{maxVal} {isPerCapita ? ' per 10k' : 'cases'}
+							{maxVal}{getSuffix(viewMode, maxVal)}
 						</p>
 					</div>
 				</ReactPlaceholder>

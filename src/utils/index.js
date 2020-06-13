@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { format, getDayOfYear as dateFnsGetDayOfYear, parseISO } from "date-fns";
+import {
+	format,
+	getDayOfYear as dateFnsGetDayOfYear,
+	parseISO,
+} from "date-fns";
 import { range, descending } from "d3-array";
 import { scaleQuantile } from "d3-scale";
 
@@ -80,16 +84,16 @@ export const roundFloat = (num, places = 2) => {
 	if (num === 0) return num;
 
 	return parseFloat(num).toFixed(places);
-}
+};
 
 export const pluralize = (num, prefix) => (num === 1 ? prefix : `${prefix}s`);
 
 export const getDateFromDayNum = (dayNum, year = new Date().getFullYear()) => {
-	const firstDayMS = new Date(`${year}-01-01T00:00:01Z`).getTime();
+	const firstDayOfYearMS = new Date(`${year}-01-01T00:00:01Z`).getTime();
 	const msInADay = 1000 * 60 * 60 * 24;
-	const dayNumMilli = dayNum * msInADay;
+	const sumOfDaysMS = dayNum * msInADay;
 
-	const date = new Date().setTime(firstDayMS + dayNumMilli);
+	const date = new Date().setTime(firstDayOfYearMS + sumOfDaysMS);
 
 	return date;
 };
@@ -101,13 +105,13 @@ export const getDateFromDayNum = (dayNum, year = new Date().getFullYear()) => {
 // 	var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
 // 	var oneDay = 1000 * 60 * 60 * 24;
 // 	var day = Math.floor(diff / oneDay);
-// 
+//
 // 	return day;
 // }
 
 export const getDayOfYear = (dateStr) => {
 	return dateFnsGetDayOfYear(parseISO(dateStr));
-}
+};
 
 export const dayOfYearToDisplayDate = (dayOfYear) => {
 	const date = getDateFromDayNum(dayOfYear, 2020);
@@ -126,7 +130,7 @@ export const dayOfYearToShortDay = (dayOfYear) => {
 
 export const formatDay = (date = new Date()) => {
 	return format(date, "yyyy-MM-dd");
-}
+};
 
 export const dayOfYearToDate = (dayOfYear) => {
 	const date = getDateFromDayNum(dayOfYear, 2020);
@@ -223,50 +227,72 @@ export const fillSequentialArray = (len) => {
 	return Array.from(new Array(len)).map((val, index) => index + 1);
 };
 
-function getDomain(zipCodes, isPerCapita) {
-	if (isPerCapita) {
-		return Object.entries(zipCodes).reduce((domain, [zip, zipObj]) => {
-			if (zip === "meta") {
-				return domain;
-			}
+// function getDomain(zipCodes, isPerCapita) {
+// 	if (isPerCapita) {
+// 		return Object.entries(zipCodes).reduce((domain, [zip, zipObj]) => {
+// 			if (zip === "meta") {
+// 				return domain;
+// 			}
+//
+// 			const cases = zipObj.cases.map((c) => {
+// 				return (c / parseInt(zipObj.population)) * 10000;
+// 			});
+//
+// 			return [...domain, ...cases];
+// 		}, []);
+// 	} else {
+// 		return Object.entries(zipCodes).reduce((domain, [zip, zipObj]) => {
+// 			if (zip === "meta") {
+// 				return domain;
+// 			}
+//
+// 			return [...domain, ...zipObj.cases];
+// 		}, []);
+// 	}
+// }
 
-			const cases = zipObj.cases.map((c) => {
-				return (c / parseInt(zipObj.population)) * 10000;
-			});
-
-			return [...domain, ...cases];
-		}, []);
-	} else {
-		return Object.entries(zipCodes).reduce((domain, [zip, zipObj]) => {
-			if (zip === "meta") {
-				return domain;
-			}
-
-			return [...domain, ...zipObj.cases];
-		}, []);
+function getValForViewMode({ viewMode, casesForDate, perCapita, averageChange }) {
+	switch (viewMode) {
+		case "percapita":
+			return perCapita;
+		case "change":
+			return averageChange;
+		case "all":
+		default:
+			return casesForDate;
 	}
 }
+
+const getValForDate = (zipCode, dateIndex, viewMode) => {
+	const casesForDate = zipCode.cases[dateIndex];
+	const population = parseInt(zipCode.population);
+	const perCapita = (casesForDate / population) * 10000;
+	const averageChange = zipCode.averageChange[dateIndex];
+
+	return {
+		val: getValForViewMode({ viewMode, casesForDate, perCapita, averageChange }),
+		perCapita,
+		averageChange,
+	};
+};
 
 let cachedScales = {};
 export const computeFeaturesForDate = (
 	dayOfYear,
 	zipCodes,
 	features,
-	isPerCapita,
+	viewMode,
 	quantiles
 ) => {
 	const date = dayOfYearToDate(dayOfYear);
 	const dateIndex = zipCodes.meta.dates.indexOf(date);
 
-	const cacheKey = isPerCapita
-		? "perCapita"
-		: "all";
-
-	const domain = isPerCapita
-		? quantiles.perCapita
-		: quantiles.all;
+	const cacheKey = viewMode;
 
 	if (!cachedScales[cacheKey]) {
+		// Perf improvement: use precomputed fine-grained quantiles as representative of the data domain.
+		const domain = getQuantilesFromViewMode(viewMode, quantiles);
+
 		cachedScales[cacheKey] = {};
 		cachedScales[cacheKey].percentile = scaleQuantile()
 			.domain(domain)
@@ -292,14 +318,11 @@ export const computeFeaturesForDate = (
 	const newGeoJSONFeatures = features.map((zipGeoJSON) => {
 		const zipCode = zipGeoJSON.properties["ZCTA5CE10"];
 
-		const population = parseInt(zipCodes[zipCode].population);
-		const casesForDate = zipCodes[zipCode].cases[dateIndex];
-
-		const perCapita = (casesForDate / population) * 10000;
-
-		const val = isPerCapita
-			? perCapita
-			: casesForDate;
+		const { val, perCapita, averageChange } = getValForDate(
+			zipCodes[zipCode],
+			dateIndex,
+			viewMode
+		);
 
 		return {
 			...zipGeoJSON,
@@ -308,6 +331,7 @@ export const computeFeaturesForDate = (
 				county: zipCodes[zipCode].countyNames.join(", "),
 				positiveCases: zipCodes[zipCode].cases[dateIndex],
 				perCapita,
+				averageChange,
 				percentile: cachedScales[cacheKey].percentile(val),
 				...(val
 					? { red: cachedScales[cacheKey].red(val) }
@@ -338,9 +362,9 @@ export const getSliderMarks = (dates = []) => {
 		return {
 			value: getDayOfYear(dateStr),
 			...(isBoundingDay && {
-				label: format(parseISO(dateStr), "LLL d")
-			})
-		}
+				label: format(parseISO(dateStr), "LLL d"),
+			}),
+		};
 	});
 
 	return sliderMarks;
@@ -365,4 +389,20 @@ export function useInterval(callback, delay) {
 			return () => clearInterval(id);
 		}
 	}, [delay]);
+}
+
+export function getQuantilesFromViewMode(viewMode, quantiles) {
+	switch (viewMode) {
+		case "percapita":
+			return quantiles.perCapita;
+		case "change":
+			return quantiles.averageChange;
+		case "all":
+		default:
+			return quantiles.all;
+	}
+}
+
+export function changePercentForDisplay(multiplier) {
+	return roundFloat(multiplier * 100 - 100);
 }

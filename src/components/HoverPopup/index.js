@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 import styles from "./hoverPopup.css";
-import { pluralize, getIntOrdinal, roundFloat } from "../../utils";
+import { pluralize, getIntOrdinal, roundFloat, changePercentForDisplay } from "../../utils";
 
 export default function HoverPopup({ hoveredFeature, date }) {
 	if (!hoveredFeature || !hoveredFeature.feature) {
@@ -17,7 +17,8 @@ export default function HoverPopup({ hoveredFeature, date }) {
 		county,
 		positiveCases,
 		percentile,
-		perCapita
+		perCapita,
+		averageChange,
 	} = feature.properties;
 
 	let x = rawX;
@@ -40,7 +41,7 @@ export default function HoverPopup({ hoveredFeature, date }) {
 		}
 	}
 
-	// TODO: move popup below
+	// TODO: move popup below cursor when in upper bounds
 
 	const hasCases = Number.isInteger(positiveCases);
 
@@ -55,17 +56,34 @@ export default function HoverPopup({ hoveredFeature, date }) {
 			}}
 		>
 			<p className={styles.detail}>
-				{hasCases
-					? <span><span className={styles.casesValue}>{positiveCases}</span> {pluralize(positiveCases, 'case')}</span>
-					: "No data"}
+				{hasCases ? (
+					<span>
+						<span className={styles.casesValue}>
+							{positiveCases}
+						</span>{" "}
+						{pluralize(positiveCases, "case")}
+					</span>
+				) : (
+					"No data"
+				)}
 			</p>
-			<p className={styles.detail}>{zip} {county && <span className={styles.county}>({county} County)</span>}</p>
+			<p className={styles.detail}>
+				{zip}{" "}
+				{county && (
+					<span className={styles.county}>({county} County)</span>
+				)}
+			</p>
 			{hasCases && (
 				<Fragment>
-				<p className={styles.detail}>{per10k} {pluralize(per10k, 'case')} per 10k</p>
-				{/* <p className={styles.detail}> */}
-				{/* 	{percentile}{getIntOrdinal(percentile)} percentile* */}
-				{/* </p> */}
+					<p className={styles.detail}>
+						{per10k} {pluralize(per10k, "case")} per 10k.
+					</p>
+					<p className={styles.detail}>
+						{changePercentForDisplay(averageChange)}% change (last 7-day average).
+					</p>
+					{/* <p className={styles.detail}> */}
+					{/* 	{percentile}{getIntOrdinal(percentile)} percentile* */}
+					{/* </p> */}
 				</Fragment>
 			)}
 		</div>

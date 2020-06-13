@@ -27,6 +27,7 @@ import {
 	dayOfYearToDisplayDate,
 	formatDay,
 	getDayOfYear,
+	getQuantilesFromViewMode,
 } from "../../utils";
 
 import {
@@ -55,10 +56,11 @@ import {
 	InfoPanel,
 	Legend,
 	PlaceholderGeoJSON,
+	ViewModeRadios,
 } from "../../components";
 
 const MAPBOX_TOKEN = isProd ? MAPBOX_TOKEN_PROD : MAPBOX_TOKEN_DEV;
-const dataBasePath = isProd ? "/covid-19-map-south-carolina/data" : "/data";
+const dataBasePath = "/covid-19-map-south-carolina/data";
 const geoJSONFilename = "sc_south_carolina_zip_codes_geo.lowres.json";
 const zipMetaFilename = "casesMerged.json";
 
@@ -140,10 +142,9 @@ const Root = ({ breakpoint }) => {
 	const prevData = usePrevious(data);
 	const [isInfoPanelInFocus, setIsInfoPanelInFocus] = useState(false);
 	const [userIsMovingMap, setUserIsMovingMap] = useState(false);
-	const [isPerCapita, setIsPerCapita] = useState(false);
 	const [minMaxDate, setMinMaxDate] = useState({ min: 0, max: 1 });
-	const prevIsPerCapita = usePrevious(isPerCapita);
 	const prevDate = usePrevious(date);
+	const [viewMode, setViewMode] = useState("all");
 
 	const {
 		geoJSONFeatures,
@@ -152,6 +153,7 @@ const Root = ({ breakpoint }) => {
 		quantiles,
 		maxAll,
 		maxPerCapita,
+		maxAverageChange,
 	} = data;
 	const { latitude, longitude, zoom } = viewState;
 	const { min: minDate, max: maxDate } = minMaxDate;
@@ -226,7 +228,7 @@ const Root = ({ breakpoint }) => {
 		);
 
 		const { quantiles } = zipCodes.meta;
-		const { maxAll, maxPerCapita } = quantiles;
+		const { maxAll, maxPerCapita, maxAverageChange } = quantiles;
 
 		setData({
 			...data,
@@ -235,6 +237,7 @@ const Root = ({ breakpoint }) => {
 			quantiles,
 			maxAll,
 			maxPerCapita,
+			maxAverageChange
 		});
 
 		const oldestDate = getDayOfYear(zipCodes.meta.dates[0]);
@@ -247,31 +250,31 @@ const Root = ({ breakpoint }) => {
 		setDate(newestDate);
 	}
 
-	function updateFeatures(newDate = date, newIsPerCapita = isPerCapita) {
+	function updateFeatures(newDate = date, newViewMode = viewMode) {
 		// Performs initial calculation if memoized value isn't found.
 		if (
 			!memoizedFeaturesForDate[newDate] ||
-			!memoizedFeaturesForDate[newDate][newIsPerCapita]
+			!memoizedFeaturesForDate[newDate][newViewMode]
 		) {
 			const { features, legend } = computeFeaturesForDate(
 				newDate,
 				zipCodes,
 				geoJSONFeatures,
-				newIsPerCapita,
+				newViewMode,
 				quantiles
 			);
 			if (!memoizedFeaturesForDate[newDate]) {
 				memoizedFeaturesForDate[newDate] = {};
 			}
-			memoizedFeaturesForDate[newDate][newIsPerCapita] = features;
+			memoizedFeaturesForDate[newDate][newViewMode] = features;
 		}
 
-		const curQuantiles = newIsPerCapita ? quantiles.perCapita : quantiles.all;
+		const curQuantiles = getQuantilesFromViewMode(newViewMode, quantiles);
 		setLegendQuantiles(curQuantiles);
 
 		setData({
 			...data,
-			geoJSONFeatures: memoizedFeaturesForDate[newDate][newIsPerCapita],
+			geoJSONFeatures: memoizedFeaturesForDate[newDate][newViewMode],
 			geoJSONDate: newDate,
 		});
 
@@ -279,7 +282,7 @@ const Root = ({ breakpoint }) => {
 		const userIsHovering = hoveredFeature.feature;
 		if (userIsHovering) {
 			const feature = memoizedFeaturesForDate[newDate][
-				newIsPerCapita
+				newViewMode
 			].find(
 				({ properties }) =>
 					properties["ZCTA5CE10"] ===
@@ -327,12 +330,6 @@ const Root = ({ breakpoint }) => {
 		setHoveredFeature({ pointerType, feature, x: offsetX, y: offsetY });
 	}
 
-	function handlePerCapitaChange() {
-		setIsPerCapita(!isPerCapita);
-
-		updateFeatures(date, !isPerCapita);
-	}
-
 	function handleMouseOut() {
 		setHoveredFeature({});
 	}
@@ -368,6 +365,11 @@ const Root = ({ breakpoint }) => {
 		fetchAllData();
 	}
 
+	function handleViewModeChange(val) {
+		setViewMode(val);
+		updateFeatures(date, val);
+	}
+
 	const isLoading = geoJSONData.features.length === 0;
 
 	return (
@@ -394,18 +396,7 @@ const Root = ({ breakpoint }) => {
 						/>
 					</ReactPlaceholder>
 				</div>
-				<FormControlLabel
-					control={
-						<Checkbox
-							checked={isPerCapita}
-							onChange={handlePerCapitaChange}
-							name="checkedB"
-							color="primary"
-						/>
-					}
-					label="Per Capita"
-					className={styles.perCapita}
-				/>
+				<ViewModeRadios onChange={ handleViewModeChange } className={styles.viewMode} />
 			</div>
 
 			<ReactMapGL
@@ -434,9 +425,10 @@ const Root = ({ breakpoint }) => {
 				)}
 				<Legend
 					quantiles={legendQuantiles}
-					isPerCapita={isPerCapita}
 					maxAll={maxAll}
 					maxPerCapita={maxPerCapita}
+					maxAverageChange={maxAverageChange}
+					viewMode={viewMode}
 				/>
 				<InfoPanel
 					onInfoPanelFocusBlur={handleInfoPanelFocusBlur}
