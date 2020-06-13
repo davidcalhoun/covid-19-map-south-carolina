@@ -11,7 +11,7 @@
     "start": "npm run copy-static-dirs && webpack-dev-server --hot --mode development",
     "dev": "npm start",
     "test": "jest",
-    "copy-static-dirs": "((mkdir dist && mkdir dist/covid-19-map-south-carolina) || true) && (cp -r src/data src/static dist/covid-19-map-south-carolina) && echo 'Copied static files.'",
+    "copy-static-dirs": "./scripts/copyStaticDirs.sh",
     "data": "node scripts/index.js",
     "bump": "! npm outdated && npm update && npm audit fix || echo 'Package up to date'"
   },
