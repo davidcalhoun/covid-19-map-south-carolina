@@ -45,6 +45,7 @@
 	cursor: grab;
 	text-align: center;
 	font-size: 11px;
+	left: auto; /* hack: fix mui thumb positioning bug. */
 }
 
 .dateSliderContainer :global .MuiSlider-thumb .MuiSlider-valueLabel > span {
