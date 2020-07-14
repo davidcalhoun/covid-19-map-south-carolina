@@ -11,6 +11,6 @@ module.exports = {
     "@babel/preset-react"
   ],
   plugins: [
-    "@babel/plugin-syntax-optional-chaining"
+    "@babel/plugin-proposal-optional-chaining"
   ]
 };
