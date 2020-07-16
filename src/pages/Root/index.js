@@ -6,6 +6,7 @@ import ReactMapGL, {
 	NavigationControl,
 	Popup,
 	WebMercatorViewport,
+	getMap
 } from "react-map-gl";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -130,10 +131,16 @@ const Root = ({ breakpoint }) => {
 		type: "fill",
 		paint: {
 			"fill-color": ["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
+			"fill-color": [
+				"case",
+				["boolean", ["feature-state", "hover"], false],
+				["rgba", 0, 0, 0, 1],
+				["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
+			],
 			"fill-opacity": [
 				"case",
 				["boolean", ["feature-state", "hover"], false],
-				0,
+				1,
 				["get", "opacity"],
 			],
 			"fill-opacity-transition": {
@@ -143,11 +150,12 @@ const Root = ({ breakpoint }) => {
 			"fill-outline-color": [
 				"case",
 				["boolean", ["feature-state", "hover"], false],
-				"blue",
+				"white",
 				"#757575",
 			],
 		},
 	});
+	const [mapRef, setMapRef] = useState(null);
 
 	const {
 		geoJSONFeatures,
@@ -338,11 +346,37 @@ const Root = ({ breakpoint }) => {
 
 		const feature = features && features.find((f) => f.layer.id === "data");
 
-		setHoveredFeature({ pointerType, feature, x: offsetX, y: offsetY });
+		if (!feature) return;
+
+		setHoveredFeature({ pointerType, feature, x: offsetX, y: offsetY, id: feature.id });
+
+		// Clear previous hovered feature, if any.
+		if (hoveredFeature.id) {
+	        mapRef.getMap().setFeatureState({
+	          source: 'covid-data',
+	          id: hoveredFeature.id
+	        }, {
+	          hover: false
+	        });
+		}
+
+        mapRef.getMap().setFeatureState({
+          source: 'covid-data',
+          id: feature.id
+        }, {
+          hover: true
+        });
 	}
 
 	function handleMouseOut() {
-		setHoveredFeature({});
+        mapRef.getMap().setFeatureState({
+          source: 'covid-data',
+          id: hoveredFeature.id
+        }, {
+          hover: false
+        });
+
+        setHoveredFeature({});
 	}
 
 	function handleViewStateChange({ viewState }) {
@@ -426,15 +460,16 @@ const Root = ({ breakpoint }) => {
 				maxZoom={15}
 				onInteractionStateChange={handleInteractionStateChange}
 				onLoad={handleLoad}
+				ref={ref => setMapRef(ref)}
 			>
 				<div className={styles.mapNavContainer}>
 					<NavigationControl showCompass={false} />
 				</div>
 
 				{!isLoading && (
-					<Source type="geojson" data={geoJSONData}>
+					<Source id="covid-data" type="geojson" data={geoJSONData}>
 						{/* <Layer {...extrusionDataLayer} /> */}
-						<Layer {...dataLayer} />
+						<Layer id="covid-cases" {...dataLayer} />
 					</Source>
 				)}
 				<Legend

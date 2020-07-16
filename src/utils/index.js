@@ -342,6 +342,7 @@ export const computeFeaturesForDate = (
 
 		return {
 			...zipGeoJSON,
+			id: zipCode,
 			properties: {
 				...zipGeoJSON.properties,
 				county: zipCodes[zipCode].countyNames.join(", "),
