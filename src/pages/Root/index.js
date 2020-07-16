@@ -68,26 +68,6 @@ function useQuery() {
 	return new URLSearchParams(useLocation().search);
 }
 
-const dataLayer = {
-	id: "data",
-	type: "fill",
-	paint: {
-		"fill-color": ["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
-		"fill-opacity": [
-			"case",
-			["boolean", ["feature-state", "hover"], false],
-			1,
-			["get", "opacity"],
-		],
-		"fill-outline-color": [
-			"case",
-			["boolean", ["feature-state", "hover"], false],
-			"blue",
-			"black",
-		],
-	},
-};
-
 const extrusionDataLayer = {
 	id: "data",
 	type: "fill-extrusion",
@@ -145,6 +125,29 @@ const Root = ({ breakpoint }) => {
 	const [minMaxDate, setMinMaxDate] = useState({ min: 0, max: 1 });
 	const prevDate = usePrevious(date);
 	const [viewMode, setViewMode] = useState("all");
+	const [dataLayer, setDataLayer] = useState({
+		id: "data",
+		type: "fill",
+		paint: {
+			"fill-color": ["rgba", ["get", "red"], 0, 0, ["get", "opacity"]],
+			"fill-opacity": [
+				"case",
+				["boolean", ["feature-state", "hover"], false],
+				0,
+				["get", "opacity"],
+			],
+			"fill-opacity-transition": {
+				duration: 500,
+				delay: 0,
+			},
+			"fill-outline-color": [
+				"case",
+				["boolean", ["feature-state", "hover"], false],
+				"blue",
+				"#757575",
+			],
+		},
+	});
 
 	const {
 		geoJSONFeatures,
@@ -212,6 +215,16 @@ const Root = ({ breakpoint }) => {
 
 		if (needsInitialization) {
 			updateFeatures(date);
+
+			// const timer = setTimeout(() => {
+			// 	setDataLayer({
+			// 		...dataLayer,
+			// 		paint: {
+			// 			...dataLayer.paint,
+			// 			"fill-opacity": 1,
+			// 		},
+			// 	});
+			// }, 0);
 		}
 	}, [data, date]);
 
@@ -237,7 +250,7 @@ const Root = ({ breakpoint }) => {
 			quantiles,
 			maxAll,
 			maxPerCapita,
-			maxAverageChange
+			maxAverageChange,
 		});
 
 		const oldestDate = getDayOfYear(zipCodes.meta.dates[0]);
@@ -281,9 +294,7 @@ const Root = ({ breakpoint }) => {
 		// Updates popup data when year changes while hovering (e.g. keyboard arrow interaction).
 		const userIsHovering = hoveredFeature.feature;
 		if (userIsHovering) {
-			const feature = memoizedFeaturesForDate[newDate][
-				newViewMode
-			].find(
+			const feature = memoizedFeaturesForDate[newDate][newViewMode].find(
 				({ properties }) =>
 					properties["ZCTA5CE10"] ===
 					hoveredFeature.feature.properties["ZCTA5CE10"]
@@ -396,7 +407,10 @@ const Root = ({ breakpoint }) => {
 						/>
 					</ReactPlaceholder>
 				</div>
-				<ViewModeRadios onChange={ handleViewModeChange } className={styles.viewMode} />
+				<ViewModeRadios
+					onChange={handleViewModeChange}
+					className={styles.viewMode}
+				/>
 			</div>
 
 			<ReactMapGL
