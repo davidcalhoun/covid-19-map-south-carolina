@@ -3,11 +3,14 @@ import {
 	format,
 	getDayOfYear as dateFnsGetDayOfYear,
 	parseISO,
+	differenceInDays
 } from "date-fns";
 import { range, descending } from "d3-array";
 import { scaleQuantile } from "d3-scale";
 
 export { default as useWindowResize } from "./useWindowResize";
+
+const msInADay = 1000 * 60 * 60 * 24;
 
 export const parseJSON = (str) => {
 	let json;
@@ -90,7 +93,6 @@ export const pluralize = (num, prefix) => (num === 1 ? prefix : `${prefix}s`);
 
 export const getDateFromDayNum = (dayNum, year = new Date().getFullYear()) => {
 	const firstDayOfYearMS = new Date(`${year}-01-01T00:00:01Z`).getTime();
-	const msInADay = 1000 * 60 * 60 * 24;
 	const sumOfDaysMS = dayNum * msInADay;
 
 	const date = new Date().setTime(firstDayOfYearMS + sumOfDaysMS);
@@ -286,10 +288,10 @@ export const computeFeaturesForDate = (
 	zipCodes,
 	features,
 	viewMode,
-	quantiles
+	quantiles,
 ) => {
 	const date = dayOfYearToDate(dayOfYear);
-	const dateIndex = zipCodes.meta.dates.indexOf(date);
+	const dateIndex = differenceInDays(new Date(date), new Date(zipCodes.meta.dateBounds.first));
 
 	const cacheKey = viewMode;
 

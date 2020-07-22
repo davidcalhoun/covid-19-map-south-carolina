@@ -6,7 +6,7 @@ import ReactMapGL, {
 	NavigationControl,
 	Popup,
 	WebMercatorViewport,
-	getMap
+	getMap,
 } from "react-map-gl";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -261,10 +261,8 @@ const Root = ({ breakpoint }) => {
 			maxAverageChange,
 		});
 
-		const oldestDate = getDayOfYear(zipCodes.meta.dates[0]);
-		const newestDate = getDayOfYear(
-			zipCodes.meta.dates[zipCodes.meta.dates.length - 1]
-		);
+		const oldestDate = getDayOfYear(zipCodes.meta.dateBounds.first);
+		const newestDate = getDayOfYear(zipCodes.meta.dateBounds.last);
 
 		setMinMaxDate({ min: oldestDate, max: newestDate });
 
@@ -348,35 +346,50 @@ const Root = ({ breakpoint }) => {
 
 		if (!feature) return;
 
-		setHoveredFeature({ pointerType, feature, x: offsetX, y: offsetY, id: feature.id });
+		setHoveredFeature({
+			pointerType,
+			feature,
+			x: offsetX,
+			y: offsetY,
+			id: feature.id,
+		});
 
 		// Clear previous hovered feature, if any.
 		if (hoveredFeature.id) {
-	        mapRef.getMap().setFeatureState({
-	          source: 'covid-data',
-	          id: hoveredFeature.id
-	        }, {
-	          hover: false
-	        });
+			mapRef.getMap().setFeatureState(
+				{
+					source: "covid-data",
+					id: hoveredFeature.id,
+				},
+				{
+					hover: false,
+				}
+			);
 		}
 
-        mapRef.getMap().setFeatureState({
-          source: 'covid-data',
-          id: feature.id
-        }, {
-          hover: true
-        });
+		mapRef.getMap().setFeatureState(
+			{
+				source: "covid-data",
+				id: feature.id,
+			},
+			{
+				hover: true,
+			}
+		);
 	}
 
 	function handleMouseOut() {
-        mapRef.getMap().setFeatureState({
-          source: 'covid-data',
-          id: hoveredFeature.id
-        }, {
-          hover: false
-        });
+		mapRef.getMap().setFeatureState(
+			{
+				source: "covid-data",
+				id: hoveredFeature.id,
+			},
+			{
+				hover: false,
+			}
+		);
 
-        setHoveredFeature({});
+		setHoveredFeature({});
 	}
 
 	function handleViewStateChange({ viewState }) {
@@ -415,6 +428,33 @@ const Root = ({ breakpoint }) => {
 		updateFeatures(date, val);
 	}
 
+	const sliderMarks = [
+		{
+			value: 64,
+			label: "3/4",
+		},
+		{
+			value: 92,
+			label: "4/1",
+		},
+		{
+			value: 122,
+			label: "5/1",
+		},
+		{
+			value: 153,
+			label: "6/1",
+		},
+		{
+			value: 183,
+			label: "7/1",
+		},
+		{
+			value: 214,
+			label: "8/1",
+		},
+	];
+
 	const isLoading = geoJSONData.features.length === 0;
 
 	return (
@@ -431,13 +471,12 @@ const Root = ({ breakpoint }) => {
 						<Slider
 							value={date}
 							aria-labelledby="discrete-slider"
-							step={null}
-							marks={getSliderMarks(zipCodes?.meta?.dates)}
 							min={minDate}
 							max={maxDate}
 							onChange={handleDateChange}
 							valueLabelDisplay="on"
 							valueLabelFormat={dayOfYearToDisplayDate}
+							marks={sliderMarks}
 						/>
 					</ReactPlaceholder>
 				</div>
@@ -460,7 +499,7 @@ const Root = ({ breakpoint }) => {
 				maxZoom={15}
 				onInteractionStateChange={handleInteractionStateChange}
 				onLoad={handleLoad}
-				ref={ref => setMapRef(ref)}
+				ref={(ref) => setMapRef(ref)}
 			>
 				<div className={styles.mapNavContainer}>
 					<NavigationControl showCompass={false} />

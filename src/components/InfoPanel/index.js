@@ -94,7 +94,14 @@ export default function InfoPanel(props) {
 								>
 									SC DHEC
 								</a>
-								.
+								. Also see{" "}
+								<a
+									target="_blank"
+									rel="noopener noreferrer"
+									href="https://scdhec-covid-19-open-data-sc-dhec.hub.arcgis.com/datasets/covid-19-zip-code-time-series-view/data"
+								>
+									SC DHEC Open Data
+								</a>.
 							</p>
 							<h3 className={styles.heading}>Sources</h3>
 							Zip code case counts sourced from SC DHEC.{" "}
@@ -107,7 +114,7 @@ export default function InfoPanel(props) {
 							</a>{" "}
 							for info about data processing and original data PDF
 							archives.
-							<p/>
+							<p />
 							<p>
 								Zip code metadata from{" "}
 								<a
