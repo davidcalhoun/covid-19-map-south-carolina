@@ -430,8 +430,8 @@ const Root = ({ breakpoint }) => {
 
 	const sliderMarks = [
 		{
-			value: 64,
-			label: "3/4",
+			value: 63,
+			label: "3/3",
 		},
 		{
 			value: 92,
