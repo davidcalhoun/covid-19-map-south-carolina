@@ -453,6 +453,10 @@ const Root = ({ breakpoint }) => {
 			value: 214,
 			label: "8/1",
 		},
+		{
+			value: 245,
+			label: "9/1",
+		},
 	];
 
 	const isLoading = geoJSONData.features.length === 0;
