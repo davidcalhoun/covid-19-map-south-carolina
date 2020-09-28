@@ -14,6 +14,9 @@ export const BREAKPOINTS = {
 	12: 1200,
 };
 
+/* Values: all, change, or percapita */
+export const defaultView = "change";
+
 export const isProd = !window.location.href.includes("http://localhost");
 
 export const southCarolinaGeoJSON = {

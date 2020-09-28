@@ -6,9 +6,11 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
 import styles from "./viewModeRadios.css";
+import {defaultView} from "../../consts";
 
 export default function ViewModeRadios(props) {
 	const { onChange, className } = props;
+
 	const [view, setView] = useState(defaultView);
 
 	const handleChange = (event) => {
@@ -29,7 +31,6 @@ export default function ViewModeRadios(props) {
 					value="change"
 					control={<Radio />}
 					label="Daily Change %"
-					checked
 				/>
 				<FormControlLabel
 					value={"all"}

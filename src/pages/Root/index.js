@@ -38,6 +38,7 @@ import {
 	isProd,
 	casesData,
 	southCarolinaGeoJSON,
+	defaultView
 } from "../../consts";
 import styles from "./root.css";
 import {
@@ -125,7 +126,7 @@ const Root = ({ breakpoint }) => {
 	const [userIsMovingMap, setUserIsMovingMap] = useState(false);
 	const [minMaxDate, setMinMaxDate] = useState({ min: 0, max: 1 });
 	const prevDate = usePrevious(date);
-	const [viewMode, setViewMode] = useState("all");
+	const [viewMode, setViewMode] = useState(defaultView);
 	const [dataLayer, setDataLayer] = useState({
 		id: "data",
 		type: "fill",
