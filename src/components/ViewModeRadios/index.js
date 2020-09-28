@@ -7,8 +7,6 @@ import FormLabel from "@material-ui/core/FormLabel";
 
 import styles from "./viewModeRadios.css";
 
-const defaultView = "all";
-
 export default function ViewModeRadios(props) {
 	const { onChange, className } = props;
 	const [view, setView] = useState(defaultView);
@@ -28,7 +26,13 @@ export default function ViewModeRadios(props) {
 				onChange={handleChange}
 			>
 				<FormControlLabel
-					value={defaultView}
+					value="change"
+					control={<Radio />}
+					label="Daily Change %"
+					checked
+				/>
+				<FormControlLabel
+					value={"all"}
 					control={<Radio />}
 					label="All Cases"
 				/>
@@ -36,11 +40,6 @@ export default function ViewModeRadios(props) {
 					value="percapita"
 					control={<Radio />}
 					label="Per Capita"
-				/>
-				<FormControlLabel
-					value="change"
-					control={<Radio />}
-					label="Daily Change %"
 				/>
 			</RadioGroup>
 		</FormControl>
