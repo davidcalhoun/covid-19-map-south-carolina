@@ -53,6 +53,10 @@
 	height: 2rem;
 }
 
+.dateSliderContainer :global .MuiSlider-markLabel {
+	font-size: 0.75rem;
+}
+
 .dateSliderValue {
 	background: red;
 }
